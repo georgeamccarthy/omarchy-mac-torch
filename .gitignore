@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+build/
+*.so
+results/*.local.*
+_guard.so
+_build/
+__pycache__/
+omarchy_mac_torch/_build_native/
+omarchy_mac_torch/_build/
