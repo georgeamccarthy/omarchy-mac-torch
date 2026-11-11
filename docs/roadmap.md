@@ -10,9 +10,12 @@ Done: attention's masking ops (`isneginf`, `all`/`any`, `where(out=)`, `tril`/`t
 replay, #4), and a fused attention kernel (softmax(QK^T)V in one pass, flash-attention style).
 
 ## 2. The fallback long tail
-From the sweep's ranking: `mul`/`div` with mixed dtypes (float x bool/int: cast in the kernel), `gather`/`scatter`,
-`sum` over bool/int with dims, `amax`/`amin`, `linalg_vector_norm` (clip_grad_norm), `sort`, `flip`. Strided and
-grouped convolutions (MobileNet-style downsampling; a loop over groups with channel offsets in the GEMM loaders).
+Done: mixed-dtype arithmetic and comparisons (float32 with int/bool, int/int true division) via a GPU cast kernel,
+which also moved `.to(dtype)` between float32/int32/int64/bool/uint8 onto the GPU (int64 -> float32 beyond 2^31 can
+differ from the CPU by one rounding step); depthwise convs at any stride / padding / kernel size (MobileNet).
+Still to do, from the sweep's ranking: `gather`/`scatter`/`scatter_add` along any dim, `sum` over bool/int with dims,
+`amax`/`amin`/`max.dim`, `linalg_vector_norm` (clip_grad_norm), bool ops (`logical_not`, `&`, `|`), `sort`, `flip`,
+grouped (non-depthwise) and transposed convolutions.
 
 ## 3. Faster GEMMs
 Convolutions run at a few hundred GFLOP/s on a GPU that can do several thousand. Options, cheapest first: hoist the

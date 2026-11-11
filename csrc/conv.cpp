@@ -172,6 +172,7 @@ static std::string conv_kind(const Tensor& x, const Tensor& w, IntArrayRef strid
   int64_t ks = w.size(2), s = stride[0], p = padding[0];
   if (groups == 1 && ks <= 11 && s >= 1 && s <= 4 && p <= ks) return "dense";
   if (groups == x.size(1) && groups == w.size(0) && groups > 1 && (ks == 3 || ks == 5 || ks == 7) && s == 1 && p == ks / 2) return "dw";
+  if (groups == x.size(1) && groups == w.size(0) && groups > 1 && ks <= 11 && s >= 1 && s <= 4 && p <= ks) return "dwg";  // any stride / pad
   return "";
 }
 
@@ -190,7 +191,12 @@ static Tensor convolution_(const Tensor& x_, const Tensor& w_, const std::option
     gemm_forward(x, w, has_bias ? &b : nullptr, out, g);  // bias added in the GEMM epilogue
     return out;
   }
-  ew_launch("dw_fwd", {bind(x), bind(w), bind(out), bind_buf(qbuf(n, ci, h, wd, 0, 0, ks))}, n * ci * h * wd);
+  if (kind == "dwg") {
+    Buf* dq = uniform({u(n), u(ci), u(h), u(wd), u(g.oh), u(g.ow), u(ks), u(stride[0]), u(padding[0]), 0, 0, 0});
+    ew_launch("dwg_fwd", {bind(x), bind(w), bind(out), bind_buf(dq)}, out.numel());
+  } else {
+    ew_launch("dw_fwd", {bind(x), bind(w), bind(out), bind_buf(qbuf(n, ci, h, wd, 0, 0, ks))}, n * ci * h * wd);
+  }
   if (has_bias) {
     Tensor b = bias->view({1, co, 1, 1});
     ew_into(ew::ADD, &out, &b, out);
@@ -213,6 +219,10 @@ static std::tuple<Tensor, Tensor, Tensor> convolution_backward_(const Tensor& gy
     Geo g = conv_geo(n, ci, co, h, wd, ks, stride[0], padding[0]);
     if (mask[0]) { gx = empty_dev(x.sizes(), at::kFloat); gemm_grad_input(gy, w, gx, g); }
     if (mask[1]) { gw = empty_dev(w.sizes(), at::kFloat); gemm_grad_weight(x, gy, gw, g); }
+  } else if (kind == "dwg") {
+    Buf* dq = uniform({u(n), u(ci), u(h), u(wd), u(oh), u(ow), u(ks), u(stride[0]), u(padding[0]), 0, 0, 0});
+    if (mask[0]) { gx = empty_dev(x.sizes(), at::kFloat); ew_launch("dwg_gin", {bind(gy), bind(w), bind(gx), bind_buf(dq)}, gx.numel()); }
+    if (mask[1]) { gw = empty_dev(w.sizes(), at::kFloat); launch("dwg_gwt", {bind(gy), bind(x), bind(gw), bind_buf(dq)}, u(ci * ks * ks)); }
   } else {
     Buf* q = qbuf(n, ci, h, wd, 0, 0, ks);
     if (mask[0]) { gx = empty_dev(x.sizes(), at::kFloat); ew_launch("dw_gin", {bind(gy), bind(w), bind(gx), bind_buf(q)}, n * ci * h * wd); }

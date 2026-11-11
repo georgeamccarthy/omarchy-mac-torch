@@ -233,6 +233,31 @@ void fill_dev(const Tensor& t, const Scalar& v) {
   host_copy_into(at::full(t.sizes(), v, t.options().device(c10::kCPU)), t);
 }
 
+static int cast_kind(at::ScalarType t) {
+  switch (t) {
+    case at::kFloat: return 0;
+    case at::kInt: return 1;
+    case at::kLong: return 2;
+    case at::kBool: return 3;
+    case at::kByte: return 4;
+    default: return -1;
+  }
+}
+// dtype conversion on the GPU (float32, int32, int64, bool, uint8)
+Tensor cast_dev(const Tensor& src_, at::ScalarType dt) {
+  if (src_.scalar_type() == dt) return src_;
+  int sk = cast_kind(src_.scalar_type()), dk = cast_kind(dt);
+  NEED(is_dev(src_) && sk >= 0 && dk >= 0, "dtype conversion between float32/int32/int64/bool/uint8");
+  Tensor src = contig(src_);
+  Tensor out = empty_dev(src.sizes(), dt);
+  int64_t n = src.numel();
+  if (!n) return out;
+  uint32_t gx, gy;
+  grid(cdiv(n, 4), 256, gx, gy);
+  launch("cast", {bind(src), bind(out), bind_buf(uniform({u(n), u(sk), u(dk), u(src.storage_offset()), 0, 0, 0, 0}))}, gx, gy);
+  return out;
+}
+
 // ------------------------------------------------------------------------------------------------
 // float arithmetic
 // ------------------------------------------------------------------------------------------------
@@ -251,7 +276,21 @@ static Tensor binary(uint32_t op, const Tensor& a, const Tensor& b, float alpha 
     NEED(alpha == 1.f, "integer add with alpha");
     return int_binary(op, a, &b, nullptr, nullptr);
   }
-  if (cpu_scalar(b)) return ew_new(op, &a, nullptr, alpha, b.item<float>());
+  if (cpu_scalar(b)) {
+    if (!f32(a) && is_dev(a) && cast_kind(a.scalar_type()) > 0 && (op == ew::DIV || b.is_floating_point())) {
+      Tensor af = cast_dev(a, at::kFloat);  // int / bool tensor with a float scalar or true division: float result
+      return ew_new(op, &af, nullptr, alpha, b.item<float>());
+    }
+    return ew_new(op, &a, nullptr, alpha, b.item<float>());
+  }
+  if (is_dev(a) && is_dev(b) && !(f32(a) && f32(b))) {  // mixed dtypes: promote to float32 when the result is float
+    bool af = f32(a), bf = f32(b);
+    bool ints = cast_kind(a.scalar_type()) > 0 && cast_kind(b.scalar_type()) > 0;
+    NEED((af && cast_kind(b.scalar_type()) > 0) || (bf && cast_kind(a.scalar_type()) > 0) || (ints && op == ew::DIV),
+         "mixed dtypes other than float32 with int/bool");
+    Tensor a2 = af ? a : cast_dev(a, at::kFloat), b2 = bf ? b : cast_dev(b, at::kFloat);
+    return ew_new(op, &a2, &b2, alpha);
+  }
   if (cpu_scalar(a)) {
     float s = a.item<float>();
     if (op == ew::MUL || (op == ew::ADD && alpha == 1.f)) return ew_new(op, &b, nullptr, 1.f, s);
@@ -283,8 +322,8 @@ static Tensor add_t(const Tensor& a, const Tensor& b, const Scalar& al) { return
 static Tensor sub_t(const Tensor& a, const Tensor& b, const Scalar& al) { return binary(ew::SUB, a, b, al.to<float>()); }
 static Tensor mul_t(const Tensor& a, const Tensor& b) { return binary(ew::MUL, a, b); }
 static Tensor div_t(const Tensor& a, const Tensor& b) { return binary(ew::DIV, a, b); }
-static Tensor max_t(const Tensor& a, const Tensor& b) { NEED(f32(a) && f32(b), "float32"); return ew_new(ew::MAX, &a, &b); }
-static Tensor min_t(const Tensor& a, const Tensor& b) { NEED(f32(a) && f32(b), "float32"); return ew_new(ew::MIN, &a, &b); }
+static Tensor max_t(const Tensor& a, const Tensor& b) { NEED(is_dev(a) && is_dev(b), "device tensors"); return binary(ew::MAX, a, b); }
+static Tensor min_t(const Tensor& a, const Tensor& b) { NEED(is_dev(a) && is_dev(b), "device tensors"); return binary(ew::MIN, a, b); }
 static Tensor xlogy_t(const Tensor& a, const Tensor& b) { return binary(ew::XLOGY, a, b); }
 static Tensor add_s(const Tensor& a, const Scalar& b, const Scalar& al) {
   if (is_int(a)) { Scalar s = b.to<int64_t>() * al.to<int64_t>(); NEED(!b.isFloatingPoint(), "promotion"); return int_binary(ew::ADD, a, nullptr, &s, nullptr); }
@@ -456,7 +495,12 @@ static Tensor cmp(uint32_t op, const Tensor& a, const Tensor* b, const Scalar* s
     NEED(kind == 0 || !s->isFloatingPoint(), "integer tensor vs float scalar (type promotion)");
     sv = kind == 0 ? fbits(s->to<float>()) : (uint64_t)s->to<int64_t>();
   } else {
-    NEED(b && is_dev(*b) && b->scalar_type() == a.scalar_type(), "comparison of different dtypes");
+    NEED(b && is_dev(*b), "comparison with a non-device tensor");
+    if (b->scalar_type() != a.scalar_type()) {  // float vs int/bool: compare as float32
+      NEED((kind == 0 || cmp_kind(*b) == 0) && cast_kind(a.scalar_type()) >= 0 && cast_kind(b->scalar_type()) >= 0, "comparison dtypes");
+      Tensor a2 = cast_dev(a, at::kFloat), b2 = cast_dev(*b, at::kFloat);
+      return cmp(op, a2, &b2, nullptr);
+    }
   }
   std::vector<int64_t> shape = b ? at::infer_size(a.sizes(), b->sizes()) : a.sizes().vec();
   Tensor out = empty_dev(shape, at::kBool);
@@ -566,6 +610,7 @@ static Tensor& copy__(Tensor& self, const Tensor& src, bool) {
     return self;
   }
   if (is_dev(src) && src.scalar_type() == self.scalar_type()) copy_dev(src, self);
+  else if (is_dev(src) && cast_kind(src.scalar_type()) >= 0 && cast_kind(self.scalar_type()) >= 0) copy_dev(cast_dev(src, self.scalar_type()), self);
   else if (!is_dev(src)) host_copy_into(src, self);
   else host_copy_into(download(src), self);
   return self;
@@ -581,7 +626,8 @@ static Tensor _to_copy_(const Tensor& self, std::optional<at::ScalarType> dtype,
   if (device && device->type() == c10::DeviceType::CPU) return download(self).to(dt);
   Tensor out = empty_dev(self.sizes(), dt);
   if (dt == self.scalar_type()) copy_dev(self, out);
-  else host_copy_into(download(self), out);  // dtype conversions run on the host
+  else if (cast_kind(dt) >= 0 && cast_kind(self.scalar_type()) >= 0 && !self.is_conj() && !self.is_neg()) return cast_dev(self, dt);
+  else host_copy_into(download(self), out);  // other dtype conversions run on the host
   return out;
 }
 

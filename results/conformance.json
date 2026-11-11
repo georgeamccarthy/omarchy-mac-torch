@@ -1,7 +1,7 @@
 {
  "summary": {
-  "fallback": 410,
-  "ok": 222,
+  "fallback": 406,
+  "ok": 226,
   "skip": 9
  },
  "ops": {
@@ -31,7 +31,7 @@
   },
   "add": {
    "counts": {
-    "ok": 11
+    "ok": 5
    },
    "notes": {}
   },
@@ -43,72 +43,72 @@
   },
   "arange": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "clamp_max": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: clamp_max.Tensor_out": 9
+    "fallback: clamp_max.Tensor_out": 5
    }
   },
   "clamp_min": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: clamp_min.Tensor_out": 9
+    "fallback: clamp_min.Tensor_out": 5
    }
   },
   "mul": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "sub": {
    "counts": {
-    "ok": 11
+    "ok": 5
    },
    "notes": {}
   },
   "addmm": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
   "addmm.decomposed": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
   "addmv": {
    "counts": {
-    "fallback": 6
+    "fallback": 5
    },
    "notes": {
-    "fallback: addmv.out": 6
+    "fallback: addmv.out": 5
    }
   },
   "addbmm": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: addbmm": 9
+    "fallback: addbmm": 5
    }
   },
   "baddbmm": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: baddbmm.out": 8
+    "fallback: baddbmm.out": 5
    }
   },
   "dot": {
@@ -151,13 +151,13 @@
   },
   "addcmul": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
   "addcdiv": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
@@ -187,10 +187,10 @@
   },
   "atan2": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: atan2.out": 9
+    "fallback: atan2.out": 5
    }
   },
   "atanh": {
@@ -203,21 +203,21 @@
   },
   "allclose": {
    "counts": {
-    "fallback": 24
+    "fallback": 5
    },
    "notes": {
-    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, mul.Tensor (float32 only)": 24
+    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, mul.Tensor (mixed dtypes other than float32 with int/bool)": 5
    }
   },
   "broadcast_to": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
   "broadcast_shapes": {
    "counts": {
-    "ok": 10
+    "ok": 5
    },
    "notes": {}
   },
@@ -235,11 +235,11 @@
   },
   "combinations": {
    "counts": {
-    "fallback": 18
+    "fallback": 5
    },
    "notes": {
-    "fallback: _index_put_impl_, mul_.Tensor (float32 only), nonzero_static": 12,
-    "fallback: _index_put_impl_, nonzero_static": 6
+    "fallback: _index_put_impl_, mul_.Tensor (float32 only), nonzero_static": 3,
+    "fallback: _index_put_impl_, nonzero_static": 2
    }
   },
   "cartesian_prod": {
@@ -250,11 +250,10 @@
   },
   "cdist": {
    "counts": {
-    "fallback": 18,
-    "ok": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: _cdist_backward, _cdist_forward": 18
+    "fallback: _cdist_backward, _cdist_forward": 5
    }
   },
   "ceil": {
@@ -267,18 +266,18 @@
   },
   "cholesky_inverse": {
    "counts": {
-    "fallback": 12
+    "fallback": 5
    },
    "notes": {
-    "fallback: cholesky_inverse": 12
+    "fallback: cholesky_inverse": 5
    }
   },
   "cholesky_solve": {
    "counts": {
-    "fallback": 12
+    "fallback": 5
    },
    "notes": {
-    "fallback: _cholesky_solve_helper": 12
+    "fallback: _cholesky_solve_helper": 5
    }
   },
   "chunk": {
@@ -307,19 +306,17 @@
   },
   "sum_to_size": {
    "counts": {
-    "ok": 16
+    "ok": 5
    },
    "notes": {}
   },
   "clamp": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
     "fallback: clamp.Tensor_out": 3,
-    "fallback: clamp.Tensor_out, logical_and.out, logical_not.out, logical_or.out": 2,
-    "fallback: clamp.Tensor_out, eq.Tensor (comparison of different dtypes), lt.Tensor (comparison of different dtypes)": 1,
-    "fallback: clamp.Tensor_out, eq.Tensor (comparison of different dtypes), gt.Tensor (comparison of different dtypes), logical_and.out, logical_not.out, logical_or.out, lt.Tensor (comparison of different dtypes)": 1
+    "fallback: clamp.Tensor_out, logical_and.out, logical_not.out, logical_or.out": 2
    }
   },
   "positive": {
@@ -360,18 +357,18 @@
   },
   "complex": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: complex.out": 9
+    "fallback: complex.out": 5
    }
   },
   "copysign": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: copysign.out": 10
+    "fallback: copysign.out": 5
    }
   },
   "corrcoef": {
@@ -379,8 +376,8 @@
     "fallback": 4
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), equal": 2,
-    "fallback: div.Tensor (float32 only), equal, logical_and.out": 2
+    "fallback: equal": 2,
+    "fallback: equal, logical_and.out": 2
    }
   },
   "cos": {
@@ -399,14 +396,11 @@
   },
   "cov": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), equal": 9,
-    "fallback: equal, min": 6,
-    "fallback: equal, min, mul.Tensor (float32 only)": 5,
-    "fallback: div.Tensor (float32 only), equal, min, mul.Tensor (float32 only)": 3,
-    "fallback: div.Tensor (float32 only), equal, min, mul.Tensor (float32 only), sub.Scalar (float32 only)": 2
+    "fallback: equal, min": 3,
+    "fallback: equal": 2
    }
   },
   "cross": {
@@ -428,12 +422,11 @@
   },
   "cumprod": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: bitwise_and.Tensor_out, bitwise_not.out, cumprod.out, cumsum.out, flip, gather.out, logical_and.out, max.dim_max, relu_ (float32 only), sub.Scalar (float32 only)": 4,
     "fallback: cumprod.out, cumsum.out, flip": 3,
-    "fallback: cumprod.out": 3
+    "fallback: cumprod.out": 2
    }
   },
   "cummax": {
@@ -462,44 +455,44 @@
   },
   "diff": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "div.no_rounding_mode": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "div.trunc_rounding": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: div.out_mode": 9
+    "fallback: div.out_mode": 5
    }
   },
   "div.floor_rounding": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: div.out_mode": 9
+    "fallback: div.out_mode": 5
    }
   },
   "true_divide": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "equal": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: equal": 8
+    "fallback: equal": 5
    }
   },
   "exp": {
@@ -510,7 +503,7 @@
   },
   "expand": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
@@ -522,37 +515,37 @@
   },
   "expand_copy": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "diag": {
    "counts": {
-    "ok": 16
+    "ok": 5
    },
    "notes": {}
   },
   "diag_embed": {
    "counts": {
-    "ok": 15
+    "ok": 5
    },
    "notes": {}
   },
   "diagonal": {
    "counts": {
-    "ok": 15
+    "ok": 5
    },
    "notes": {}
   },
   "diagonal_copy": {
    "counts": {
-    "ok": 15
+    "ok": 5
    },
    "notes": {}
   },
   "diagonal_scatter": {
    "counts": {
-    "ok": 15
+    "ok": 5
    },
    "notes": {}
   },
@@ -564,40 +557,40 @@
   },
   "eq": {
    "counts": {
-    "ok": 10
+    "ok": 5
    },
    "notes": {}
   },
   "fmax": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: fmax.out, logical_not.out, logical_or.out": 9
+    "fallback: fmax.out, logical_not.out, logical_or.out": 5
    }
   },
   "fmin": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: fmin.out, logical_not.out, logical_or.out": 9
+    "fallback: fmin.out, logical_not.out, logical_or.out": 5
    }
   },
   "fmod": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: div.out_mode, fmod.Tensor_out": 9
+    "fallback: div.out_mode, fmod.Tensor_out": 5
    }
   },
   "remainder": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: div.out_mode, remainder.Tensor_out": 9
+    "fallback: div.out_mode, remainder.Tensor_out": 5
    }
   },
   "frac": {
@@ -610,10 +603,10 @@
   },
   "stft": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_r2c, reflection_pad1d.out": 6,
+    "fallback: _fft_r2c, reflection_pad1d.out": 2,
     "fallback: _fft_r2c": 2,
     "fallback: _fft_c2c, _fft_r2c, index_add.out, reflection_pad1d.out, reflection_pad1d_backward.grad_input": 1
    }
@@ -628,10 +621,10 @@
   },
   "flip": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: flip": 10
+    "fallback: flip": 5
    }
   },
   "fliplr": {
@@ -652,18 +645,18 @@
   },
   "sparse.sampled_addmm": {
    "counts": {
-    "skip": 8
+    "skip": 5
    },
    "notes": {
-    "skip: argument must stay on the CPU or is sparse": 8
+    "skip: argument must stay on the CPU or is sparse": 5
    }
   },
   "sparse.mm.reduce": {
    "counts": {
-    "skip": 16
+    "skip": 5
    },
    "notes": {
-    "skip: argument must stay on the CPU or is sparse": 16
+    "skip: argument must stay on the CPU or is sparse": 5
    }
   },
   "i0": {
@@ -676,10 +669,10 @@
   },
   "floor_divide": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: floor_divide": 9
+    "fallback: floor_divide": 5
    }
   },
   "frexp": {
@@ -700,27 +693,27 @@
   },
   "ge": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "geqrf": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: geqrf": 25
+    "fallback: geqrf": 5
    }
   },
   "gt": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "gradient": {
    "counts": {
-    "ok": 8
+    "ok": 5
    },
    "notes": {}
   },
@@ -734,39 +727,39 @@
   },
   "kthvalue": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: kthvalue.values, scatter.src_out": 10
+    "fallback: kthvalue.values, scatter.src_out": 5
    }
   },
   "le": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "linspace": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "linspace.tensor_overload": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "logspace": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "logspace.tensor_overload": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
@@ -794,18 +787,18 @@
   },
   "ldexp": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: pow.Scalar_out": 10
+    "fallback: pow.Scalar_out": 5
    }
   },
   "logaddexp": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: logaddexp.out": 9
+    "fallback: logaddexp.out": 5
    }
   },
   "logaddexp2": {
@@ -826,42 +819,42 @@
   },
   "lt": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "lu_unpack": {
    "counts": {
-    "fallback": 20
+    "fallback": 5
    },
    "notes": {
-    "fallback: lu_unpack.out": 20
+    "fallback: lu_unpack.out": 5
    }
   },
   "lu": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out": 25
+    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out": 5
    }
   },
   "lu_solve": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_lu_solve.out, linalg_solve_triangular, lu_unpack.out": 17,
-    "fallback: linalg_lu_solve.out": 8
+    "fallback: linalg_lu_solve.out, linalg_solve_triangular, lu_unpack.out": 4,
+    "fallback: linalg_lu_solve.out": 1
    }
   },
   "masked_fill": {
    "counts": {
-    "ok": 5,
-    "fallback": 3
+    "ok": 3,
+    "fallback": 2
    },
    "notes": {
-    "fallback: masked_fill_.Tensor (masked_fill with a device value), masked_select": 3
+    "fallback: masked_fill_.Tensor (masked_fill with a device value), masked_select": 2
    }
   },
   "masked_scatter": {
@@ -874,10 +867,10 @@
   },
   "masked_select": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: masked_scatter_, masked_select": 7
+    "fallback: masked_scatter_, masked_select": 5
    }
   },
   "matrix_exp": {
@@ -890,12 +883,12 @@
   },
   "matmul": {
    "counts": {
-    "fallback": 6,
-    "ok": 9
+    "fallback": 2,
+    "ok": 3
    },
    "notes": {
-    "fallback: addmv.out": 5,
-    "fallback: dot": 1
+    "fallback: dot": 1,
+    "fallback: addmv.out": 1
    }
   },
   "max.reduction_with_dim": {
@@ -911,33 +904,33 @@
     "fallback": 2
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), masked_fill_.Tensor (masked_fill with a device value), max": 2
+    "fallback: masked_fill_.Tensor (masked_fill with a device value), max": 2
    }
   },
   "median": {
    "counts": {
-    "fallback": 13
+    "fallback": 5
    },
    "notes": {
-    "fallback: median.dim_values, scatter.src_out": 9,
-    "fallback: div.Tensor (float32 only), masked_fill_.Tensor (masked_fill with a device value), median": 4
+    "fallback: median.dim_values, scatter.src_out": 3,
+    "fallback: masked_fill_.Tensor (masked_fill with a device value), median": 2
    }
   },
   "nanmedian": {
    "counts": {
-    "fallback": 13
+    "fallback": 5
    },
    "notes": {
-    "fallback: nanmedian.dim_values, scatter.src_out": 9,
-    "fallback: div.Tensor (float32 only), masked_fill_.Tensor (masked_fill with a device value), nanmedian": 4
+    "fallback: nanmedian.dim_values, scatter.src_out": 3,
+    "fallback: masked_fill_.Tensor (masked_fill with a device value), nanmedian": 2
    }
   },
   "var_mean": {
    "counts": {
-    "fallback": 14
+    "fallback": 5
    },
    "notes": {
-    "fallback: var_mean.correction": 14
+    "fallback: var_mean.correction": 5
    }
   },
   "var_mean.unbiased": {
@@ -950,10 +943,10 @@
   },
   "std_mean": {
    "counts": {
-    "fallback": 14
+    "fallback": 5
    },
    "notes": {
-    "fallback: std_mean.correction": 14
+    "fallback: std_mean.correction": 5
    }
   },
   "std_mean.unbiased": {
@@ -966,13 +959,13 @@
   },
   "meshgrid.variadic_tensors": {
    "counts": {
-    "ok": 10
+    "ok": 5
    },
    "notes": {}
   },
   "meshgrid.list_of_tensors": {
    "counts": {
-    "ok": 10
+    "ok": 5
    },
    "notes": {}
   },
@@ -989,105 +982,103 @@
     "fallback": 2
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), masked_fill_.Tensor (masked_fill with a device value), min": 2
+    "fallback: masked_fill_.Tensor (masked_fill with a device value), min": 2
    }
   },
   "quantile": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: ceil.out, gather.out, lerp.Tensor_out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Tensor (float32 only)": 15,
-    "fallback: ceil.out, gather.out, lerp.Tensor_out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), scatter.src_out, scatter_add.out, sort.values_stable": 10
+    "fallback: ceil.out, gather.out, lerp.Tensor_out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Tensor (mixed dtypes other than float32 with int/bool)": 3,
+    "fallback: ceil.out, gather.out, lerp.Tensor_out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), scatter.src_out, scatter_add.out, sort.values_stable": 2
    }
   },
   "nanquantile": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: ceil.out, gather.out, lerp.Tensor_out, logical_not.out, lt.Scalar (comparison dtype), masked_fill_.Scalar (float32 only), mul.Tensor (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Scalar (float32 only), sub.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 15,
-    "fallback: ceil.out, gather.out, lerp.Tensor_out, logical_not.out, lt.Scalar (comparison dtype), masked_fill_.Scalar (float32 only), mul.Tensor (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Scalar (float32 only), sum.dim_IntList (float32 reductions)": 10
+    "fallback: ceil.out, gather.out, lerp.Tensor_out, logical_not.out, lt.Scalar (comparison dtype), masked_fill_.Scalar (float32 only), mul.Tensor (mixed dtypes other than float32 with int/bool), scatter.src_out, scatter_add.out, sort.values_stable, sub.Scalar (float32 only), sub.Tensor (mixed dtypes other than f": 3,
+    "fallback: ceil.out, gather.out, lerp.Tensor_out, logical_not.out, lt.Scalar (comparison dtype), masked_fill_.Scalar (float32 only), mul.Tensor (mixed dtypes other than float32 with int/bool), scatter.src_out, scatter_add.out, sort.values_stable, sub.Scalar (float32 only), sum.dim_IntList (float32 reductions)": 2
    }
   },
   "max.binary": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "maximum": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "min.binary": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "minimum": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "logical_and": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: logical_and.out": 9
+    "fallback: logical_and.out": 5
    }
   },
   "logical_or": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: logical_or.out": 9
+    "fallback: logical_or.out": 5
    }
   },
   "logical_xor": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: logical_xor.out": 9
+    "fallback: logical_xor.out": 5
    }
   },
   "heaviside": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: heaviside.out": 9
+    "fallback: heaviside.out": 5
    }
   },
   "isclose": {
    "counts": {
-    "fallback": 16,
-    "ok": 1
+    "fallback": 5
    },
    "notes": {
-    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, mul.Tensor (float32 only)": 15,
-    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out": 1
+    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, mul.Tensor (mixed dtypes other than float32 with int/bool)": 5
    }
   },
   "softmax": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
   "softmax.with_dtype": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: _softmax (float32 softmax), _softmax_backward_data (float32 softmax backward), add.Tensor (float32 only), sum (float32 reductions)": 7
+    "fallback: _softmax (float32 softmax), _softmax_backward_data (float32 softmax backward), add.Tensor (float32 only), sum (float32 reductions)": 5
    }
   },
   "_softmax_backward_data": {
@@ -1098,63 +1089,61 @@
   },
   "nn.functional.softmin": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.softmin.with_dtype": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: _softmax (float32 softmax), _softmax_backward_data (float32 softmax backward), add.Tensor (float32 only), sum (float32 reductions)": 7
+    "fallback: _softmax (float32 softmax), _softmax_backward_data (float32 softmax backward), add.Tensor (float32 only), sum (float32 reductions)": 5
    }
   },
   "nn.functional.cross_entropy": {
    "counts": {
-    "ok": 18,
-    "fallback": 3
+    "ok": 3,
+    "fallback": 2
    },
    "notes": {
-    "fallback: nll_loss2d_backward, nll_loss2d_forward": 3
+    "fallback: nll_loss2d_backward, nll_loss2d_forward": 2
    }
   },
   "nn.functional.linear_cross_entropy": {
    "counts": {
-    "fallback": 10,
-    "ok": 15
+    "fallback": 3,
+    "ok": 2
    },
    "notes": {
-    "fallback: nll_loss2d_backward, nll_loss2d_forward": 6,
-    "fallback: nll_loss_backward (nll_loss backward on (N, C)), nll_loss_forward (nll_loss on (N, C) float32)": 4
+    "fallback: nll_loss_backward (nll_loss backward on (N, C)), nll_loss_forward (nll_loss on (N, C) float32)": 2,
+    "fallback: nll_loss2d_backward, nll_loss2d_forward": 1
    }
   },
   "nn.functional.linear_cross_entropy.chunked": {
    "counts": {
-    "fallback": 14,
-    "ok": 11
+    "fallback": 5
    },
    "notes": {
-    "fallback: addmm.out, amax.out, bitwise_not.out, dot, gather.out, index_add.out, mm.out, where.self (where on float32)": 8,
-    "fallback: nll_loss2d_backward, nll_loss2d_forward": 6
+    "fallback: addmm.out, amax.out, bitwise_not.out, dot, gather.out, index_add.out, mm.out, where.self (where on float32)": 4,
+    "fallback: nll_loss2d_backward, nll_loss2d_forward": 1
    }
   },
   "nn.functional.linear_cross_entropy.chunked_none": {
    "counts": {
-    "fallback": 14,
-    "ok": 11
+    "fallback": 5
    },
    "notes": {
-    "fallback: addmm.out, amax.out, bitwise_not.out, dot, gather.out, index_add.out, mm.out, where.self (where on float32)": 8,
-    "fallback: nll_loss2d_backward, nll_loss2d_forward": 6
+    "fallback: addmm.out, amax.out, bitwise_not.out, dot, gather.out, index_add.out, mm.out, where.self (where on float32)": 4,
+    "fallback: nll_loss2d_backward, nll_loss2d_forward": 1
    }
   },
   "aminmax": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: aminmax.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 7
+    "fallback: aminmax.out, sum.dim_IntList (float32 reductions)": 5
    }
   },
   "as_strided": {
@@ -1177,69 +1166,66 @@
   },
   "as_strided_scatter": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
   "native_group_norm": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: native_group_norm_backward, var_mean.correction": 21,
-    "fallback: native_group_norm_backward": 4
+    "fallback: native_group_norm_backward, var_mean.correction": 5
    }
   },
   "native_layer_norm": {
    "counts": {
-    "ok": 8,
-    "fallback": 12
+    "ok": 3,
+    "fallback": 2
    },
    "notes": {
-    "fallback: native_layer_norm (float32 layer norm with both or neither affine parameters), native_layer_norm_backward (float32 layer norm backward with both or neither affine parameters)": 10,
-    "fallback: native_layer_norm (layer norm row count), native_layer_norm_backward (layer norm row count)": 2
+    "fallback: native_layer_norm (float32 layer norm with both or neither affine parameters), native_layer_norm_backward (float32 layer norm backward with both or neither affine parameters)": 2
    }
   },
   "native_batch_norm": {
    "counts": {
-    "fallback": 9,
+    "fallback": 4,
     "ok": 1
    },
    "notes": {
-    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D), native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 8,
+    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D), native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 3,
     "fallback: native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 1
    }
   },
   "_native_batch_norm_legit": {
    "counts": {
-    "fallback": 9,
+    "fallback": 4,
     "ok": 1
    },
    "notes": {
-    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D), native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 7,
-    "fallback: native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 1,
-    "fallback: _native_batch_norm_legit.no_stats, native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 1
+    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D), native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 3,
+    "fallback: native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 1
    }
   },
   "_batch_norm_with_update": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _batch_norm_with_update, batch_norm_backward": 9
+    "fallback: _batch_norm_with_update, batch_norm_backward": 5
    }
   },
   "nn.functional.cosine_similarity": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: clamp_min.Tensor_out, linalg_vector_norm.out": 9
+    "fallback: clamp_min.Tensor_out, linalg_vector_norm.out": 5
    }
   },
   "nn.functional.adaptive_avg_pool1d": {
    "counts": {
-    "ok": 4,
+    "ok": 3,
     "fallback": 2
    },
    "notes": {
@@ -1248,66 +1234,66 @@
   },
   "nn.functional.adaptive_avg_pool2d": {
    "counts": {
-    "ok": 5,
-    "fallback": 5
+    "ok": 3,
+    "fallback": 2
    },
    "notes": {
-    "fallback: _adaptive_avg_pool2d (adaptive avg pool: 4-D float32), _adaptive_avg_pool2d_backward (adaptive avg pool backward)": 5
+    "fallback: _adaptive_avg_pool2d (adaptive avg pool: 4-D float32), _adaptive_avg_pool2d_backward (adaptive avg pool backward)": 2
    }
   },
   "nn.functional.adaptive_avg_pool3d": {
    "counts": {
-    "fallback": 10,
-    "ok": 2
+    "fallback": 4,
+    "ok": 1
    },
    "notes": {
-    "fallback: _adaptive_avg_pool3d, _adaptive_avg_pool3d_backward": 10
+    "fallback: _adaptive_avg_pool3d, _adaptive_avg_pool3d_backward": 4
    }
   },
   "nn.functional.adaptive_max_pool1d": {
    "counts": {
-    "fallback": 12
+    "fallback": 5
    },
    "notes": {
-    "fallback: adaptive_max_pool2d.out, adaptive_max_pool2d_backward.grad_input": 12
+    "fallback: adaptive_max_pool2d.out, adaptive_max_pool2d_backward.grad_input": 5
    }
   },
   "nn.functional.adaptive_max_pool2d": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: adaptive_max_pool2d.out, adaptive_max_pool2d_backward.grad_input": 25
+    "fallback: adaptive_max_pool2d.out, adaptive_max_pool2d_backward.grad_input": 5
    }
   },
   "nn.functional.adaptive_max_pool3d": {
    "counts": {
-    "fallback": 20
+    "fallback": 5
    },
    "notes": {
-    "fallback: adaptive_max_pool3d.out, adaptive_max_pool3d_backward.grad_input": 20
+    "fallback: adaptive_max_pool3d.out, adaptive_max_pool3d_backward.grad_input": 5
    }
   },
   "nn.functional.avg_pool1d": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.avg_pool3d": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: avg_pool3d.out, avg_pool3d_backward.grad_input": 8
+    "fallback: avg_pool3d.out, avg_pool3d_backward.grad_input": 5
    }
   },
   "nn.functional.binary_cross_entropy_with_logits": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: log_sigmoid_forward": 25
+    "fallback: log_sigmoid_forward": 5
    }
   },
   "nn.functional.relu": {
@@ -1318,75 +1304,73 @@
   },
   "nn.functional.conv_transpose1d": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 10
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 5
    }
   },
   "nn.functional.conv_transpose2d": {
    "counts": {
-    "fallback": 12
+    "fallback": 5
    },
    "notes": {
-    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 12
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 5
    }
   },
   "nn.functional.conv_transpose3d": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 10
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 5
    }
   },
   "nn.functional.conv1d": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 10
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 5
    }
   },
   "nn.functional.conv2d": {
    "counts": {
-    "ok": 4,
-    "fallback": 21
+    "ok": 2,
+    "fallback": 3
    },
    "notes": {
-    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 21
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 3
    }
   },
   "nn.functional.conv3d": {
    "counts": {
-    "fallback": 20
+    "fallback": 5
    },
    "notes": {
-    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 20
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 5
    }
   },
   "nn.functional.group_norm": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: native_group_norm_backward, var_mean.correction": 21,
-    "fallback: native_group_norm_backward": 4
+    "fallback: native_group_norm_backward, var_mean.correction": 5
    }
   },
   "nn.functional.instance_norm": {
    "counts": {
-    "fallback": 7,
-    "ok": 2
+    "fallback": 4,
+    "ok": 1
    },
    "notes": {
-    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D), native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 6,
-    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D)": 1
+    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D), native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 4
    }
   },
   "nn.functional.layer_norm": {
    "counts": {
-    "ok": 5,
+    "ok": 4,
     "fallback": 1
    },
    "notes": {
@@ -1395,59 +1379,55 @@
   },
   "nn.functional.rms_norm": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.local_response_norm": {
    "counts": {
-    "ok": 11
+    "ok": 5
    },
    "notes": {}
   },
   "constant_pad_nd": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.pad.constant": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.pad.reflect": {
    "counts": {
-    "fallback": 12
+    "fallback": 5
    },
    "notes": {
-    "fallback: reflection_pad1d.out, reflection_pad1d_backward.grad_input": 6,
-    "fallback: reflection_pad2d, reflection_pad2d_backward": 4,
-    "fallback: reflection_pad3d.out, reflection_pad3d_backward.grad_input": 2
+    "fallback: reflection_pad1d.out, reflection_pad1d_backward.grad_input": 5
    }
   },
   "nn.functional.pad.replicate": {
    "counts": {
-    "fallback": 12
+    "fallback": 5
    },
    "notes": {
-    "fallback: replication_pad1d.out, replication_pad1d_backward.grad_input": 6,
-    "fallback: replication_pad2d.out, replication_pad2d_backward": 4,
-    "fallback: replication_pad3d.out, replication_pad3d_backward": 2
+    "fallback: replication_pad1d.out, replication_pad1d_backward.grad_input": 5
    }
   },
   "nn.functional.pad.replicate_negative": {
    "counts": {
-    "fallback": 6
+    "fallback": 5
    },
    "notes": {
-    "fallback: replication_pad2d.out, replication_pad2d_backward": 6
+    "fallback: replication_pad2d.out, replication_pad2d_backward": 5
    }
   },
   "nn.functional.pad.circular": {
    "counts": {
-    "ok": 8
+    "ok": 5
    },
    "notes": {}
   },
@@ -1459,72 +1439,65 @@
   },
   "nn.functional.unfold": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: col2im, im2col": 25
+    "fallback: col2im, im2col": 5
    }
   },
   "nn.functional.interpolate.nearest": {
    "counts": {
-    "fallback": 23
+    "fallback": 5
    },
    "notes": {
-    "fallback: upsample_nearest3d.out, upsample_nearest3d_backward.grad_input": 9,
-    "fallback: upsample_nearest2d.out, upsample_nearest2d_backward.grad_input": 8,
-    "fallback: upsample_nearest1d.out, upsample_nearest1d_backward.grad_input": 6
+    "fallback: upsample_nearest1d.out, upsample_nearest1d_backward.grad_input": 5
    }
   },
   "nn.functional.interpolate.nearest-exact": {
    "counts": {
-    "fallback": 23
+    "fallback": 5
    },
    "notes": {
-    "fallback: _upsample_nearest_exact3d.out, _upsample_nearest_exact3d_backward.grad_input": 9,
-    "fallback: _upsample_nearest_exact2d.out, _upsample_nearest_exact2d_backward.grad_input": 8,
-    "fallback: _upsample_nearest_exact1d.out, _upsample_nearest_exact1d_backward.grad_input": 6
+    "fallback: _upsample_nearest_exact1d.out, _upsample_nearest_exact1d_backward.grad_input": 5
    }
   },
   "nn.functional.interpolate.linear": {
    "counts": {
-    "fallback": 18
+    "fallback": 5
    },
    "notes": {
-    "fallback: upsample_linear1d.out, upsample_linear1d_backward.grad_input": 18
+    "fallback: upsample_linear1d.out, upsample_linear1d_backward.grad_input": 5
    }
   },
   "nn.functional.interpolate.bilinear": {
    "counts": {
-    "fallback": 24
+    "fallback": 5
    },
    "notes": {
-    "fallback: upsample_bilinear2d.out, upsample_bilinear2d_backward.grad_input": 24
+    "fallback: upsample_bilinear2d.out, upsample_bilinear2d_backward.grad_input": 5
    }
   },
   "nn.functional.interpolate.bicubic": {
    "counts": {
-    "fallback": 24
+    "fallback": 5
    },
    "notes": {
-    "fallback: upsample_bicubic2d.out, upsample_bicubic2d_backward.grad_input": 24
+    "fallback: upsample_bicubic2d.out, upsample_bicubic2d_backward.grad_input": 5
    }
   },
   "nn.functional.interpolate.trilinear": {
    "counts": {
-    "fallback": 24
+    "fallback": 5
    },
    "notes": {
-    "fallback: upsample_trilinear3d.out, upsample_trilinear3d_backward.grad_input": 24
+    "fallback: upsample_trilinear3d.out, upsample_trilinear3d_backward.grad_input": 5
    }
   },
   "nn.functional.interpolate.area": {
    "counts": {
-    "ok": 14,
-    "fallback": 8
+    "ok": 5
    },
-   "notes": {
-    "fallback: _adaptive_avg_pool3d, _adaptive_avg_pool3d_backward": 8
-   }
+   "notes": {}
   },
   "nn.functional.upsample_bilinear": {
    "counts": {
@@ -1536,58 +1509,57 @@
   },
   "_upsample_bilinear2d_aa": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: _upsample_bilinear2d_aa.out, _upsample_bilinear2d_aa_backward.grad_input": 7
+    "fallback: _upsample_bilinear2d_aa.out, _upsample_bilinear2d_aa_backward.grad_input": 5
    }
   },
   "nn.functional.soft_margin_loss": {
    "counts": {
-    "fallback": 6
+    "fallback": 5
    },
    "notes": {
-    "fallback: log1p.out, neg.out": 6
+    "fallback: log1p.out, neg.out": 5
    }
   },
   "nn.functional.upsample_nearest": {
    "counts": {
-    "fallback": 12
+    "fallback": 5
    },
    "notes": {
     "fallback: upsample_nearest1d.out, upsample_nearest1d_backward.grad_input": 4,
-    "fallback: upsample_nearest2d.out, upsample_nearest2d_backward.grad_input": 4,
-    "fallback: upsample_nearest3d.out, upsample_nearest3d_backward.grad_input": 4
+    "fallback: upsample_nearest2d.out, upsample_nearest2d_backward.grad_input": 1
    }
   },
   "nn.functional.margin_ranking_loss": {
    "counts": {
-    "ok": 24
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.multi_margin_loss": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: multi_margin_loss, multi_margin_loss_backward": 10
+    "fallback: multi_margin_loss, multi_margin_loss_backward": 5
    }
   },
   "nn.functional.multilabel_margin_loss": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: multilabel_margin_loss_backward, multilabel_margin_loss_forward": 7
+    "fallback: multilabel_margin_loss_backward, multilabel_margin_loss_forward": 5
    }
   },
   "nn.functional.leaky_relu": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: leaky_relu.out, leaky_relu_backward.grad_input": 9
+    "fallback: leaky_relu.out, leaky_relu_backward.grad_input": 5
    }
   },
   "nn.functional.multilabel_soft_margin_loss": {
@@ -1600,7 +1572,7 @@
   },
   "nn.functional.avg_pool2d": {
    "counts": {
-    "ok": 6,
+    "ok": 4,
     "fallback": 1
    },
    "notes": {
@@ -1609,99 +1581,96 @@
   },
   "nn.functional.max_pool1d": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.max_pool2d": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "max_pool2d_with_indices_backward": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.max_pool3d": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: max_pool3d_with_indices, max_pool3d_with_indices_backward": 25
+    "fallback: max_pool3d_with_indices, max_pool3d_with_indices_backward": 5
    }
   },
   "nn.functional.max_unpool1d": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, max_unpool2d": 25
+    "fallback: gather.out, max_unpool2d": 5
    }
   },
   "nn.functional.max_unpool1d.grad": {
    "counts": {
-    "fallback": 13
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, max_unpool2d": 13
+    "fallback: gather.out, max_unpool2d": 5
    }
   },
   "nn.functional.max_unpool2d": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, max_unpool2d": 25
+    "fallback: gather.out, max_unpool2d": 5
    }
   },
   "nn.functional.max_unpool2d.grad": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, max_unpool2d": 25
+    "fallback: gather.out, max_unpool2d": 5
    }
   },
   "nn.functional.max_unpool3d": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, max_unpool3d": 25
+    "fallback: gather.out, max_unpool3d": 5
    }
   },
   "nn.functional.max_unpool3d.grad": {
    "counts": {
-    "fallback": 12
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, max_unpool3d": 12
+    "fallback: gather.out, max_unpool3d": 5
    }
   },
   "nn.functional.linear": {
    "counts": {
-    "ok": 20,
-    "fallback": 5
+    "ok": 5
    },
-   "notes": {
-    "fallback: addmv.out": 5
-   }
+   "notes": {}
   },
   "nn.functional.bilinear": {
    "counts": {
-    "ok": 16
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.glu": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: glu.out, glu_backward": 25
+    "fallback: glu.out, glu_backward": 5
    }
   },
   "nn.functional.elu": {
@@ -1714,10 +1683,10 @@
   },
   "nn.functional.prelu": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _prelu_kernel, _prelu_kernel_backward": 25
+    "fallback: _prelu_kernel, _prelu_kernel_backward": 5
    }
   },
   "nn.functional.celu": {
@@ -1747,17 +1716,17 @@
   },
   "torch.ops.aten._safe_softmax.default": {
    "counts": {
-    "ok": 8
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.scaled_dot_product_attention": {
    "counts": {
-    "ok": 13,
-    "skip": 12
+    "ok": 3,
+    "skip": 2
    },
    "notes": {
-    "skip: random (dropout)": 12
+    "skip: random (dropout)": 2
    }
   },
   "torch.ops.aten._scaled_dot_product_flash_attention_for_cpu": {
@@ -1820,77 +1789,73 @@
   },
   "nn.functional.triplet_margin_loss": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: norm.out": 7
+    "fallback: norm.out": 5
    }
   },
   "nn.functional.triplet_margin_with_distance_loss": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: norm.out": 7
+    "fallback: norm.out": 5
    }
   },
   "nextafter": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: nextafter.out": 9
+    "fallback: nextafter.out": 5
    }
   },
   "to": {
    "counts": {
-    "ok": 8,
-    "fallback": 16
+    "ok": 5
    },
-   "notes": {
-    "fallback: add.Tensor (float32 only), sum (float32 reductions)": 16
-   }
+   "notes": {}
   },
   "topk": {
    "counts": {
-    "fallback": 14
+    "fallback": 5
    },
    "notes": {
-    "fallback: scatter.src_out, topk.values": 14
+    "fallback: scatter.src_out, topk.values": 5
    }
   },
   "nn.functional.batch_norm": {
    "counts": {
-    "fallback": 9,
-    "ok": 3
+    "fallback": 3,
+    "ok": 2
    },
    "notes": {
-    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D), native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 8,
-    "fallback: native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 1
+    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D), native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 3
    }
   },
   "nn.functional.binary_cross_entropy": {
    "counts": {
-    "fallback": 11
+    "fallback": 5
    },
    "notes": {
-    "fallback: binary_cross_entropy, binary_cross_entropy_backward, logit": 11
+    "fallback: binary_cross_entropy, binary_cross_entropy_backward, logit": 5
    }
   },
   "igamma": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: igamma.out": 9
+    "fallback: igamma.out": 5
    }
   },
   "igammac": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: igammac.out": 9
+    "fallback: igammac.out": 5
    }
   },
   "nn.functional.softshrink": {
@@ -1903,10 +1868,10 @@
   },
   "nn.functional.hardshrink": {
    "counts": {
-    "fallback": 6
+    "fallback": 5
    },
    "notes": {
-    "fallback: hardshrink.out, hardshrink_backward.grad_input": 6
+    "fallback: hardshrink.out, hardshrink_backward.grad_input": 5
    }
   },
   "nn.functional.hardtanh": {
@@ -1919,7 +1884,7 @@
   },
   "nn.functional.gelu": {
    "counts": {
-    "ok": 8
+    "ok": 5
    },
    "notes": {}
   },
@@ -1939,45 +1904,45 @@
   },
   "mode": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: mode, scatter.src_out": 7
+    "fallback: mode, scatter.src_out": 5
    }
   },
   "mvlgamma.mvlgamma_p_1": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: digamma.out, lgamma.out": 10
+    "fallback: digamma.out, lgamma.out": 5
    }
   },
   "mvlgamma.mvlgamma_p_3": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: digamma.out, lgamma.out": 10
+    "fallback: digamma.out, lgamma.out": 5
    }
   },
   "mvlgamma.mvlgamma_p_5": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: digamma.out, lgamma.out": 10
+    "fallback: digamma.out, lgamma.out": 5
    }
   },
   "ne": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "narrow": {
    "counts": {
-    "ok": 10
+    "ok": 5
    },
    "notes": {}
   },
@@ -1989,7 +1954,7 @@
   },
   "view_copy": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
@@ -2001,10 +1966,10 @@
   },
   "dist": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: norm.out": 25
+    "fallback: norm.out": 5
    }
   },
   "outer": {
@@ -2015,10 +1980,10 @@
   },
   "ormqr": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: ormqr": 25
+    "fallback: ormqr": 5
    }
   },
   "permute": {
@@ -2035,19 +2000,19 @@
   },
   "pow": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: logical_and.out, pow.Tensor_Tensor_out": 9
+    "fallback: logical_and.out, pow.Tensor_Tensor_out": 5
    }
   },
   "float_power": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: add.Tensor (float32 only), eq.Scalar (comparison dtype), ge.Scalar (comparison dtype), log (float32 only), logical_and.out, mul.Tensor (float32 only), pow.Tensor_Tensor_out, sub.Scalar (float32 only), sum (float32 reductions), sum.dim_IntList (float32 reductions), where.self (where on float32)": 5,
-    "fallback: add.Tensor (float32 only), eq.Scalar (comparison dtype), ge.Scalar (comparison dtype), log (float32 only), logical_and.out, mul.Tensor (float32 only), pow.Tensor_Tensor_out, sub.Scalar (float32 only), sum (float32 reductions), where.self (where on float32)": 4
+    "fallback: add.Tensor (float32 only), eq.Scalar (comparison dtype), ge.Scalar (comparison dtype), log (float32 only), logical_and.out, mul.Tensor (mixed dtypes other than float32 with int/bool), pow.Tensor_Tensor_out, sub.Scalar (float32 only), sum (float32 reductions), where.self (where on float32)": 3,
+    "fallback: add.Tensor (float32 only), eq.Scalar (comparison dtype), ge.Scalar (comparison dtype), log (float32 only), logical_and.out, mul.Tensor (mixed dtypes other than float32 with int/bool), pow.Tensor_Tensor_out, sub.Scalar (float32 only), sum (float32 reductions), sum.dim_IntList (float32 reductions), wh": 2
    }
   },
   "rad2deg": {
@@ -2064,19 +2029,19 @@
   },
   "roll": {
    "counts": {
-    "fallback": 17
+    "fallback": 5
    },
    "notes": {
-    "fallback: roll": 17
+    "fallback: roll": 5
    }
   },
   "rot90": {
    "counts": {
-    "fallback": 19,
-    "ok": 6
+    "fallback": 4,
+    "ok": 1
    },
    "notes": {
-    "fallback: flip": 19
+    "fallback: flip": 4
    }
   },
   "round": {
@@ -2181,63 +2146,63 @@
   },
   "__radd__": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "__rdiv__": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "__rmul__": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "__rmatmul__": {
    "counts": {
-    "fallback": 6,
-    "ok": 9
+    "fallback": 2,
+    "ok": 3
    },
    "notes": {
-    "fallback: addmv.out": 5,
-    "fallback: dot": 1
+    "fallback: dot": 1,
+    "fallback: addmv.out": 1
    }
   },
   "__rmod__": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: div.out_mode, remainder.Tensor_out": 9
+    "fallback: div.out_mode, remainder.Tensor_out": 5
    }
   },
   "__rpow__": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: logical_and.out, pow.Tensor_Tensor_out": 9
+    "fallback: logical_and.out, pow.Tensor_Tensor_out": 5
    }
   },
   "__rsub__": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "rsub": {
    "counts": {
-    "ok": 11
+    "ok": 5
    },
    "notes": {}
   },
   "select": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
@@ -2255,7 +2220,7 @@
   },
   "slice_scatter": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
@@ -2284,7 +2249,7 @@
   "tensor_split": {
    "counts": {
     "skip": 4,
-    "ok": 6
+    "ok": 1
    },
    "notes": {
     "skip: argument must stay on the CPU or is sparse": 4
@@ -2310,10 +2275,10 @@
   },
   "triangular_solve": {
    "counts": {
-    "fallback": 16
+    "fallback": 5
    },
    "notes": {
-    "fallback: triangular_solve.X": 16
+    "fallback: triangular_solve.X": 5
    }
   },
   "trunc": {
@@ -2345,7 +2310,7 @@
     "fallback": 3
    },
    "notes": {
-    "fallback: mul.Tensor (float32 only), nan_to_num.out": 3
+    "fallback: mul.Tensor (mixed dtypes other than float32 with int/bool), nan_to_num.out": 3
    }
   },
   "reciprocal": {
@@ -2374,11 +2339,11 @@
   },
   "lerp": {
    "counts": {
-    "ok": 7,
-    "fallback": 7
+    "ok": 4,
+    "fallback": 1
    },
    "notes": {
-    "fallback: lerp.Tensor_out": 7
+    "fallback: lerp.Tensor_out": 1
    }
   },
   "angle": {
@@ -2394,7 +2359,7 @@
     "fallback": 3
    },
    "notes": {
-    "fallback: mul.Tensor (float32 only)": 3
+    "fallback: mul.Tensor (mixed dtypes other than float32 with int/bool)": 3
    }
   },
   "isinf": {
@@ -2429,64 +2394,64 @@
   },
   "einsum": {
    "counts": {
-    "ok": 11
+    "ok": 5
    },
    "notes": {}
   },
   "svd": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_svd.U": 25
+    "fallback: _linalg_svd.U": 5
    }
   },
   "polar": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: polar.out": 9
+    "fallback: polar.out": 5
    }
   },
   "polygamma.polygamma_n_0": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: polygamma.out": 10
+    "fallback: polygamma.out": 5
    }
   },
   "polygamma.polygamma_n_1": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: polygamma.out": 10
+    "fallback: polygamma.out": 5
    }
   },
   "polygamma.polygamma_n_2": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: polygamma.out": 10
+    "fallback: polygamma.out": 5
    }
   },
   "polygamma.polygamma_n_3": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: polygamma.out": 10
+    "fallback: polygamma.out": 5
    }
   },
   "polygamma.polygamma_n_4": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: polygamma.out": 10
+    "fallback: polygamma.out": 5
    }
   },
   "ravel": {
@@ -2497,7 +2462,7 @@
   },
   "reshape": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
@@ -2509,7 +2474,7 @@
   },
   "view": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
@@ -2521,31 +2486,31 @@
   },
   "atleast_1d": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
   "atleast_2d": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
   "atleast_3d": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
   "flatten": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
   "unflatten": {
    "counts": {
-    "ok": 10
+    "ok": 5
    },
    "notes": {}
   },
@@ -2557,30 +2522,29 @@
   },
   "pinverse": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_svd.U": 5,
-    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only)": 3
+    "fallback: _linalg_svd.U": 3,
+    "fallback: _linalg_svd.U, gt.Tensor (comparison dtypes), maximum (mixed dtypes other than float32 with int/bool), mul.Tensor (mixed dtypes other than float32 with int/bool)": 2
    }
   },
   "gather": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, scatter_add.out": 7
+    "fallback: gather.out, scatter_add.out": 5
    }
   },
   "index_fill": {
    "counts": {
-    "fallback": 6
+    "fallback": 5
    },
    "notes": {
     "fallback: index_fill_.int_Scalar": 3,
     "fallback: _unique, index_fill_.int_Scalar, index_fill_.int_Tensor, index_select (row gather of a 4/8-byte dtype)": 1,
-    "fallback: _unique, index_fill_.int_Scalar, index_fill_.int_Tensor": 1,
-    "fallback: _unique, index_fill_.int_Scalar, index_fill_.int_Tensor, index_select (index_select along dim 0)": 1
+    "fallback: _unique, index_fill_.int_Scalar, index_fill_.int_Tensor": 1
    }
   },
   "index_copy": {
@@ -2605,87 +2569,85 @@
   },
   "index_add": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
     "fallback: index_add.out, index_select (row gather of a 4/8-byte dtype)": 3,
-    "fallback: index_add.out": 3,
-    "fallback: index_add.out, index_select (index_select along dim 0)": 3
+    "fallback: index_add.out": 2
    }
   },
   "index_reduce.mean": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: index_add.out, index_reduce.out, index_select (index_select along dim 0)": 2,
-    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (index_select along dim 0)": 2,
     "fallback: index_add.out, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
     "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
-    "fallback: index_add.out, index_reduce.out": 1
+    "fallback: index_add.out, index_reduce.out": 1,
+    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out": 1,
+    "fallback: index_add.out, index_reduce.out, index_select (index_select along dim 0)": 1
    }
   },
   "index_reduce.prod": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: bitwise_and.Tensor_out, index_add.out, index_reduce.out": 2,
-    "fallback: bitwise_and.Tensor_out, index_add.out, index_reduce.out, index_select (index_select along dim 0)": 2,
-    "fallback: bitwise_and.Tensor_out, index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (index_select along dim 0)": 2,
     "fallback: bitwise_and.Tensor_out, index_add.out, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
-    "fallback: bitwise_and.Tensor_out, index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1
+    "fallback: bitwise_and.Tensor_out, index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
+    "fallback: bitwise_and.Tensor_out, index_add.out, index_reduce.out": 1,
+    "fallback: bitwise_and.Tensor_out, index_add.out, index_fill_.int_Scalar, index_reduce.out": 1,
+    "fallback: bitwise_and.Tensor_out, index_add.out, index_reduce.out, index_select (index_select along dim 0)": 1
    }
   },
   "index_reduce.amin": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: index_add.out, index_reduce.out, index_select (index_select along dim 0)": 2,
-    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (index_select along dim 0)": 2,
     "fallback: index_add.out, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
     "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
-    "fallback: index_add.out, index_reduce.out": 1
+    "fallback: index_add.out, index_reduce.out": 1,
+    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out": 1,
+    "fallback: index_add.out, index_reduce.out, index_select (index_select along dim 0)": 1
    }
   },
   "index_reduce.amax": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: index_add.out, index_reduce.out, index_select (index_select along dim 0)": 2,
-    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (index_select along dim 0)": 2,
     "fallback: index_add.out, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
     "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
-    "fallback: index_add.out, index_reduce.out": 1
+    "fallback: index_add.out, index_reduce.out": 1,
+    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out": 1,
+    "fallback: index_add.out, index_reduce.out, index_select (index_select along dim 0)": 1
    }
   },
   "_unsafe_masked_index": {
    "counts": {
-    "fallback": 6
+    "fallback": 5
    },
    "notes": {
-    "fallback: _index_put_impl_, clamp (float32 only), index.Tensor (multi-dim advanced indexing), logical_not.out": 6
+    "fallback: _index_put_impl_, clamp (float32 only), index.Tensor (multi-dim advanced indexing), logical_not.out": 5
    }
   },
   "_unsafe_masked_index_put_accumulate": {
    "counts": {
-    "fallback": 6
+    "fallback": 5
    },
    "notes": {
-    "fallback: _index_put_impl_, clamp (float32 only), index.Tensor (multi-dim advanced indexing), logical_not.out": 6
+    "fallback: _index_put_impl_, clamp (float32 only), index.Tensor (multi-dim advanced indexing), logical_not.out": 5
    }
   },
   "__getitem__": {
    "counts": {
-    "fallback": 14,
+    "fallback": 3,
     "ok": 2
    },
    "notes": {
-    "fallback: _index_put_impl_, index.Tensor (multi-dim advanced indexing)": 7,
-    "fallback: _index_put_impl_": 6,
-    "fallback: _index_put_impl_, index.Tensor (integer index on dim 0)": 1
+    "fallback: _index_put_impl_, index.Tensor (multi-dim advanced indexing)": 2,
+    "fallback: _index_put_impl_": 1
    }
   },
   "index_put": {
@@ -2699,51 +2661,50 @@
   },
   "sort": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: scatter.src_out, sort.values_stable": 25
+    "fallback: scatter.src_out, sort.values_stable": 5
    }
   },
   "unique": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _unique2": 25
+    "fallback: _unique2": 5
    }
   },
   "unique_consecutive": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: unique_consecutive": 25
+    "fallback: unique_consecutive": 5
    }
   },
   "put": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: put_, take": 25
+    "fallback: put_, take": 5
    }
   },
   "take": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: put_, take": 10
+    "fallback: put_, take": 5
    }
   },
   "scatter": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, scatter.src_out, scatter.value_out": 8,
-    "fallback: scatter.value_out": 1
+    "fallback: gather.out, scatter.src_out, scatter.value_out": 5
    }
   },
   "bfloat16": {
@@ -2832,31 +2793,31 @@
   },
   "zeros_like": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
   "ones_like": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
   "full_like": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
   "new_zeros": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
   "new_ones": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
@@ -2880,7 +2841,7 @@
   },
   "eye": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
@@ -2892,27 +2853,27 @@
   },
   "new_full": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
   "scatter_add": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, scatter_add.out": 7
+    "fallback: gather.out, scatter_add.out": 5
    }
   },
   "stack": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "_chunk_cat": {
    "counts": {
-    "ok": 8
+    "ok": 5
    },
    "notes": {}
   },
@@ -2924,69 +2885,69 @@
   },
   "hypot": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: hypot.out": 9
+    "fallback: hypot.out": 5
    }
   },
   "histogram": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: histogram.bin_ct": 13,
-    "fallback: histogram.bins_tensor": 12
+    "fallback: histogram.bin_ct": 3,
+    "fallback: histogram.bins_tensor": 2
    }
   },
   "histogramdd": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _histogramdd_bin_edges, _histogramdd_from_bin_cts": 13,
-    "fallback: _histogramdd_from_bin_tensors": 12
+    "fallback: _histogramdd_bin_edges, _histogramdd_from_bin_cts": 3,
+    "fallback: _histogramdd_from_bin_tensors": 2
    }
   },
   "histc": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: histc": 25
+    "fallback: histc": 5
    }
   },
   "bucketize": {
    "counts": {
-    "fallback": 24
+    "fallback": 5
    },
    "notes": {
-    "fallback: bucketize.Tensor": 24
+    "fallback: bucketize.Tensor": 5
    }
   },
   "searchsorted": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: searchsorted.Tensor": 25
+    "fallback: searchsorted.Tensor": 5
    }
   },
   "cat": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "unbind": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
   "unbind_copy": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
@@ -3004,18 +2965,18 @@
   },
   "unfold": {
    "counts": {
-    "fallback": 22
+    "fallback": 5
    },
    "notes": {
-    "fallback: unfold_backward": 22
+    "fallback: unfold_backward": 5
    }
   },
   "unfold_copy": {
    "counts": {
-    "fallback": 22
+    "fallback": 5
    },
    "notes": {
-    "fallback: unfold_backward": 22
+    "fallback: unfold_backward": 5
    }
   },
   "msort": {
@@ -3037,32 +2998,32 @@
     "fallback": 4
    },
    "notes": {
-    "fallback: add.Scalar (float32 only), div.Tensor (float32 only), eq.Scalar (comparison dtype), gt.Scalar (comparison dtype), linalg_vector_norm.out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), mul.Tensor (float32 only), reciprocal (float32 only), renorm.out, sub.Tensor (float32 only), sum.di": 2,
-    "fallback: add.Scalar (float32 only), gt.Scalar (comparison dtype), linalg_vector_norm.out, mul.Scalar (float32 only), mul.Tensor (float32 only), reciprocal (float32 only), renorm.out, sgn.out, sub.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 1,
-    "fallback: add.Scalar (float32 only), div.Tensor (float32 only), eq.Tensor (comparison of different dtypes), gt.Scalar (comparison dtype), linalg_vector_norm.out, logical_or.out, mul.Scalar (float32 only), mul.Tensor (float32 only), reciprocal (float32 only), renorm.out, sgn.out, sub.Tensor (float32 only), sum": 1
+    "fallback: add.Scalar (float32 only), div.Tensor (mixed dtypes other than float32 with int/bool), eq.Scalar (comparison dtype), gt.Scalar (comparison dtype), linalg_vector_norm.out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), mul.Tensor (mixed dtypes other than float32 with int/bool), recipr": 2,
+    "fallback: add.Scalar (float32 only), gt.Scalar (comparison dtype), linalg_vector_norm.out, mul.Scalar (float32 only), mul.Tensor (mixed dtypes other than float32 with int/bool), reciprocal (float32 only), renorm.out, sgn.out, sub.Tensor (mixed dtypes other than float32 with int/bool), sum.dim_IntList (float32": 1,
+    "fallback: add.Scalar (float32 only), div.Tensor (mixed dtypes other than float32 with int/bool), eq.Tensor (comparison dtypes), gt.Scalar (comparison dtype), linalg_vector_norm.out, logical_or.out, mul.Scalar (float32 only), mul.Tensor (mixed dtypes other than float32 with int/bool), reciprocal (float32 only)": 1
    }
   },
   "repeat": {
    "counts": {
-    "ok": 24
+    "ok": 5
    },
    "notes": {}
   },
   "squeeze": {
    "counts": {
-    "ok": 8
+    "ok": 5
    },
    "notes": {}
   },
   "squeeze.multiple": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
   "squeeze_copy": {
    "counts": {
-    "ok": 8
+    "ok": 5
    },
    "notes": {}
   },
@@ -3095,49 +3056,48 @@
   },
   "tile": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "trapz": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "trapezoid": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "cumulative_trapezoid": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: cumsum.out, flip": 8,
-    "fallback: cumsum.out": 1
+    "fallback: cumsum.out, flip": 5
    }
   },
   "unsqueeze": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "unsqueeze_copy": {
    "counts": {
-    "ok": 9
+    "ok": 5
    },
    "notes": {}
   },
   "xlogy": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: bitwise_and.Tensor_out": 9
+    "fallback: bitwise_and.Tensor_out": 5
    }
   },
   "zero_": {
@@ -3148,10 +3108,10 @@
   },
   "logsumexp": {
    "counts": {
-    "fallback": 15
+    "fallback": 5
    },
    "notes": {
-    "fallback: amax.out, sum.IntList_out": 15
+    "fallback: amax.out, sum.IntList_out": 5
    }
   },
   "trace": {
@@ -3164,13 +3124,13 @@
   },
   "transpose": {
    "counts": {
-    "ok": 8
+    "ok": 5
    },
    "notes": {}
   },
   "transpose_copy": {
    "counts": {
-    "ok": 8
+    "ok": 5
    },
    "notes": {}
   },
@@ -3200,13 +3160,13 @@
   },
   "tril": {
    "counts": {
-    "ok": 8
+    "ok": 5
    },
    "notes": {}
   },
   "triu": {
    "counts": {
-    "ok": 8
+    "ok": 5
    },
    "notes": {}
   },
@@ -3244,11 +3204,11 @@
   },
   "logcumsumexp": {
    "counts": {
-    "fallback": 6
+    "fallback": 5
    },
    "notes": {
     "fallback: _logcumsumexp, flip": 4,
-    "fallback: _logcumsumexp": 2
+    "fallback: _logcumsumexp": 1
    }
   },
   "sigmoid": {
@@ -3291,19 +3251,18 @@
   },
   "nn.functional.smooth_l1_loss": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: smooth_l1_loss.out, smooth_l1_loss_backward.grad_input": 7,
-    "fallback: sgn.out": 1
+    "fallback: smooth_l1_loss.out, smooth_l1_loss_backward.grad_input": 5
    }
   },
   "nn.functional.l1_loss": {
    "counts": {
-    "fallback": 6
+    "fallback": 5
    },
    "notes": {
-    "fallback: sgn.out": 6
+    "fallback: sgn.out": 5
    }
   },
   "lgamma": {
@@ -3316,24 +3275,24 @@
   },
   "logdet": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_slogdet.sign, linalg_lu_solve.out": 9
+    "fallback: _linalg_slogdet.sign, linalg_lu_solve.out": 5
    }
   },
   "log_softmax": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
   "log_softmax.with_dtype": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: _log_softmax (float32 softmax), _log_softmax_backward_data (float32 softmax backward), add.Tensor (float32 only), sum (float32 reductions)": 7
+    "fallback: _log_softmax (float32 softmax), _log_softmax_backward_data (float32 softmax backward), add.Tensor (float32 only), sum (float32 reductions)": 5
    }
   },
   "logit": {
@@ -3346,24 +3305,24 @@
   },
   "where": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
   "nonzero": {
    "counts": {
-    "fallback": 24
+    "fallback": 5
    },
    "notes": {
-    "fallback: nonzero": 24
+    "fallback: nonzero": 5
    }
   },
   "nonzero_static": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: nonzero_static": 25
+    "fallback: nonzero_static": 5
    }
   },
   "jiterator_unary": {
@@ -3376,43 +3335,43 @@
   },
   "jiterator_binary": {
    "counts": {
-    "skip": 9
+    "skip": 5
    },
    "notes": {
-    "skip: cpu raised": 9
+    "skip: cpu raised": 5
    }
   },
   "jiterator_4inputs_with_extra_args": {
    "counts": {
-    "skip": 9
+    "skip": 5
    },
    "notes": {
-    "skip: cpu raised": 9
+    "skip: cpu raised": 5
    }
   },
   "jiterator_binary_return_by_ref": {
    "counts": {
-    "skip": 9
+    "skip": 5
    },
    "notes": {
-    "skip: cpu raised": 9
+    "skip: cpu raised": 5
    }
   },
   "jiterator_2inputs_2outputs": {
    "counts": {
-    "skip": 9
+    "skip": 5
    },
    "notes": {
-    "skip: cpu raised": 9
+    "skip: cpu raised": 5
    }
   },
   "norm": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_vector_norm.out": 14,
-    "fallback: linalg_vector_norm.out, sgn.out": 11
+    "fallback: linalg_vector_norm.out": 3,
+    "fallback: linalg_vector_norm.out, sgn.out": 2
    }
   },
   "norm.nuc": {
@@ -3436,7 +3395,7 @@
     "fallback": 4
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 4
+    "fallback: linalg_vector_norm.out, logical_or.out, sgn.out, sum.dim_IntList (float32 reductions)": 4
    }
   },
   "t": {
@@ -3459,10 +3418,10 @@
   },
   "nn.functional.embedding_bag": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _embedding_bag, _embedding_bag_backward": 25
+    "fallback: _embedding_bag, _embedding_bag_backward": 5
    }
   },
   "nn.functional.multi_head_attention_forward": {
@@ -3483,113 +3442,112 @@
   },
   "nn.functional.mse_loss": {
    "counts": {
-    "fallback": 6
+    "fallback": 5
    },
    "notes": {
-    "fallback: mse_loss.out, mse_loss_backward": 6
+    "fallback: mse_loss.out, mse_loss_backward": 5
    }
   },
   "nn.functional.grid_sample": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: grid_sampler_2d, grid_sampler_2d_backward": 18,
-    "fallback: grid_sampler_3d, grid_sampler_3d_backward": 7
+    "fallback: grid_sampler_2d, grid_sampler_2d_backward": 5
    }
   },
   "grid_sampler_2d": {
    "counts": {
-    "fallback": 18
+    "fallback": 5
    },
    "notes": {
-    "fallback: grid_sampler_2d, grid_sampler_2d_backward": 18
+    "fallback: grid_sampler_2d, grid_sampler_2d_backward": 5
    }
   },
   "grid_sampler_3d": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: grid_sampler_3d, grid_sampler_3d_backward": 25
+    "fallback: grid_sampler_3d, grid_sampler_3d_backward": 5
    }
   },
   "argwhere": {
    "counts": {
-    "fallback": 6
+    "fallback": 5
    },
    "notes": {
-    "fallback: nonzero": 6
+    "fallback: nonzero": 5
    }
   },
   "all": {
    "counts": {
-    "ok": 20
+    "ok": 5
    },
    "notes": {}
   },
   "any": {
    "counts": {
-    "ok": 20
+    "ok": 5
    },
    "notes": {}
   },
   "amax": {
    "counts": {
-    "fallback": 20
+    "fallback": 5
    },
    "notes": {
-    "fallback: amax.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 20
+    "fallback: amax.out, sum.dim_IntList (float32 reductions)": 5
    }
   },
   "amin": {
    "counts": {
-    "fallback": 20
+    "fallback": 5
    },
    "notes": {
-    "fallback: amin.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 20
+    "fallback: amin.out, sum.dim_IntList (float32 reductions)": 5
    }
   },
   "argmax": {
    "counts": {
-    "ok": 13
+    "ok": 5
    },
    "notes": {}
   },
   "argmin": {
    "counts": {
-    "ok": 13
+    "ok": 5
    },
    "notes": {}
   },
   "count_nonzero": {
    "counts": {
-    "fallback": 20
+    "fallback": 5
    },
    "notes": {
-    "fallback: count_nonzero.dim_IntList": 20
+    "fallback: count_nonzero.dim_IntList": 5
    }
   },
   "mean": {
    "counts": {
-    "ok": 20
+    "ok": 5
    },
    "notes": {}
   },
   "nanmean": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), logical_not.out, mul.Tensor (float32 only), nansum, sum.dim_IntList (float32 reductions)": 25
+    "fallback: logical_not.out, nansum, sum.dim_IntList (float32 reductions)": 5
    }
   },
   "std": {
    "counts": {
-    "fallback": 14
+    "fallback": 5
    },
    "notes": {
-    "fallback: std.correction": 14
+    "fallback: std.correction": 5
    }
   },
   "std.unbiased": {
@@ -3602,10 +3560,10 @@
   },
   "var": {
    "counts": {
-    "fallback": 14
+    "fallback": 5
    },
    "notes": {
-    "fallback: var.correction": 14
+    "fallback: var.correction": 5
    }
   },
   "var.unbiased": {
@@ -3618,96 +3576,89 @@
   },
   "prod": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: nonzero, prod": 9,
-    "fallback: prod.int_out, sum.dim_IntList (float32 reductions)": 9,
-    "fallback: cumprod.out, flip, prod.int_out, sum.dim_IntList (float32 reductions)": 4,
-    "fallback: prod.int_out": 2,
-    "fallback: prod": 1
+    "fallback: nonzero, prod": 3,
+    "fallback: prod.int_out, sum.dim_IntList (float32 reductions)": 2
    }
   },
   "sum": {
    "counts": {
-    "ok": 20
+    "ok": 5
    },
    "notes": {}
   },
   "nansum": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: logical_not.out, mul.Tensor (float32 only), nansum": 25
+    "fallback: logical_not.out, nansum": 5
    }
   },
   "hash_tensor": {
    "counts": {
-    "fallback": 20
+    "fallback": 5
    },
    "notes": {
-    "fallback: hash_tensor.out": 20
+    "fallback: hash_tensor.out": 5
    }
   },
   "nn.functional.ctc_loss": {
    "counts": {
-    "fallback": 12
+    "fallback": 5
    },
    "notes": {
-    "fallback: _ctc_loss, _ctc_loss_backward": 12
+    "fallback: _ctc_loss, _ctc_loss_backward": 5
    }
   },
   "nn.functional.cosine_embedding_loss": {
    "counts": {
-    "ok": 6
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.nll_loss": {
    "counts": {
-    "ok": 11,
-    "fallback": 14
+    "ok": 5
    },
-   "notes": {
-    "fallback: nll_loss_backward (nll_loss backward on (N, C)), nll_loss_forward (nll_loss on (N, C) float32)": 7,
-    "fallback: nll_loss2d_backward, nll_loss2d_forward": 7
-   }
+   "notes": {}
   },
   "nn.functional.gaussian_nll_loss": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.hinge_embedding_loss": {
    "counts": {
-    "ok": 10
+    "ok": 5
    },
    "notes": {}
   },
   "nn.functional.huber_loss": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: huber_loss, huber_loss_backward.out": 9
+    "fallback: huber_loss, huber_loss_backward.out": 5
    }
   },
   "nn.functional.pdist": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _pdist_backward, _pdist_forward": 8
+    "fallback: _pdist_backward, _pdist_forward": 5
    }
   },
   "argsort": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: sort.values_stable": 25
+    "fallback: sort.values_stable": 5
    }
   },
   "repeat_interleave": {
@@ -3722,11 +3673,10 @@
   },
   "nn.functional.pairwise_distance": {
    "counts": {
-    "fallback": 7
+    "fallback": 5
    },
    "notes": {
-    "fallback: norm.out": 6,
-    "fallback: norm.out, sgn.out": 1
+    "fallback: norm.out": 5
    }
   },
   "nn.functional.pixel_shuffle": {
@@ -3751,11 +3701,11 @@
   },
   "nn.functional.kl_div": {
    "counts": {
-    "ok": 8,
-    "fallback": 8
+    "ok": 3,
+    "fallback": 2
    },
    "notes": {
-    "fallback: bitwise_and.Tensor_out": 8
+    "fallback: bitwise_and.Tensor_out": 2
    }
   },
   "diagflat": {
@@ -3766,217 +3716,211 @@
   },
   "scatter_reduce.sum": {
    "counts": {
-    "fallback": 21
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, scatter.value_out, scatter_reduce.two_out": 14,
-    "fallback: gather.out, scatter_reduce.two_out": 7
+    "fallback: gather.out, scatter.value_out, scatter_reduce.two_out": 3,
+    "fallback: gather.out, scatter_reduce.two_out": 2
    }
   },
   "scatter_reduce.prod": {
    "counts": {
-    "fallback": 22
+    "fallback": 5
    },
    "notes": {
-    "fallback: bitwise_and.Tensor_out, gather.out, scatter.value_out, scatter_add.out, scatter_reduce.two_out": 14,
-    "fallback: bitwise_and.Tensor_out, gather.out, scatter_add.out, scatter_reduce.two_out": 8
+    "fallback: bitwise_and.Tensor_out, gather.out, scatter.value_out, scatter_add.out, scatter_reduce.two_out": 3,
+    "fallback: bitwise_and.Tensor_out, gather.out, scatter_add.out, scatter_reduce.two_out": 2
    }
   },
   "scatter_reduce.mean": {
    "counts": {
-    "fallback": 21
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, scatter.value_out, scatter_add.out, scatter_reduce.two_out": 14,
-    "fallback: gather.out, scatter_add.out, scatter_reduce.two_out": 7
+    "fallback: gather.out, scatter.value_out, scatter_add.out, scatter_reduce.two_out": 3,
+    "fallback: gather.out, scatter_add.out, scatter_reduce.two_out": 2
    }
   },
   "scatter_reduce.amin": {
    "counts": {
-    "fallback": 21
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, mul.Tensor (float32 only), scatter.value_out, scatter_add.out, scatter_reduce.two_out": 14,
-    "fallback: gather.out, mul.Tensor (float32 only), scatter_add.out, scatter_reduce.two_out": 7
+    "fallback: gather.out, scatter.value_out, scatter_add.out, scatter_reduce.two_out": 3,
+    "fallback: gather.out, scatter_add.out, scatter_reduce.two_out": 2
    }
   },
   "scatter_reduce.amax": {
    "counts": {
-    "fallback": 21
+    "fallback": 5
    },
    "notes": {
-    "fallback: gather.out, mul.Tensor (float32 only), scatter.value_out, scatter_add.out, scatter_reduce.two_out": 14,
-    "fallback: gather.out, mul.Tensor (float32 only), scatter_add.out, scatter_reduce.two_out": 7
+    "fallback: gather.out, scatter.value_out, scatter_add.out, scatter_reduce.two_out": 3,
+    "fallback: gather.out, scatter_add.out, scatter_reduce.two_out": 2
    }
   },
   "_segment_reduce.lengths": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _segment_reduce_backward, segment_reduce": 25
+    "fallback: _segment_reduce_backward, segment_reduce": 5
    }
   },
   "_segment_reduce.offsets": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _segment_reduce_backward, segment_reduce": 25
+    "fallback: _segment_reduce_backward, segment_reduce": 5
    }
   },
   "fft.fft": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_r2c": 9
+    "fallback: _fft_r2c": 5
    }
   },
   "fft.fft2": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2c": 8
+    "fallback: _fft_c2c": 5
    }
   },
   "fft.fftn": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2c": 10
+    "fallback: _fft_c2c": 5
    }
   },
   "fft.hfft": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 7,
-    "fallback: _fft_c2r, _fft_r2c": 2
+    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 5
    }
   },
   "fft.hfft2": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2c, _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 5,
-    "fallback: _fft_c2c, _fft_c2r, _fft_r2c": 2,
+    "fallback: _fft_c2c, _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 4,
     "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 1
    }
   },
   "fft.hfftn": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 5,
-    "fallback: _fft_c2c, _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 3,
-    "fallback: _fft_c2c, _fft_c2r, _fft_r2c": 2
+    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 3,
+    "fallback: _fft_c2c, _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 2
    }
   },
   "fft.rfft": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_r2c": 9
+    "fallback: _fft_r2c": 5
    }
   },
   "fft.rfft2": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_r2c": 8
+    "fallback: _fft_r2c": 5
    }
   },
   "fft.rfftn": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_r2c": 10
+    "fallback: _fft_r2c": 5
    }
   },
   "fft.ifft": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_r2c": 9
+    "fallback: _fft_r2c": 5
    }
   },
   "fft.ifft2": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2c": 8
+    "fallback: _fft_c2c": 5
    }
   },
   "fft.ifftn": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2c": 10
+    "fallback: _fft_c2c": 5
    }
   },
   "fft.ihfft": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_r2c": 9
+    "fallback: _fft_r2c": 5
    }
   },
   "fft.ihfft2": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2c, _fft_r2c, conj_physical.out": 7,
+    "fallback: _fft_c2c, _fft_r2c, conj_physical.out": 4,
     "fallback: _fft_r2c": 1
    }
   },
   "fft.ihfftn": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2c, _fft_r2c, conj_physical.out": 5,
-    "fallback: _fft_r2c": 5
+    "fallback: _fft_r2c": 3,
+    "fallback: _fft_c2c, _fft_r2c, conj_physical.out": 2
    }
   },
   "fft.irfft": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 7,
-    "fallback: _fft_c2r, _fft_r2c": 2
+    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 5
    }
   },
   "fft.irfft2": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 6,
-    "fallback: _fft_c2r, _fft_r2c": 2
+    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 5
    }
   },
   "fft.irfftn": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 8,
-    "fallback: _fft_c2r, _fft_r2c": 2
+    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 5
    }
   },
   "fft.fftshift": {
@@ -4005,50 +3949,49 @@
   },
   "linalg.det": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_det.result": 7,
-    "fallback: _linalg_det.result, linalg_lu_solve.out": 2
+    "fallback: _linalg_det.result": 4,
+    "fallback: _linalg_det.result, linalg_lu_solve.out": 1
    }
   },
   "linalg.diagonal": {
    "counts": {
-    "ok": 15
+    "ok": 5
    },
    "notes": {}
   },
   "linalg.matrix_sqrth": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_eigh.eigenvalues, linalg_matrix_sqrth": 8
+    "fallback: _linalg_eigh.eigenvalues, linalg_matrix_sqrth": 5
    }
   },
   "linalg.cholesky": {
    "counts": {
-    "fallback": 16
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_cholesky_ex.L, linalg_solve_triangular": 16
+    "fallback: linalg_cholesky_ex.L, linalg_solve_triangular": 5
    }
   },
   "linalg.cholesky_ex": {
    "counts": {
-    "fallback": 16
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_cholesky_ex.L, linalg_solve_triangular": 16
+    "fallback: linalg_cholesky_ex.L, linalg_solve_triangular": 5
    }
   },
   "linalg.vecdot": {
    "counts": {
-    "fallback": 8,
-    "ok": 17
+    "fallback": 5
    },
    "notes": {
-    "fallback: vdot": 8
+    "fallback: vdot": 5
    }
   },
   "linalg.cond": {
@@ -4061,42 +4004,42 @@
   },
   "linalg.eig": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_eig": 8
+    "fallback: linalg_eig": 5
    }
   },
   "linalg.eigvals": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_eig": 8
+    "fallback: linalg_eig": 5
    }
   },
   "linalg.eigh": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_eigh.eigenvalues": 8
+    "fallback: _linalg_eigh.eigenvalues": 5
    }
   },
   "linalg.eigvalsh": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_eigh.eigenvalues": 8
+    "fallback: _linalg_eigh.eigenvalues": 5
    }
   },
   "linalg.householder_product": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_householder_product": 9
+    "fallback: linalg_householder_product": 5
    }
   },
   "linalg.ldl_factor": {
@@ -4117,252 +4060,244 @@
   },
   "linalg.ldl_solve": {
    "counts": {
-    "fallback": 16
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_ldl_solve.out": 16
+    "fallback: linalg_ldl_solve.out": 5
    }
   },
   "linalg.lstsq": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), linalg_lstsq.out, maximum (float32), mul.Tensor (float32 only)": 25
+    "fallback: _linalg_svd.U, gt.Tensor (comparison dtypes), linalg_lstsq.out, maximum (mixed dtypes other than float32 with int/bool), mul.Tensor (mixed dtypes other than float32 with int/bool)": 5
    }
   },
   "linalg.lstsq.grad_oriented": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), linalg_lstsq.out, maximum (float32), mul.Tensor (float32 only)": 25
+    "fallback: _linalg_svd.U, gt.Tensor (comparison dtypes), linalg_lstsq.out, maximum (mixed dtypes other than float32 with int/bool), mul.Tensor (mixed dtypes other than float32 with int/bool)": 5
    }
   },
   "linalg.matrix_power": {
    "counts": {
-    "fallback": 12,
-    "ok": 6
+    "fallback": 3,
+    "ok": 2
    },
    "notes": {
-    "fallback: linalg_inv_ex.inverse": 9,
-    "fallback: eye.m_out": 3
+    "fallback: linalg_inv_ex.inverse": 2,
+    "fallback: eye.m_out": 1
    }
   },
   "linalg.multi_dot": {
    "counts": {
-    "ok": 7
+    "ok": 5
    },
    "notes": {}
   },
   "linalg.norm": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_vector_norm.out, sgn.out": 12,
-    "fallback: linalg_vector_norm.out": 10,
-    "fallback: div.Tensor (float32 only), linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 3
+    "fallback: linalg_vector_norm.out": 3,
+    "fallback: linalg_vector_norm.out, sgn.out": 2
    }
   },
   "linalg.norm.subgradients_at_zero": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_vector_norm.out, sgn.out": 12,
-    "fallback: linalg_vector_norm.out": 9,
-    "fallback: div.Tensor (float32 only), linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 4
+    "fallback: linalg_vector_norm.out": 3,
+    "fallback: linalg_vector_norm.out, sgn.out": 2
    }
   },
   "linalg.matrix_norm": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: amax.out, div.Tensor (float32 only), linalg_vector_norm.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 8,
-    "fallback: amin.out, div.Tensor (float32 only), linalg_vector_norm.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 8,
     "fallback: linalg_vector_norm.out": 4,
-    "fallback: _linalg_svd.U": 4,
-    "fallback: _linalg_svd.U, amax.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 1
+    "fallback: _linalg_svd.U": 1
    }
   },
   "linalg.qr": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_qr.out, linalg_solve_triangular": 25
+    "fallback: linalg_qr.out, linalg_solve_triangular": 5
    }
   },
   "linalg.polar": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_eigh.eigenvalues, linalg_polar.out": 9
+    "fallback: _linalg_eigh.eigenvalues, linalg_polar.out": 5
    }
   },
   "linalg.slogdet": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_slogdet.sign, linalg_lu_solve.out": 9
+    "fallback: _linalg_slogdet.sign, linalg_lu_solve.out": 5
    }
   },
   "linalg.vander": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: cumprod.out, cumsum.out, flip": 8,
+    "fallback: cumprod.out, cumsum.out, flip": 3,
     "fallback: cumprod.out": 2
    }
   },
   "linalg.vector_norm": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_vector_norm.out": 12,
-    "fallback: linalg_vector_norm.out, sgn.out": 8,
-    "fallback: div.Tensor (float32 only), linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 5
+    "fallback: linalg_vector_norm.out": 4,
+    "fallback: linalg_vector_norm.out, sgn.out": 1
    }
   },
   "linalg.lu_factor": {
    "counts": {
-    "fallback": 20
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out": 20
+    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out": 5
    }
   },
   "linalg.lu_factor_ex": {
    "counts": {
-    "fallback": 20
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out": 20
+    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out": 5
    }
   },
   "linalg.lu": {
    "counts": {
-    "fallback": 20
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_lu.out, linalg_solve_triangular": 20
+    "fallback: linalg_lu.out, linalg_solve_triangular": 5
    }
   },
   "linalg.lu_solve": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_lu_solve.out, linalg_solve_triangular, lu_unpack.out": 17,
-    "fallback: linalg_lu_solve.out": 8
+    "fallback: linalg_lu_solve.out, linalg_solve_triangular, lu_unpack.out": 5
    }
   },
   "linalg.inv": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_inv_ex.inverse": 8
+    "fallback: linalg_inv_ex.inverse": 5
    }
   },
   "linalg.inv_ex": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_inv_ex.inverse": 8
+    "fallback: linalg_inv_ex.inverse": 5
    }
   },
   "linalg.solve": {
    "counts": {
-    "fallback": 24
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_solve_ex.result, linalg_lu_solve.out": 24
+    "fallback: _linalg_solve_ex.result, linalg_lu_solve.out": 5
    }
   },
   "linalg.solve_ex": {
    "counts": {
-    "fallback": 24
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_solve_ex.result, linalg_lu_solve.out": 24
+    "fallback: _linalg_solve_ex.result, linalg_lu_solve.out": 5
    }
   },
   "linalg.solve_triangular": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_solve_triangular": 25
+    "fallback: linalg_solve_triangular": 5
    }
   },
   "linalg.matrix_rank": {
    "counts": {
-    "fallback": 10,
-    "ok": 15
+    "fallback": 2,
+    "ok": 3
    },
    "notes": {
-    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only), sum.IntList_out": 10
+    "fallback: _linalg_svd.U, gt.Tensor (comparison dtypes), maximum (mixed dtypes other than float32 with int/bool), mul.Tensor (mixed dtypes other than float32 with int/bool), sum.IntList_out": 2
    }
   },
   "linalg.matrix_rank.hermitian": {
    "counts": {
-    "fallback": 3,
-    "ok": 5
+    "fallback": 2,
+    "ok": 3
    },
    "notes": {
-    "fallback: _linalg_eigh.eigenvalues, amax.out, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only), sum.IntList_out": 3
+    "fallback: _linalg_eigh.eigenvalues, amax.out, gt.Tensor (comparison dtypes), maximum (mixed dtypes other than float32 with int/bool), mul.Tensor (mixed dtypes other than float32 with int/bool), sum.IntList_out": 2
    }
   },
   "linalg.pinv": {
    "counts": {
-    "fallback": 24
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_svd.U": 15,
-    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only)": 6,
-    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), maximum (float32)": 3
+    "fallback: _linalg_svd.U, gt.Tensor (comparison dtypes), maximum (mixed dtypes other than float32 with int/bool), mul.Tensor (mixed dtypes other than float32 with int/bool)": 2,
+    "fallback: _linalg_svd.U": 2,
+    "fallback: _linalg_svd.U, gt.Tensor (comparison dtypes), maximum (mixed dtypes other than float32 with int/bool)": 1
    }
   },
   "linalg.pinv.singular": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only)": 13,
-    "fallback: _linalg_svd.U": 12
+    "fallback: _linalg_svd.U, gt.Tensor (comparison dtypes), maximum (mixed dtypes other than float32 with int/bool), mul.Tensor (mixed dtypes other than float32 with int/bool)": 5
    }
   },
   "linalg.pinv.hermitian": {
    "counts": {
-    "fallback": 8
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_svd.U": 5,
-    "fallback: _linalg_eigh.eigenvalues, amax.out, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only)": 3
+    "fallback: _linalg_svd.U": 3,
+    "fallback: _linalg_eigh.eigenvalues, amax.out, gt.Tensor (comparison dtypes), maximum (mixed dtypes other than float32 with int/bool), mul.Tensor (mixed dtypes other than float32 with int/bool)": 2
    }
   },
   "linalg.svd": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_svd.U": 25
+    "fallback: _linalg_svd.U": 5
    }
   },
   "linalg.svdvals": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: _linalg_svd.U": 25
+    "fallback: _linalg_svd.U": 5
    }
   },
   "linalg.tensorinv": {
@@ -4383,61 +4318,61 @@
   },
   "signal.windows.hamming": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
   "signal.windows.hann": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
   "signal.windows.bartlett": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
   "signal.windows.blackman": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
   "signal.windows.cosine": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
   "signal.windows.gaussian": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
   "signal.windows.kaiser": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
   "signal.windows.general_cosine": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
   "signal.windows.general_hamming": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
   "signal.windows.nuttall": {
    "counts": {
-    "ok": 12
+    "ok": 5
    },
    "notes": {}
   },
@@ -4475,26 +4410,26 @@
   },
   "special.polygamma.special_polygamma_n_0": {
    "counts": {
-    "fallback": 10
+    "fallback": 5
    },
    "notes": {
-    "fallback: polygamma.out": 10
+    "fallback: polygamma.out": 5
    }
   },
   "special.xlog1py": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: bitwise_and.Tensor_out, special_xlog1py.out": 9
+    "fallback: bitwise_and.Tensor_out, special_xlog1py.out": 5
    }
   },
   "special.zeta": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_zeta.out": 9
+    "fallback: special_zeta.out": 5
    }
   },
   "special.entr": {
@@ -4571,66 +4506,66 @@
   },
   "special.chebyshev_polynomial_t": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_chebyshev_polynomial_t.out": 9
+    "fallback: special_chebyshev_polynomial_t.out": 5
    }
   },
   "special.chebyshev_polynomial_u": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_chebyshev_polynomial_u.out": 9
+    "fallback: special_chebyshev_polynomial_u.out": 5
    }
   },
   "special.chebyshev_polynomial_v": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_chebyshev_polynomial_v.out": 9
+    "fallback: special_chebyshev_polynomial_v.out": 5
    }
   },
   "special.chebyshev_polynomial_w": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_chebyshev_polynomial_w.out": 9
+    "fallback: special_chebyshev_polynomial_w.out": 5
    }
   },
   "special.hermite_polynomial_h": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_hermite_polynomial_h.out": 9
+    "fallback: special_hermite_polynomial_h.out": 5
    }
   },
   "special.hermite_polynomial_he": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_hermite_polynomial_he.out": 9
+    "fallback: special_hermite_polynomial_he.out": 5
    }
   },
   "special.laguerre_polynomial_l": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_laguerre_polynomial_l.out": 9
+    "fallback: special_laguerre_polynomial_l.out": 5
    }
   },
   "special.legendre_polynomial_p": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_legendre_polynomial_p.out": 9
+    "fallback: special_legendre_polynomial_p.out": 5
    }
   },
   "special.modified_bessel_i0": {
@@ -4683,34 +4618,34 @@
   },
   "special.shifted_chebyshev_polynomial_t": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_shifted_chebyshev_polynomial_t.out": 9
+    "fallback: special_shifted_chebyshev_polynomial_t.out": 5
    }
   },
   "special.shifted_chebyshev_polynomial_u": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_shifted_chebyshev_polynomial_u.out": 9
+    "fallback: special_shifted_chebyshev_polynomial_u.out": 5
    }
   },
   "special.shifted_chebyshev_polynomial_v": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_shifted_chebyshev_polynomial_v.out": 9
+    "fallback: special_shifted_chebyshev_polynomial_v.out": 5
    }
   },
   "special.shifted_chebyshev_polynomial_w": {
    "counts": {
-    "fallback": 9
+    "fallback": 5
    },
    "notes": {
-    "fallback: special_shifted_chebyshev_polynomial_w.out": 9
+    "fallback: special_shifted_chebyshev_polynomial_w.out": 5
    }
   },
   "special.spherical_bessel_j0": {
@@ -4723,146 +4658,143 @@
   },
   "masked.sum": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "masked.prod": {
    "counts": {
-    "ok": 4,
-    "fallback": 21
+    "ok": 2,
+    "fallback": 3
    },
    "notes": {
-    "fallback: prod.int_out, sum.dim_IntList (float32 reductions)": 17,
-    "fallback: prod.int_out": 4
+    "fallback: prod.int_out": 3
    }
   },
   "masked.cumsum": {
    "counts": {
-    "fallback": 17
+    "fallback": 5
    },
    "notes": {
-    "fallback: cumsum.out, flip": 10,
-    "fallback: cumsum.out": 7
+    "fallback: cumsum.out, flip": 5
    }
   },
   "masked.cumprod": {
    "counts": {
-    "fallback": 17
+    "fallback": 5
    },
    "notes": {
-    "fallback: cumprod.out, cumsum.out, flip": 10,
-    "fallback: cumprod.out": 7
+    "fallback: cumprod.out, cumsum.out, flip": 5
    }
   },
   "masked.amax": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: amax.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 25
+    "fallback: amax.out, sum.dim_IntList (float32 reductions)": 5
    }
   },
   "masked.amin": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: amin.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 25
+    "fallback: amin.out, sum.dim_IntList (float32 reductions)": 5
    }
   },
   "masked.argmax": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "masked.argmin": {
    "counts": {
-    "ok": 25
+    "ok": 5
    },
    "notes": {}
   },
   "masked.mean": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 25
+    "fallback: sum.dim_IntList (float32 reductions)": 5
    }
   },
   "masked.median": {
    "counts": {
-    "fallback": 17
+    "fallback": 5
    },
    "notes": {
-    "fallback: nanmedian.dim_values, scatter.src_out": 17
+    "fallback: nanmedian.dim_values, scatter.src_out": 5
    }
   },
   "masked.norm": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: linalg_vector_norm.out": 25
+    "fallback: linalg_vector_norm.out": 5
    }
   },
   "masked.var": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 25
+    "fallback: sum.dim_IntList (float32 reductions)": 5
    }
   },
   "masked.std": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 25
+    "fallback: sum.dim_IntList (float32 reductions)": 5
    }
   },
   "masked.softmax": {
    "counts": {
-    "ok": 24
+    "ok": 5
    },
    "notes": {}
   },
   "masked.log_softmax": {
    "counts": {
-    "ok": 24
+    "ok": 5
    },
    "notes": {}
   },
   "masked.softmin": {
    "counts": {
-    "ok": 24
+    "ok": 5
    },
    "notes": {}
   },
   "masked.logaddexp": {
    "counts": {
-    "fallback": 11
+    "fallback": 5
    },
    "notes": {
-    "fallback: logaddexp.out": 11
+    "fallback: logaddexp.out": 5
    }
   },
   "masked.logsumexp": {
    "counts": {
-    "fallback": 25
+    "fallback": 5
    },
    "notes": {
-    "fallback: amax.out, sum.IntList_out": 25
+    "fallback: amax.out, sum.IntList_out": 5
    }
   },
   "bmm.triton_optimized": {
    "counts": {
-    "ok": 18
+    "ok": 5
    },
    "notes": {}
   }
  },
- "seconds": 30
+ "seconds": 16
 }

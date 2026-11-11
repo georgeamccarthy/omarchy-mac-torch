@@ -32,7 +32,7 @@ Training, same weights, data and optimizer on both, 5 steps after a warm-up. Mac
 | ResNet-18, batch 32, 64x64 | 488 | 101 | **4.9x** | none |
 | PlainCNN (conv-BN-ReLU), batch 128 | 87 | 32 | **2.8x** | none |
 | SeparableCNN (depthwise), batch 128 | 62 | 22 | **2.9x** | none |
-| MobileNetV3-Small style, batch 32 | 64 | 99 | 0.65x | strided depthwise conv |
+| MobileNetV3-Small style, batch 32 | 71 | 29 | **2.5x** | none |
 | ViT (small), batch 32 | 77 | 65 | **1.2x** | none |
 | GPT (small), batch 16 x 64 tokens | 44 | 36-45 | 1.0-1.3x | none |
 
