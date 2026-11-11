@@ -2,7 +2,7 @@
 the CPU and one for the GPU. Every training step a light sweeps forward through the layers, then back (the backward
 pass), and a loading bar fills as steps finish. It plays at the real measured speed from docs/timings.json (see
 notes/scripts/record_training.py), so the GPU copy loads faster. Pure SMIL, no dependencies.
-usage: make_animation.py [alexnet resnet18 mobilenetv3]"""
+usage: make_animation.py [alexnet resnet18 mobilenetv3]   (tools/make_video.py turns these into docs/*.mp4)"""
 import json, math, pathlib, sys
 
 root = pathlib.Path(__file__).resolve().parent.parent
@@ -25,7 +25,7 @@ MODEL_LAYERS = {
 }
 
 
-def render(model):
+def render(model, out=None):
   title_name, LAYERS = MODEL_LAYERS[model]
   data = ALL[model]
   cpu, gpu = data["cpu"], data["gpu"]
@@ -129,9 +129,11 @@ def render(model):
     {timed(gpu_t[-1], T)}
   </g>
   </svg>'''
-  (root / "docs" / f"{model}.svg").write_text(svg)
-  print(f"wrote docs/{model}.svg: loop {T:.1f}s, CPU {cpu_t[-1]:.2f}s, GPU {gpu_t[-1]:.2f}s, {speedup:.2f}x, {len(svg) // 1024} KB")
+  out = out or (root / "docs" / f"{model}.svg")
+  pathlib.Path(out).write_text(svg)
+  print(f"wrote {out}: loop {T:.1f}s, CPU {cpu_t[-1]:.2f}s, GPU {gpu_t[-1]:.2f}s, {speedup:.2f}x, {len(svg) // 1024} KB")
 
 
-for m in (sys.argv[1:] or list(MODEL_LAYERS)):
-    render(m)
+if __name__ == "__main__":
+    for m in (sys.argv[1:] or list(MODEL_LAYERS)):
+        render(m)
