@@ -8,6 +8,7 @@
 from omarchy_mac_torch import native as _native  # registers the device (C++ backend)
 from omarchy_mac_torch import optim as _optim  # noqa: F401  (fused optimizers by default)
 from omarchy_mac_torch import debug
+from omarchy_mac_torch import compile as _compile  # noqa: F401  (torch.compile(model, backend="omarchy_mac_torch"))
 from omarchy_mac_torch.native import (DEVICE, FALLBACKS, empty_cache, memory_allocated, memory_reserved,
                                       set_queue_depth, synchronize, validate_kernels)
 from omarchy_mac_torch.stacks import FusedSequential, accelerate

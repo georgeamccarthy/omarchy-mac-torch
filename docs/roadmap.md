@@ -22,9 +22,13 @@ matrices, `VK_KHR_cooperative_matrix`, patches in Joshua Warren's Mesa fork). gg
 tuned on Honeykrisp and CubeCL has an autotuned WGSL matmul: borrow from them.
 
 ## 4. General fusion instead of fused stacks
-`plans.cpp` fuses conv/BN/ReLU/pool only inside `nn.Sequential` with specific shapes (1.2-1.9x on small convnets).
-The general version: BN, activation and bias folded into the conv GEMM epilogue for any model structure, or a
-`torch.compile` backend that sees the whole graph. Once that exists, retire `plans.cpp` and `stacks.py`.
+Done: a `torch.compile` backend (`compile.py`) that works on any model structure: BN+ReLU fused forward and backward,
+bias/ReLU in the conv GEMM epilogue, eval BN folded into conv weights, generated kernels for elementwise chains. It is
+as accurate as eager mode but only about as fast (ResNet-18 108 vs 109 ms; SeparableCNN 22 ms vs 17 ms with the fused
+stacks). What the stacks still have: a prebuilt plan owns its memory and replays a fixed list of dispatches (1 ms of CPU
+per step vs 5 ms running the graph op by op), and no copy-back of BatchNorm buffers after each step.
+Next: graph capture and replay for compiled graphs (static memory planned at compile time, the dispatch list recorded
+once, like CUDA graphs), and keeping BatchNorm buffer updates inside the graph. Then retire `plans.cpp` and `stacks.py`.
 
 ## 5. fp16 / bf16
 `shader-f16` storage and math as a code-generation option in `gemm.py` and `ew.wgsl` (ONNX Runtime and ggml-vulkan

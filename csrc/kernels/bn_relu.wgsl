@@ -14,6 +14,6 @@ fn main(@builtin(global_invocation_id) gid: vec3<u32>, @builtin(num_workgroups) 
 
   if (i >= q.n * q.c * hw) { return; }
   let ch = (i / hw) % q.c;
-  let z = (x[i] - stats[ch]) * inverseSqrt(stats[q.c + ch] + 1e-5) * gamma[ch] + beta[ch];
+  let z = (x[i] - stats[ch]) * inverseSqrt(stats[q.c + ch] + bitcast<f32>(q.p1)) * gamma[ch] + beta[ch];
   y[i] = max(z, 0.0);
 }

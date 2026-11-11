@@ -17,7 +17,7 @@ fn main(@builtin(global_invocation_id) gid: vec3<u32>, @builtin(num_workgroups) 
   if (i >= q.n * q.c * hw) { return; }
   let ch = (i / hw) % q.c;
   let m = f32(q.n * hw);
-  let inv = inverseSqrt(stats[q.c + ch] + 1e-5);
+  let inv = select(inverseSqrt(stats[q.c + ch] + bitcast<f32>(q.p1)), stats[q.c + ch], q.p1 == 0xffffffffu);
   let gz = select(0.0, g[i], y[i] > 0.0);
   let xhat = (x[i] - stats[ch]) * inv;
   dx[i] = gamma[ch] * inv / m * (m * gz - dgb[q.c + ch] - xhat * dgb[ch]);

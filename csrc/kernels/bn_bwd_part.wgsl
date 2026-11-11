@@ -23,7 +23,7 @@ fn wg_sum(t: u32, v: f32) -> f32 {
 @compute @workgroup_size(256)
 fn main(@builtin(workgroup_id) wg: vec3<u32>, @builtin(local_invocation_index) t: u32) {
   let ch = wg.x; let sl = wg.y; let hw = q.h * q.w; let ns = q.p0;
-  let mean = stats[ch]; let inv = inverseSqrt(stats[q.c + ch] + 1e-5);
+  let mean = stats[ch]; let inv = select(inverseSqrt(stats[q.c + ch] + bitcast<f32>(q.p1)), stats[q.c + ch], q.p1 == 0xffffffffu);
   var s1 = 0.0; var s2 = 0.0;
   for (var nn = sl; nn < q.n; nn += ns) {
     let base = (nn * q.c + ch) * hw;

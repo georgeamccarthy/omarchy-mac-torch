@@ -47,6 +47,7 @@ The animation at the top is the AlexNet row, played back at the measured speed. 
 - Elementwise math on tensors of any shape and strides (broadcasting, in-place, views of the same storage), ReLU / GELU / SiLU / sigmoid / tanh / hardswish and their gradients, comparisons, `where`, `masked_fill`, reductions (`sum`, `mean`, `argmax`, `argmin` over any dims), matmul / `addmm` / `bmm`, `cat` and `stack` along any dim, row indexing.
 - SGD (momentum, nesterov), Adam and AdamW, fused so each parameter is updated in one pass; other optimizers run through PyTorch's foreach path.
 - Every dtype is stored exactly as PyTorch stores it, so `torch.save` / `torch.load`, `deepcopy`, `state_dict`, `.view(dtype)`, generators and `torch.manual_seed` behave like on any other device, without patching PyTorch.
+- `torch.compile(model, backend="omarchy_mac_torch")` works on any model: it fuses BatchNorm+ReLU (forward and backward), puts bias and ReLU into the conv kernel (and folds eval-mode BatchNorm into the conv's weights), and compiles chains of elementwise ops into single kernels. Today it is about as fast as eager mode; the gain over eager will come with graph replay (`docs/roadmap.md`).
 - Conv-BatchNorm-ReLU-pool stacks inside an `nn.Sequential` are fused automatically into one prebuilt plan (1.2x to 1.9x on the small convnets above). `OMARCHY_MAC_TORCH_AUTO_FUSE=0` turns that off.
 - Anything not implemented falls back to the CPU and still gives the right answer, just slowly. `omarchy_mac_torch.FALLBACKS` lists what fell back and why.
 

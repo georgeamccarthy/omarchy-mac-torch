@@ -38,5 +38,11 @@ tried and reverted (both slower because live registers cost more than integer di
 - prefetching the next k-tile into registers (software pipelining): -50%.
 - hoisting each loader slot's row decomposition out of the k loop + a k-side index table instead of divisions: -15-20%.
 
+## torch.compile backend (0.2.x)
+correct (as accurate as eager) on separablecnn, plaincnn, resnet-18, mobilenetv3, vit. speed ~ eager: the fused ops
+remove kernels, but each step pays ~5 ms of python graph execution (vs ~1 ms for a prebuilt plan) and aotautograd
+copies batchnorm's running stats back after every step (~40 tiny dispatches on separablecnn). graph replay with static
+memory is the fix (roadmap #4).
+
 next levers: subgroup operations (share operands across a simd instead of through shared memory) and cooperative
 matrix (`docs/roadmap.md` #3). the template is at ~15% of fp32 peak.

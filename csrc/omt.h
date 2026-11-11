@@ -234,7 +234,9 @@ struct ConvPlan {
 };
 void mnk(int kind, const Geo& g, int64_t& M, int64_t& N, int64_t& K);
 ConvPlan conv_plan(int kind, const Geo& g);
-Buf* pbuf_geo(const Geo& g, int64_t M, int64_t N, int64_t K, int64_t kslice, int64_t slices, bool bias = false);
+Buf* pbuf_geo(const Geo& g, int64_t M, int64_t N, int64_t K, int64_t kslice, int64_t slices, uint32_t epilogue = 0);  // epilogue bits: 1 bias, 2 ReLU
+Geo conv_geo(int64_t n, int64_t ci, int64_t co, int64_t ih, int64_t iw, int64_t ks, int64_t stride, int64_t pad);
+void gemm_forward(const Tensor& x, const Tensor& w, const Tensor* bias, const Tensor& out, const Geo& g, bool relu = false);
 Buf* pbuf_reduce(int64_t M, int64_t N, int64_t slices);
 Buf* dummy_buf();  // bound where a kernel declares an input it won't read
 extern int g_fold;

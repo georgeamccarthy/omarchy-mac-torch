@@ -16,7 +16,7 @@ static bool g_tune = true, g_in_tune = false;
 int g_fold = 1;  // BN folding in eval plans: 0 none, 1 only into 1x1 convs, 2 into every conv / depthwise
 static int g_num_tiles = 5;
 
-static Geo conv_geo(int64_t n, int64_t ci, int64_t co, int64_t ih, int64_t iw, int64_t ks, int64_t stride, int64_t pad) {
+Geo conv_geo(int64_t n, int64_t ci, int64_t co, int64_t ih, int64_t iw, int64_t ks, int64_t stride, int64_t pad) {
   return {n, ci, co, ih, iw, (ih + 2 * pad - ks) / stride + 1, (iw + 2 * pad - ks) / stride + 1, ks, stride, pad};
 }
 
@@ -59,19 +59,19 @@ ConvPlan conv_plan(int kind, const Geo& g) {
   return p;
 }
 
-Buf* pbuf_geo(const Geo& g, int64_t M, int64_t N, int64_t K, int64_t kslice, int64_t slices, bool bias) {
+Buf* pbuf_geo(const Geo& g, int64_t M, int64_t N, int64_t K, int64_t kslice, int64_t slices, uint32_t epilogue) {
   return uniform({u(g.n), u(g.ci), u(g.co), u(g.ih), u(g.iw), u(g.oh), u(g.ow), u(g.ks), u(g.stride), u(g.pad), u(M),
-                  u(N), u(K), u(kslice), u(slices), bias ? 1u : 0u});
+                  u(N), u(K), u(kslice), u(slices), epilogue});
 }
 Buf* pbuf_reduce(int64_t M, int64_t N, int64_t slices) {  // the 12-word struct the split-K reduce kernel reads
   return uniform({0, 0, 0, 0, 0, u(M), u(N), 0, 0, u(slices), 0, 0});
 }
 
-static void gemm_forward(const Tensor& x, const Tensor& w, const Tensor* bias, const Tensor& out, const Geo& g) {
+void gemm_forward(const Tensor& x, const Tensor& w, const Tensor* bias, const Tensor& out, const Geo& g, bool relu) {
   int64_t M, N, K;
   mnk(0, g, M, N, K);
   ConvPlan p = conv_plan(0, g);
-  Buf* pr = pbuf_geo(g, M, N, K, cdiv(K, 16) * 16, 1, bias != nullptr);
+  Buf* pr = pbuf_geo(g, M, N, K, cdiv(K, 16) * 16, 1, (bias ? 1u : 0u) | (relu ? 2u : 0u));
   launch(p.kernel.c_str(), {bind(x), bind(w), bind(out), bind_buf(pr), bias ? bind(*bias) : bind_buf(dummy_buf())},
          u(cdiv(N, p.bn)), u(cdiv(M, p.bm)), 1);
 }

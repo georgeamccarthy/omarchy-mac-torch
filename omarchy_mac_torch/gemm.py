@@ -35,7 +35,8 @@ fn bval(k: u32, nn: u32) -> f32 { return b[nn * p.K + k]; }
 fn store(m: u32, nn: u32, v: f32, z: u32) {
   let ohw = p.oh * p.ow;
   var r = v;
-  if (p.hb == 1u) { r += bias[nn]; }
+  if ((p.hb & 1u) != 0u) { r += bias[nn]; }   // hb bit 0: bias, bit 1: ReLU (fused epilogue)
+  if ((p.hb & 2u) != 0u) { r = max(r, 0.0); }
   out[((m / ohw) * p.co + nn) * ohw + m % ohw] = r;
 }
 """
@@ -133,7 +134,7 @@ def source(kind, bm, bn, tm, tn, a_kfast=False, b_nfast=False):
     fwd = kind in (0, 3)
     body = {4: _MM, 5: _GINP, 1: _GIN, 2: _GW}.get(kind, _FWD)
     if kind == 3:  # eval plans: no bias (BN folding), the BN parameters are bound at 4..7 instead
-        body = body.replace("  if (p.hb == 1u) { r += bias[nn]; }\n", "")
+        body = body.replace("  if ((p.hb & 1u) != 0u) { r += bias[nn]; }   // hb bit 0: bias, bit 1: ReLU (fused epilogue)\n", "")
         body = body.replace("RETURN", "return max((v - bnm[c]) * inverseSqrt(bnv[c] + 1e-5) * bng[c] + bnb[c], 0.0);")
     else:
         body = body.replace("RETURN", "return v;")

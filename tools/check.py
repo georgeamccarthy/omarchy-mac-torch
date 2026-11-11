@@ -14,6 +14,7 @@ import time
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CHECKS = ["native_final_check", "alexnet_ops_check", "activation_check", "conv_kinds_check", "eval_check",
           "grad_accum_check", "storage_check"]
+SLOW = [("compile_check", ["2"])]  # torch.compile backend vs the CPU (and its speed)
 quick, full = "--quick" in sys.argv, "--full" in sys.argv
 failed = []
 
@@ -32,6 +33,9 @@ if not quick and not run("build", ["tools/build_native.py"]):
     sys.exit("build failed")
 for c in CHECKS:
     run(c, [f"notes/scripts/{c}.py"])
+if not quick:
+    for c, args in SLOW:
+        run(c, [f"notes/scripts/{c}.py", *args])
 out = "results/conformance.json"
 if run("conformance", ["tools/conformance.py", "--grad", "--limit", "5" if quick else "25", "--out", out]):
     r = json.loads((ROOT / out).read_text())

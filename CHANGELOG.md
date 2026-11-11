@@ -37,4 +37,8 @@ reductions (a 16M-element sum: 36 ms -> 0.6 ms), general average pooling, `nll_l
 any dim, `masked_fill`, integer add, `tools/conformance.py`, `tools/acceptance.py`, `tools/bench.py`, shadow mode,
 strict mode, `tools/check.py` (all checks locally, on the GPU).
 
+Added after the first 0.2.0 draft: faster GEMMs (vec4 shared tiles, unrolled loaders; AlexNet 160 -> 128 ms/step,
+ResNet-18 131 -> 103), stride-phase grad input (17x on AlexNet's stride-4 layer), and a `torch.compile` backend with
+BN+ReLU, conv-epilogue and pointwise fusion.
+
 Removed: the original Python/wgpu-py backend (`OMARCHY_MAC_TORCH_BACKEND=python`).

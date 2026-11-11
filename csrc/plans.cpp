@@ -157,7 +157,7 @@ static std::shared_ptr<Plan> build_plan(const std::vector<PlanLayer>& layers, st
       recs.push_back(r);
       cur = out; pi++;
     } else if (L.kind == "bn") {
-      Buf* q = uniform({u(n), u(c), u(h), u(w), 0, 0, 0, 0});
+      Buf* q = uniform({u(n), u(c), u(h), u(w), 0, 0, 0, fbits(1e-5f)});  // p1: eps (fusable() requires 1e-5)
       bool next_is_conv = false;
       if (li + 1 < layers.size() && g_fold > 0) {
         const PlanLayer& N = layers[li + 1];
@@ -175,7 +175,7 @@ static std::shared_ptr<Plan> build_plan(const std::vector<PlanLayer>& layers, st
         int64_t count = n * h * w;
         Buf* r = uniform({fbits((float)L.momentum), fbits((float)count / std::max<int64_t>(count - 1, 1)), 0, 0});
         int64_t S = n >= 8 ? 8 : 1;  // each channel's reduction is split over S workgroups
-        Buf* qs = uniform({u(n), u(c), u(h), u(w), 0, 0, u(S), 0});
+        Buf* qs = uniform({u(n), u(c), u(h), u(w), 0, 0, u(S), fbits(1e-5f)});
         Buf* part = nb(p, c * S * 2);
         add_step(p, p.fwd, "bn_stats_part", {R_(cur), R_(part), R_(qs)}, u(c), u(S));
         add_step(p, p.fwd, "bn_stats_fin", {R_(cur), R_(part), R_(stats), RT(rms[bi]), RT(rvs[bi]), R_(qs), R_(r)}, u(cdiv(c, 64)));
@@ -241,7 +241,7 @@ static std::shared_ptr<Plan> build_plan(const std::vector<PlanLayer>& layers, st
       p.grads.push_back({r.param, slot, true});
       Buf* gx = nb(p, r.n * r.c * r.h * r.w);
       int64_t S = r.n >= 8 ? 8 : 1;
-      Buf* qs = uniform({u(r.n), u(r.c), u(r.h), u(r.w), 0, 0, u(S), 0});
+      Buf* qs = uniform({u(r.n), u(r.c), u(r.h), u(r.w), 0, 0, u(S), fbits(1e-5f)});
       Buf* part = nb(p, r.c * S * 2);
       add_step(p, p.bwd, "bn_bwd_part", {R_(g), R_(r.x), R_(r.stats), R_(r.y), R_(part), R_(qs)}, u(r.c), u(S));
       add_step(p, p.bwd, "bn_bwd_fin", {R_(part), dgb, R_(qs)}, u(cdiv(r.c, 64)));
