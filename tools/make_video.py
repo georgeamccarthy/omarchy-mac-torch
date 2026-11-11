@@ -1,4 +1,4 @@
-"""Render docs/<model>.mp4 (1280x720, 30 fps, H.264) and a poster frame docs/<model>.png for AlexNet, ResNet-18 and
+"""Render docs/<model>.mp4 (1280x720, 30 fps, H.264, for posting on social media) for AlexNet, ResNet-18 and
 MobileNetV3: the training animation drawn by tools/make_animation.py (an SVG, kept only as an intermediate), stepped
 frame by frame in headless Chrome and encoded with ffmpeg.
 Needs ffmpeg, a Chrome/Chromium binary and playwright: uv run --with playwright tools/make_video.py [models...]"""
@@ -29,7 +29,6 @@ with sync_playwright() as p:
             for i in range(n):
                 page.evaluate(f"document.querySelector('svg').setCurrentTime({i / FPS})")
                 page.screenshot(path=f"{tmp}/{i:04d}.png")
-            shutil.copy(f"{tmp}/{n - 1:04d}.png", root / "docs" / f"{model}.png")  # poster: the finished race
             out = root / "docs" / f"{model}.mp4"
             subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(FPS), "-i", f"{tmp}/%04d.png",
                             "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18", "-movflags", "+faststart", str(out)], check=True)
