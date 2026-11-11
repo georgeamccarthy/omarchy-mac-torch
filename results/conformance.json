@@ -1,0 +1,4900 @@
+{
+ "summary": {
+  "fallback": 421,
+  "ok": 211,
+  "skip": 9
+ },
+ "ops": {
+  "abs": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: sgn.out": 1
+   }
+  },
+  "acos": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: acos.out": 3
+   }
+  },
+  "acosh": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: acosh.out": 3
+   }
+  },
+  "add": {
+   "counts": {
+    "ok": 11
+   },
+   "notes": {}
+  },
+  "item": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "arange": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "clamp_max": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: clamp_max.Tensor_out": 9
+   }
+  },
+  "clamp_min": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: clamp_min.Tensor_out": 9
+   }
+  },
+  "mul": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "sub": {
+   "counts": {
+    "ok": 11
+   },
+   "notes": {}
+  },
+  "addmm": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "addmm.decomposed": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "addmv": {
+   "counts": {
+    "fallback": 6
+   },
+   "notes": {
+    "fallback: addmv.out": 6
+   }
+  },
+  "addbmm": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: addbmm": 9
+   }
+  },
+  "baddbmm": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: baddbmm.out": 8
+   }
+  },
+  "dot": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: dot": 1
+   }
+  },
+  "vdot": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: vdot": 1
+   }
+  },
+  "bmm": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "mv": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: addmv.out": 1
+   }
+  },
+  "addr": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: addmv.out": 4
+   }
+  },
+  "addcmul": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "addcdiv": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "asin": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: asin.out": 1
+   }
+  },
+  "asinh": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: asinh.out": 1
+   }
+  },
+  "atan": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: atan.out": 1
+   }
+  },
+  "atan2": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: atan2.out": 9
+   }
+  },
+  "atanh": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: atanh.out": 1
+   }
+  },
+  "allclose": {
+   "counts": {
+    "fallback": 24
+   },
+   "notes": {
+    "fallback: all.all_out, bitwise_and.Tensor_out, bitwise_or.Tensor_out, mul.Tensor (float32 only)": 24
+   }
+  },
+  "broadcast_to": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "broadcast_shapes": {
+   "counts": {
+    "ok": 10
+   },
+   "notes": {}
+  },
+  "broadcast_tensors": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "block_diag": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "combinations": {
+   "counts": {
+    "fallback": 18
+   },
+   "notes": {
+    "fallback: _index_put_impl_, arange.start_out, mul_.Tensor (float32 only), nonzero_static": 12,
+    "fallback: _index_put_impl_, arange.start_out, nonzero_static": 6
+   }
+  },
+  "cartesian_prod": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "cdist": {
+   "counts": {
+    "fallback": 18,
+    "ok": 7
+   },
+   "notes": {
+    "fallback: _cdist_backward, _cdist_forward": 18
+   }
+  },
+  "ceil": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: ceil.out": 1
+   }
+  },
+  "cholesky_inverse": {
+   "counts": {
+    "fallback": 12
+   },
+   "notes": {
+    "fallback: cholesky_inverse": 12
+   }
+  },
+  "cholesky_solve": {
+   "counts": {
+    "fallback": 12
+   },
+   "notes": {
+    "fallback: _cholesky_solve_helper": 12
+   }
+  },
+  "chunk": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "unsafe_chunk": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "clone": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "contiguous": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "sum_to_size": {
+   "counts": {
+    "ok": 16
+   },
+   "notes": {}
+  },
+  "clamp": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: clamp.Tensor_out": 3,
+    "fallback: clamp.Tensor_out, logical_and.out, logical_not.out, logical_or.out": 2,
+    "fallback: clamp.Tensor_out, eq.Tensor (comparison of different dtypes), lt.Tensor (comparison of different dtypes)": 1,
+    "fallback: clamp.Tensor_out, eq.Tensor (comparison of different dtypes), gt.Tensor (comparison of different dtypes), logical_and.out, logical_not.out, logical_or.out, lt.Tensor (comparison of different dtypes)": 1
+   }
+  },
+  "positive": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "conj": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "conj_physical": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "resolve_conj": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "resolve_neg": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "view_as_complex": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "complex": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: complex.out": 9
+   }
+  },
+  "copysign": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: copysign.out": 10
+   }
+  },
+  "corrcoef": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: div.Tensor (float32 only), equal": 2,
+    "fallback: div.Tensor (float32 only), equal, logical_and.out": 2
+   }
+  },
+  "cos": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "cosh": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: cosh.out, sinh.out": 3
+   }
+  },
+  "cov": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: div.Tensor (float32 only), equal": 9,
+    "fallback: equal, min": 6,
+    "fallback: equal, min, mul.Tensor (float32 only)": 5,
+    "fallback: div.Tensor (float32 only), equal, min, mul.Tensor (float32 only)": 3,
+    "fallback: div.Tensor (float32 only), equal, min, mul.Tensor (float32 only), sub.Scalar (float32 only)": 2
+   }
+  },
+  "cross": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: linalg_cross.out": 3
+   }
+  },
+  "cumsum": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: cumsum.out, flip": 3,
+    "fallback: cumsum.out": 1
+   }
+  },
+  "cumprod": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: any.all_out, bitwise_and.Tensor_out, bitwise_not.out, cumprod.out, cumsum.out, flip, gather.out, logical_and.out, max.dim_max, relu_ (float32 only), sub.Scalar (float32 only)": 4,
+    "fallback: any.all_out, cumprod.out, cumsum.out, flip": 3,
+    "fallback: cumprod.out": 3
+   }
+  },
+  "cummax": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: _cummax_helper, scatter_add.out": 2,
+    "fallback: scatter_add.out": 1
+   }
+  },
+  "cummin": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: _cummin_helper, scatter_add.out": 2,
+    "fallback: scatter_add.out": 1
+   }
+  },
+  "deg2rad": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "diff": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "div.no_rounding_mode": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "div.trunc_rounding": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: div.out_mode": 9
+   }
+  },
+  "div.floor_rounding": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: div.out_mode": 9
+   }
+  },
+  "true_divide": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "equal": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: equal": 8
+   }
+  },
+  "exp": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "expand": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "expand_as": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "expand_copy": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "diag": {
+   "counts": {
+    "ok": 16
+   },
+   "notes": {}
+  },
+  "diag_embed": {
+   "counts": {
+    "ok": 15
+   },
+   "notes": {}
+  },
+  "diagonal": {
+   "counts": {
+    "ok": 15
+   },
+   "notes": {}
+  },
+  "diagonal_copy": {
+   "counts": {
+    "ok": 15
+   },
+   "notes": {}
+  },
+  "diagonal_scatter": {
+   "counts": {
+    "ok": 15
+   },
+   "notes": {}
+  },
+  "alias_copy": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "eq": {
+   "counts": {
+    "ok": 10
+   },
+   "notes": {}
+  },
+  "fmax": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: fmax.out, isnan, logical_not.out, logical_or.out": 9
+   }
+  },
+  "fmin": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: fmin.out, isnan, logical_not.out, logical_or.out": 9
+   }
+  },
+  "fmod": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: div.out_mode, fmod.Tensor_out": 9
+   }
+  },
+  "remainder": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: div.out_mode, remainder.Tensor_out": 9
+   }
+  },
+  "frac": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: frac.out": 1
+   }
+  },
+  "stft": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _fft_r2c, reflection_pad1d.out": 6,
+    "fallback: _fft_r2c": 2,
+    "fallback: _fft_c2c, _fft_r2c, arange.start_out, index_add.out, reflection_pad1d.out, reflection_pad1d_backward.grad_input": 1
+   }
+  },
+  "floor": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: floor.out": 1
+   }
+  },
+  "flip": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: flip": 10
+   }
+  },
+  "fliplr": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: flip": 2
+   }
+  },
+  "flipud": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: flip": 2
+   }
+  },
+  "sparse.sampled_addmm": {
+   "counts": {
+    "skip": 8
+   },
+   "notes": {
+    "skip: argument must stay on the CPU or is sparse": 8
+   }
+  },
+  "sparse.mm.reduce": {
+   "counts": {
+    "skip": 16
+   },
+   "notes": {
+    "skip: argument must stay on the CPU or is sparse": 16
+   }
+  },
+  "i0": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: i0.out, special_i1.out": 3
+   }
+  },
+  "floor_divide": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: floor_divide": 9
+   }
+  },
+  "frexp": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: exp2.out, frexp.Tensor_out": 5
+   }
+  },
+  "log1p": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: log1p.out": 1
+   }
+  },
+  "ge": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "geqrf": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: geqrf": 25
+   }
+  },
+  "gt": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "gradient": {
+   "counts": {
+    "ok": 8
+   },
+   "notes": {}
+  },
+  "isin": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: isin.Tensor_Tensor_out": 2
+   }
+  },
+  "kthvalue": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: kthvalue.values, scatter.src_out": 10
+   }
+  },
+  "le": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "linspace": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "linspace.tensor_overload": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "logspace": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "logspace.tensor_overload": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "log": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "log10": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: log10.out": 3
+   }
+  },
+  "log2": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: log2.out": 3
+   }
+  },
+  "ldexp": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: pow.Scalar_out": 10
+   }
+  },
+  "logaddexp": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: logaddexp.out": 9
+   }
+  },
+  "logaddexp2": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: logaddexp2.out, pow.Scalar_out": 1
+   }
+  },
+  "logical_not": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: logical_not.out": 3
+   }
+  },
+  "lt": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "lu_unpack": {
+   "counts": {
+    "fallback": 20
+   },
+   "notes": {
+    "fallback: lu_unpack.out, tril.out, triu.out": 20
+   }
+  },
+  "lu": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out, tril.out, triu.out": 25
+   }
+  },
+  "lu_solve": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: linalg_lu_solve.out, linalg_solve_triangular, lu_unpack.out, tril.out, triu.out": 17,
+    "fallback: linalg_lu_solve.out": 8
+   }
+  },
+  "masked_fill": {
+   "counts": {
+    "ok": 5,
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: masked_fill_.Tensor (masked_fill with a device value), masked_select": 3
+   }
+  },
+  "masked_scatter": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: masked_scatter_, masked_select": 4
+   }
+  },
+  "masked_select": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: masked_scatter_, masked_select": 7
+   }
+  },
+  "matrix_exp": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: linalg_matrix_exp": 2
+   }
+  },
+  "matmul": {
+   "counts": {
+    "fallback": 6,
+    "ok": 9
+   },
+   "notes": {
+    "fallback: addmv.out": 5,
+    "fallback: dot": 1
+   }
+  },
+  "max.reduction_with_dim": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: max.dim_max, scatter.src_out": 4
+   }
+  },
+  "max.reduction_no_dim": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: div.Tensor (float32 only), isnan, masked_fill_.Tensor (masked_fill with a device value), max": 2
+   }
+  },
+  "median": {
+   "counts": {
+    "fallback": 13
+   },
+   "notes": {
+    "fallback: median.dim_values, scatter.src_out": 9,
+    "fallback: div.Tensor (float32 only), isnan, masked_fill_.Tensor (masked_fill with a device value), median": 4
+   }
+  },
+  "nanmedian": {
+   "counts": {
+    "fallback": 13
+   },
+   "notes": {
+    "fallback: nanmedian.dim_values, scatter.src_out": 9,
+    "fallback: div.Tensor (float32 only), isnan, masked_fill_.Tensor (masked_fill with a device value), nanmedian": 4
+   }
+  },
+  "var_mean": {
+   "counts": {
+    "fallback": 14
+   },
+   "notes": {
+    "fallback: var_mean.correction": 14
+   }
+  },
+  "var_mean.unbiased": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: var_mean.correction": 2
+   }
+  },
+  "std_mean": {
+   "counts": {
+    "fallback": 14
+   },
+   "notes": {
+    "fallback: std_mean.correction": 14
+   }
+  },
+  "std_mean.unbiased": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: std_mean.correction": 2
+   }
+  },
+  "meshgrid.variadic_tensors": {
+   "counts": {
+    "ok": 10
+   },
+   "notes": {}
+  },
+  "meshgrid.list_of_tensors": {
+   "counts": {
+    "ok": 10
+   },
+   "notes": {}
+  },
+  "min.reduction_with_dim": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: min.dim_min, scatter.src_out": 4
+   }
+  },
+  "min.reduction_no_dim": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: div.Tensor (float32 only), isnan, masked_fill_.Tensor (masked_fill with a device value), min": 2
+   }
+  },
+  "quantile": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: any.out, ceil.out, gather.out, isnan, lerp.Tensor_out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Tensor (float32 only)": 15,
+    "fallback: any.out, ceil.out, gather.out, isnan, lerp.Tensor_out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), scatter.src_out, scatter_add.out, sort.values_stable": 10
+   }
+  },
+  "nanquantile": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: ceil.out, gather.out, isnan, lerp.Tensor_out, logical_not.out, lt.Scalar (comparison dtype), masked_fill_.Scalar (float32 only), mul.Tensor (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Scalar (float32 only), sub.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 15,
+    "fallback: ceil.out, gather.out, isnan, lerp.Tensor_out, logical_not.out, lt.Scalar (comparison dtype), masked_fill_.Scalar (float32 only), mul.Tensor (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Scalar (float32 only), sum.dim_IntList (float32 reductions)": 10
+   }
+  },
+  "max.binary": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "maximum": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "min.binary": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "minimum": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "logical_and": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: logical_and.out": 9
+   }
+  },
+  "logical_or": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: logical_or.out": 9
+   }
+  },
+  "logical_xor": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: logical_xor.out": 9
+   }
+  },
+  "heaviside": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: heaviside.out": 9
+   }
+  },
+  "isclose": {
+   "counts": {
+    "fallback": 16,
+    "ok": 1
+   },
+   "notes": {
+    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, mul.Tensor (float32 only)": 12,
+    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, isnan, mul.Tensor (float32 only)": 3,
+    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, isnan": 1
+   }
+  },
+  "softmax": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "softmax.with_dtype": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: _softmax (float32 softmax), _softmax_backward_data (float32 softmax backward), add.Tensor (float32 only), sum (float32 reductions)": 7
+   }
+  },
+  "_softmax_backward_data": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "nn.functional.softmin": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "nn.functional.softmin.with_dtype": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: _softmax (float32 softmax), _softmax_backward_data (float32 softmax backward), add.Tensor (float32 only), sum (float32 reductions)": 7
+   }
+  },
+  "nn.functional.cross_entropy": {
+   "counts": {
+    "ok": 18,
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: nll_loss2d_backward, nll_loss2d_forward": 3
+   }
+  },
+  "nn.functional.linear_cross_entropy": {
+   "counts": {
+    "fallback": 10,
+    "ok": 15
+   },
+   "notes": {
+    "fallback: nll_loss2d_backward, nll_loss2d_forward": 6,
+    "fallback: nll_loss_backward (nll_loss backward on (N, C)), nll_loss_forward (nll_loss on (N, C) float32)": 4
+   }
+  },
+  "nn.functional.linear_cross_entropy.chunked": {
+   "counts": {
+    "fallback": 14,
+    "ok": 11
+   },
+   "notes": {
+    "fallback: addmm.out, amax.out, bitwise_not.out, dot, gather.out, index_add.out, mm.out, where.self (where on float32)": 8,
+    "fallback: nll_loss2d_backward, nll_loss2d_forward": 6
+   }
+  },
+  "nn.functional.linear_cross_entropy.chunked_none": {
+   "counts": {
+    "fallback": 14,
+    "ok": 11
+   },
+   "notes": {
+    "fallback: addmm.out, amax.out, bitwise_not.out, dot, gather.out, index_add.out, mm.out, where.self (where on float32)": 8,
+    "fallback: nll_loss2d_backward, nll_loss2d_forward": 6
+   }
+  },
+  "aminmax": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: aminmax.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 7
+   }
+  },
+  "as_strided": {
+   "counts": {
+    "ok": 3,
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: arange.start_out, index_add.out": 2
+   }
+  },
+  "as_strided_copy": {
+   "counts": {
+    "ok": 3,
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: arange.start_out, index_add.out": 2
+   }
+  },
+  "as_strided_scatter": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "native_group_norm": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: native_group_norm_backward, var_mean.correction": 21,
+    "fallback: native_group_norm_backward": 4
+   }
+  },
+  "native_layer_norm": {
+   "counts": {
+    "ok": 8,
+    "fallback": 12
+   },
+   "notes": {
+    "fallback: native_layer_norm (float32 layer norm with both or neither affine parameters), native_layer_norm_backward (float32 layer norm backward with both or neither affine parameters)": 10,
+    "fallback: native_layer_norm (layer norm row count), native_layer_norm_backward (layer norm row count)": 2
+   }
+  },
+  "native_batch_norm": {
+   "counts": {
+    "fallback": 9,
+    "ok": 1
+   },
+   "notes": {
+    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D), native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 8,
+    "fallback: native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 1
+   }
+  },
+  "_native_batch_norm_legit": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: _native_batch_norm_legit, native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 8,
+    "fallback: _native_batch_norm_legit": 1,
+    "fallback: _native_batch_norm_legit.no_stats, native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 1
+   }
+  },
+  "_batch_norm_with_update": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _batch_norm_with_update, batch_norm_backward": 9
+   }
+  },
+  "nn.functional.cosine_similarity": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: clamp_min.Tensor_out, linalg_vector_norm.out": 9
+   }
+  },
+  "nn.functional.adaptive_avg_pool1d": {
+   "counts": {
+    "ok": 4,
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: _adaptive_avg_pool2d (adaptive avg pool: 4-D float32), _adaptive_avg_pool2d_backward (adaptive avg pool backward)": 2
+   }
+  },
+  "nn.functional.adaptive_avg_pool2d": {
+   "counts": {
+    "ok": 5,
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: _adaptive_avg_pool2d (adaptive avg pool: 4-D float32), _adaptive_avg_pool2d_backward (adaptive avg pool backward)": 5
+   }
+  },
+  "nn.functional.adaptive_avg_pool3d": {
+   "counts": {
+    "fallback": 10,
+    "ok": 2
+   },
+   "notes": {
+    "fallback: _adaptive_avg_pool3d, _adaptive_avg_pool3d_backward": 10
+   }
+  },
+  "nn.functional.adaptive_max_pool1d": {
+   "counts": {
+    "fallback": 12
+   },
+   "notes": {
+    "fallback: adaptive_max_pool2d.out, adaptive_max_pool2d_backward.grad_input": 12
+   }
+  },
+  "nn.functional.adaptive_max_pool2d": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: adaptive_max_pool2d.out, adaptive_max_pool2d_backward.grad_input": 25
+   }
+  },
+  "nn.functional.adaptive_max_pool3d": {
+   "counts": {
+    "fallback": 20
+   },
+   "notes": {
+    "fallback: adaptive_max_pool3d.out, adaptive_max_pool3d_backward.grad_input": 20
+   }
+  },
+  "nn.functional.avg_pool1d": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "nn.functional.avg_pool3d": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: avg_pool3d.out, avg_pool3d_backward.grad_input": 8
+   }
+  },
+  "nn.functional.binary_cross_entropy_with_logits": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: log_sigmoid_forward": 25
+   }
+  },
+  "nn.functional.relu": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "nn.functional.conv_transpose1d": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 10
+   }
+  },
+  "nn.functional.conv_transpose2d": {
+   "counts": {
+    "fallback": 12
+   },
+   "notes": {
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 12
+   }
+  },
+  "nn.functional.conv_transpose3d": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 10
+   }
+  },
+  "nn.functional.conv1d": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 10
+   }
+  },
+  "nn.functional.conv2d": {
+   "counts": {
+    "ok": 4,
+    "fallback": 21
+   },
+   "notes": {
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 21
+   }
+  },
+  "nn.functional.conv3d": {
+   "counts": {
+    "fallback": 20
+   },
+   "notes": {
+    "fallback: convolution (dilated, transposed, grouped or non-square convolution), convolution_backward (dilated, transposed, grouped or non-square convolution)": 20
+   }
+  },
+  "nn.functional.group_norm": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: native_group_norm_backward, var_mean.correction": 21,
+    "fallback: native_group_norm_backward": 4
+   }
+  },
+  "nn.functional.instance_norm": {
+   "counts": {
+    "fallback": 7,
+    "ok": 2
+   },
+   "notes": {
+    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D), native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 6,
+    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D)": 1
+   }
+  },
+  "nn.functional.layer_norm": {
+   "counts": {
+    "ok": 5,
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: native_layer_norm (layer norm row count), native_layer_norm_backward (layer norm row count)": 1
+   }
+  },
+  "nn.functional.rms_norm": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "nn.functional.local_response_norm": {
+   "counts": {
+    "ok": 11
+   },
+   "notes": {}
+  },
+  "constant_pad_nd": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "nn.functional.pad.constant": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "nn.functional.pad.reflect": {
+   "counts": {
+    "fallback": 12
+   },
+   "notes": {
+    "fallback: reflection_pad1d.out, reflection_pad1d_backward.grad_input": 6,
+    "fallback: reflection_pad2d, reflection_pad2d_backward": 4,
+    "fallback: reflection_pad3d.out, reflection_pad3d_backward.grad_input": 2
+   }
+  },
+  "nn.functional.pad.replicate": {
+   "counts": {
+    "fallback": 12
+   },
+   "notes": {
+    "fallback: replication_pad1d.out, replication_pad1d_backward.grad_input": 6,
+    "fallback: replication_pad2d.out, replication_pad2d_backward": 4,
+    "fallback: replication_pad3d.out, replication_pad3d_backward": 2
+   }
+  },
+  "nn.functional.pad.replicate_negative": {
+   "counts": {
+    "fallback": 6
+   },
+   "notes": {
+    "fallback: replication_pad2d.out, replication_pad2d_backward": 6
+   }
+  },
+  "nn.functional.pad.circular": {
+   "counts": {
+    "ok": 8
+   },
+   "notes": {}
+  },
+  "nn.functional.hardswish": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "nn.functional.unfold": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: col2im, im2col": 25
+   }
+  },
+  "nn.functional.interpolate.nearest": {
+   "counts": {
+    "fallback": 23
+   },
+   "notes": {
+    "fallback: upsample_nearest3d.out, upsample_nearest3d_backward.grad_input": 9,
+    "fallback: upsample_nearest2d.out, upsample_nearest2d_backward.grad_input": 8,
+    "fallback: upsample_nearest1d.out, upsample_nearest1d_backward.grad_input": 6
+   }
+  },
+  "nn.functional.interpolate.nearest-exact": {
+   "counts": {
+    "fallback": 23
+   },
+   "notes": {
+    "fallback: _upsample_nearest_exact3d.out, _upsample_nearest_exact3d_backward.grad_input": 9,
+    "fallback: _upsample_nearest_exact2d.out, _upsample_nearest_exact2d_backward.grad_input": 8,
+    "fallback: _upsample_nearest_exact1d.out, _upsample_nearest_exact1d_backward.grad_input": 6
+   }
+  },
+  "nn.functional.interpolate.linear": {
+   "counts": {
+    "fallback": 18
+   },
+   "notes": {
+    "fallback: upsample_linear1d.out, upsample_linear1d_backward.grad_input": 18
+   }
+  },
+  "nn.functional.interpolate.bilinear": {
+   "counts": {
+    "fallback": 24
+   },
+   "notes": {
+    "fallback: upsample_bilinear2d.out, upsample_bilinear2d_backward.grad_input": 24
+   }
+  },
+  "nn.functional.interpolate.bicubic": {
+   "counts": {
+    "fallback": 24
+   },
+   "notes": {
+    "fallback: upsample_bicubic2d.out, upsample_bicubic2d_backward.grad_input": 24
+   }
+  },
+  "nn.functional.interpolate.trilinear": {
+   "counts": {
+    "fallback": 24
+   },
+   "notes": {
+    "fallback: upsample_trilinear3d.out, upsample_trilinear3d_backward.grad_input": 24
+   }
+  },
+  "nn.functional.interpolate.area": {
+   "counts": {
+    "ok": 14,
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _adaptive_avg_pool3d, _adaptive_avg_pool3d_backward": 8
+   }
+  },
+  "nn.functional.upsample_bilinear": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: upsample_bilinear2d.out, upsample_bilinear2d_backward.grad_input": 4
+   }
+  },
+  "_upsample_bilinear2d_aa": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: _upsample_bilinear2d_aa.out, _upsample_bilinear2d_aa_backward.grad_input": 7
+   }
+  },
+  "nn.functional.soft_margin_loss": {
+   "counts": {
+    "fallback": 6
+   },
+   "notes": {
+    "fallback: log1p.out, neg.out": 6
+   }
+  },
+  "nn.functional.upsample_nearest": {
+   "counts": {
+    "fallback": 12
+   },
+   "notes": {
+    "fallback: upsample_nearest1d.out, upsample_nearest1d_backward.grad_input": 4,
+    "fallback: upsample_nearest2d.out, upsample_nearest2d_backward.grad_input": 4,
+    "fallback: upsample_nearest3d.out, upsample_nearest3d_backward.grad_input": 4
+   }
+  },
+  "nn.functional.margin_ranking_loss": {
+   "counts": {
+    "ok": 24
+   },
+   "notes": {}
+  },
+  "nn.functional.multi_margin_loss": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: multi_margin_loss, multi_margin_loss_backward": 10
+   }
+  },
+  "nn.functional.multilabel_margin_loss": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: multilabel_margin_loss_backward, multilabel_margin_loss_forward": 7
+   }
+  },
+  "nn.functional.leaky_relu": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: leaky_relu.out, leaky_relu_backward.grad_input": 9
+   }
+  },
+  "nn.functional.multilabel_soft_margin_loss": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: log_sigmoid_backward, log_sigmoid_forward": 4
+   }
+  },
+  "nn.functional.avg_pool2d": {
+   "counts": {
+    "ok": 6,
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: avg_pool2d (avg pool: 4-D float32 with padding <= kernel / 2), avg_pool2d_backward (avg pool backward)": 1
+   }
+  },
+  "nn.functional.max_pool1d": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "nn.functional.max_pool2d": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "max_pool2d_with_indices_backward": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "nn.functional.max_pool3d": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: max_pool3d_with_indices, max_pool3d_with_indices_backward": 25
+   }
+  },
+  "nn.functional.max_unpool1d": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: gather.out, max_unpool2d": 25
+   }
+  },
+  "nn.functional.max_unpool1d.grad": {
+   "counts": {
+    "fallback": 13
+   },
+   "notes": {
+    "fallback: gather.out, max_unpool2d": 13
+   }
+  },
+  "nn.functional.max_unpool2d": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: gather.out, max_unpool2d": 25
+   }
+  },
+  "nn.functional.max_unpool2d.grad": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: gather.out, max_unpool2d": 25
+   }
+  },
+  "nn.functional.max_unpool3d": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: gather.out, max_unpool3d": 25
+   }
+  },
+  "nn.functional.max_unpool3d.grad": {
+   "counts": {
+    "fallback": 12
+   },
+   "notes": {
+    "fallback: gather.out, max_unpool3d": 12
+   }
+  },
+  "nn.functional.linear": {
+   "counts": {
+    "ok": 20,
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: addmv.out": 5
+   }
+  },
+  "nn.functional.bilinear": {
+   "counts": {
+    "ok": 16
+   },
+   "notes": {}
+  },
+  "nn.functional.glu": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: glu.out, glu_backward": 25
+   }
+  },
+  "nn.functional.elu": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: elu.out, elu_backward.grad_input": 3
+   }
+  },
+  "nn.functional.prelu": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _prelu_kernel, _prelu_kernel_backward": 25
+   }
+  },
+  "nn.functional.celu": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: elu.out, elu_backward.grad_input": 3
+   }
+  },
+  "nn.functional.rrelu": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: rrelu_with_noise": 3,
+    "fallback: leaky_relu_backward.grad_input, rrelu_with_noise": 2
+   }
+  },
+  "nn.functional.selu": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: elu.out, elu_backward.grad_input": 3
+   }
+  },
+  "torch.ops.aten._safe_softmax.default": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: all.out, isneginf.out, where.self_out": 8
+   }
+  },
+  "nn.functional.scaled_dot_product_attention": {
+   "counts": {
+    "fallback": 13,
+    "skip": 12
+   },
+   "notes": {
+    "skip: random (dropout)": 12,
+    "fallback: all.out, isneginf.out, where.self_out": 7,
+    "fallback: all.out, isneginf.out, tril.out, where.self_out": 6
+   }
+  },
+  "torch.ops.aten._scaled_dot_product_flash_attention_for_cpu": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: _scaled_dot_product_flash_attention_for_cpu, _scaled_dot_product_flash_attention_for_cpu_backward": 3
+   }
+  },
+  "nn.functional.silu": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "nn.functional.hardsigmoid": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "nn.functional.logsigmoid": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: log_sigmoid_backward, log_sigmoid_forward": 3
+   }
+  },
+  "nn.functional.mish": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: mish.out, softplus.out": 3
+   }
+  },
+  "nn.functional.softsign": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: sgn.out": 3
+   }
+  },
+  "nn.functional.tanhshrink": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "nn.functional.threshold": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: threshold.out": 4
+   }
+  },
+  "nn.functional.triplet_margin_loss": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: norm.out": 7
+   }
+  },
+  "nn.functional.triplet_margin_with_distance_loss": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: norm.out": 7
+   }
+  },
+  "nextafter": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: nextafter.out": 9
+   }
+  },
+  "to": {
+   "counts": {
+    "ok": 8,
+    "fallback": 16
+   },
+   "notes": {
+    "fallback: add.Tensor (float32 only), sum (float32 reductions)": 16
+   }
+  },
+  "topk": {
+   "counts": {
+    "fallback": 14
+   },
+   "notes": {
+    "fallback: scatter.src_out, topk.values": 14
+   }
+  },
+  "nn.functional.batch_norm": {
+   "counts": {
+    "fallback": 9,
+    "ok": 3
+   },
+   "notes": {
+    "fallback: native_batch_norm (batch norm without affine parameters or running stats, or not 4-D), native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 8,
+    "fallback: native_batch_norm_backward (eval-mode or non-affine batch norm backward)": 1
+   }
+  },
+  "nn.functional.binary_cross_entropy": {
+   "counts": {
+    "fallback": 11
+   },
+   "notes": {
+    "fallback: binary_cross_entropy, binary_cross_entropy_backward, logit": 11
+   }
+  },
+  "igamma": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: igamma.out": 9
+   }
+  },
+  "igammac": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: igammac.out": 9
+   }
+  },
+  "nn.functional.softshrink": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: softshrink.out, softshrink_backward.grad_input": 5
+   }
+  },
+  "nn.functional.hardshrink": {
+   "counts": {
+    "fallback": 6
+   },
+   "notes": {
+    "fallback: hardshrink.out, hardshrink_backward.grad_input": 6
+   }
+  },
+  "nn.functional.hardtanh": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: hardtanh, hardtanh_backward": 5
+   }
+  },
+  "nn.functional.gelu": {
+   "counts": {
+    "ok": 8
+   },
+   "notes": {}
+  },
+  "nn.functional.relu6": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: hardtanh, hardtanh_backward": 3
+   }
+  },
+  "mm": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "mode": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: mode, scatter.src_out": 7
+   }
+  },
+  "mvlgamma.mvlgamma_p_1": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: arange.start_out, digamma.out, lgamma.out": 10
+   }
+  },
+  "mvlgamma.mvlgamma_p_3": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: arange.start_out, digamma.out, lgamma.out": 10
+   }
+  },
+  "mvlgamma.mvlgamma_p_5": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: arange.start_out, digamma.out, lgamma.out": 10
+   }
+  },
+  "ne": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "narrow": {
+   "counts": {
+    "ok": 10
+   },
+   "notes": {}
+  },
+  "narrow_copy": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "view_copy": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "neg": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "dist": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: norm.out": 25
+   }
+  },
+  "outer": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "ormqr": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: ormqr, tril.out": 16,
+    "fallback: ormqr": 9
+   }
+  },
+  "permute": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "permute_copy": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "pow": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: logical_and.out, pow.Tensor_Tensor_out": 9
+   }
+  },
+  "float_power": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: add.Tensor (float32 only), eq.Scalar (comparison dtype), ge.Scalar (comparison dtype), log (float32 only), logical_and.out, mul.Tensor (float32 only), pow.Tensor_Tensor_out, sub.Scalar (float32 only), sum (float32 reductions), sum.dim_IntList (float32 reductions), where.self (where on float32)": 5,
+    "fallback: add.Tensor (float32 only), eq.Scalar (comparison dtype), ge.Scalar (comparison dtype), log (float32 only), logical_and.out, mul.Tensor (float32 only), pow.Tensor_Tensor_out, sub.Scalar (float32 only), sum (float32 reductions), where.self (where on float32)": 4
+   }
+  },
+  "rad2deg": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "real": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "roll": {
+   "counts": {
+    "fallback": 17
+   },
+   "notes": {
+    "fallback: roll": 17
+   }
+  },
+  "rot90": {
+   "counts": {
+    "fallback": 19,
+    "ok": 6
+   },
+   "notes": {
+    "fallback: flip": 19
+   }
+  },
+  "round": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: round.out": 1
+   }
+  },
+  "round.decimals_0": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: round.decimals_out": 3
+   }
+  },
+  "round.decimals_3": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: round.decimals_out": 3
+   }
+  },
+  "round.decimals_neg_3": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: round.decimals_out": 3
+   }
+  },
+  "sin": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "sinc": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: sinc.out": 3
+   }
+  },
+  "sinh": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: cosh.out, sinh.out": 1
+   }
+  },
+  "sign": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: sign.out": 1
+   }
+  },
+  "sgn": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: _efficientzerotensor, sgn.out": 1
+   }
+  },
+  "split": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "split.list_args": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "unsafe_split": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "split_with_sizes": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "split_with_sizes_copy": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "__radd__": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "__rdiv__": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "__rmul__": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "__rmatmul__": {
+   "counts": {
+    "fallback": 6,
+    "ok": 9
+   },
+   "notes": {
+    "fallback: addmv.out": 5,
+    "fallback: dot": 1
+   }
+  },
+  "__rmod__": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: div.out_mode, remainder.Tensor_out": 9
+   }
+  },
+  "__rpow__": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: logical_and.out, pow.Tensor_Tensor_out": 9
+   }
+  },
+  "__rsub__": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "rsub": {
+   "counts": {
+    "ok": 11
+   },
+   "notes": {}
+  },
+  "select": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "select_scatter": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "slice": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "slice_scatter": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "signbit": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: signbit.out": 1
+   }
+  },
+  "tan": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: tan.out": 1
+   }
+  },
+  "tanh": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "tensor_split": {
+   "counts": {
+    "skip": 4,
+    "ok": 6
+   },
+   "notes": {
+    "skip: argument must stay on the CPU or is sparse": 4
+   }
+  },
+  "hsplit": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "vsplit": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "dsplit": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "triangular_solve": {
+   "counts": {
+    "fallback": 16
+   },
+   "notes": {
+    "fallback: triangular_solve.X, triu.out": 16
+   }
+  },
+  "trunc": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: trunc.out": 1
+   }
+  },
+  "exp2": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: exp2.out": 3
+   }
+  },
+  "expm1": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: expm1.out": 1
+   }
+  },
+  "nan_to_num": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: mul.Tensor (float32 only), nan_to_num.out": 3
+   }
+  },
+  "reciprocal": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "rsqrt": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "sqrt": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "square": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "lerp": {
+   "counts": {
+    "ok": 7,
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: lerp.Tensor_out": 7
+   }
+  },
+  "angle": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: angle": 1
+   }
+  },
+  "isfinite": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: mul.Tensor (float32 only)": 3
+   }
+  },
+  "isinf": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "isposinf": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: isposinf.out": 1
+   }
+  },
+  "isneginf": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: isneginf.out": 1
+   }
+  },
+  "isreal": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "isnan": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: isnan": 1
+   }
+  },
+  "einsum": {
+   "counts": {
+    "ok": 11
+   },
+   "notes": {}
+  },
+  "svd": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _linalg_svd.U": 25
+   }
+  },
+  "polar": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: polar.out": 9
+   }
+  },
+  "polygamma.polygamma_n_0": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: polygamma.out": 10
+   }
+  },
+  "polygamma.polygamma_n_1": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: polygamma.out": 10
+   }
+  },
+  "polygamma.polygamma_n_2": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: polygamma.out": 10
+   }
+  },
+  "polygamma.polygamma_n_3": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: polygamma.out": 10
+   }
+  },
+  "polygamma.polygamma_n_4": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: polygamma.out": 10
+   }
+  },
+  "ravel": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "reshape": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "reshape_as": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "view": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "view_as": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "atleast_1d": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "atleast_2d": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "atleast_3d": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "flatten": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "unflatten": {
+   "counts": {
+    "ok": 10
+   },
+   "notes": {}
+  },
+  "column_stack": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "pinverse": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _linalg_svd.U": 5,
+    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only)": 3
+   }
+  },
+  "gather": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: gather.out, scatter_add.out": 7
+   }
+  },
+  "index_fill": {
+   "counts": {
+    "fallback": 6
+   },
+   "notes": {
+    "fallback: index_fill_.int_Scalar": 3,
+    "fallback: _unique, index_fill_.int_Scalar, index_fill_.int_Tensor, index_select (row gather of a 4/8-byte dtype)": 1,
+    "fallback: _unique, index_fill_.int_Scalar, index_fill_.int_Tensor": 1,
+    "fallback: _unique, index_fill_.int_Scalar, index_fill_.int_Tensor, index_select (index_select along dim 0)": 1
+   }
+  },
+  "index_copy": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: index_copy.out, index_fill_.int_Scalar, index_select (row gather of a 4/8-byte dtype)": 1,
+    "fallback: index_copy.out, index_fill_.int_Scalar": 1,
+    "fallback: index_copy.out, index_fill_.int_Scalar, index_select (index_select along dim 0)": 1
+   }
+  },
+  "index_select": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: index_add.out, index_select (row gather of a 4/8-byte dtype)": 1,
+    "fallback: index_add.out": 1,
+    "fallback: index_add.out, index_select (index_select along dim 0)": 1
+   }
+  },
+  "index_add": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: index_add.out, index_select (row gather of a 4/8-byte dtype)": 3,
+    "fallback: index_add.out": 3,
+    "fallback: index_add.out, index_select (index_select along dim 0)": 3
+   }
+  },
+  "index_reduce.mean": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: index_add.out, index_reduce.out, index_select (index_select along dim 0)": 2,
+    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (index_select along dim 0)": 2,
+    "fallback: index_add.out, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
+    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
+    "fallback: index_add.out, index_reduce.out": 1
+   }
+  },
+  "index_reduce.prod": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: bitwise_and.Tensor_out, index_add.out, index_reduce.out": 2,
+    "fallback: bitwise_and.Tensor_out, index_add.out, index_reduce.out, index_select (index_select along dim 0)": 2,
+    "fallback: bitwise_and.Tensor_out, index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (index_select along dim 0)": 2,
+    "fallback: bitwise_and.Tensor_out, index_add.out, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
+    "fallback: bitwise_and.Tensor_out, index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1
+   }
+  },
+  "index_reduce.amin": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: index_add.out, index_reduce.out, index_select (index_select along dim 0)": 2,
+    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (index_select along dim 0)": 2,
+    "fallback: index_add.out, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
+    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
+    "fallback: index_add.out, index_reduce.out": 1
+   }
+  },
+  "index_reduce.amax": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: index_add.out, index_reduce.out, index_select (index_select along dim 0)": 2,
+    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (index_select along dim 0)": 2,
+    "fallback: index_add.out, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
+    "fallback: index_add.out, index_fill_.int_Scalar, index_reduce.out, index_select (row gather of a 4/8-byte dtype)": 1,
+    "fallback: index_add.out, index_reduce.out": 1
+   }
+  },
+  "_unsafe_masked_index": {
+   "counts": {
+    "fallback": 6
+   },
+   "notes": {
+    "fallback: _index_put_impl_, clamp (float32 only), index.Tensor (multi-dim advanced indexing), logical_not.out": 6
+   }
+  },
+  "_unsafe_masked_index_put_accumulate": {
+   "counts": {
+    "fallback": 6
+   },
+   "notes": {
+    "fallback: _index_put_impl_, clamp (float32 only), index.Tensor (multi-dim advanced indexing), logical_not.out": 6
+   }
+  },
+  "__getitem__": {
+   "counts": {
+    "fallback": 14,
+    "ok": 2
+   },
+   "notes": {
+    "fallback: _index_put_impl_, index.Tensor (multi-dim advanced indexing)": 7,
+    "fallback: _index_put_impl_": 6,
+    "fallback: _index_put_impl_, index.Tensor (integer index on dim 0)": 1
+   }
+  },
+  "index_put": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: _index_put_impl_": 2,
+    "fallback: _index_put_impl_, index.Tensor (integer index on dim 0)": 2
+   }
+  },
+  "sort": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: scatter.src_out, sort.values_stable": 25
+   }
+  },
+  "unique": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _unique2": 25
+   }
+  },
+  "unique_consecutive": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: unique_consecutive": 25
+   }
+  },
+  "put": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: put_, take": 25
+   }
+  },
+  "take": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: put_, take": 10
+   }
+  },
+  "scatter": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: gather.out, scatter.src_out, scatter.value_out": 8,
+    "fallback: scatter.value_out": 1
+   }
+  },
+  "bfloat16": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: add.Tensor (float32 only), sum (float32 reductions)": 5
+   }
+  },
+  "bool": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "byte": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "char": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "double": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: add.Tensor (float32 only), sum (float32 reductions)": 5
+   }
+  },
+  "float": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "half": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: add.Tensor (float32 only), sum (float32 reductions)": 5
+   }
+  },
+  "int": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "long": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "short": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "cdouble": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "cfloat": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "chalf": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "zeros_like": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "ones_like": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "full_like": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "new_zeros": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "new_ones": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "ones": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "zeros": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "full": {
+   "counts": {
+    "ok": 4
+   },
+   "notes": {}
+  },
+  "eye": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "scalar_tensor": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "new_full": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "scatter_add": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: gather.out, scatter_add.out": 7
+   }
+  },
+  "stack": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "_chunk_cat": {
+   "counts": {
+    "ok": 8
+   },
+   "notes": {}
+  },
+  "hstack": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "hypot": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: hypot.out": 9
+   }
+  },
+  "histogram": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: histogram.bin_ct": 13,
+    "fallback: histogram.bins_tensor": 12
+   }
+  },
+  "histogramdd": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _histogramdd_bin_edges, _histogramdd_from_bin_cts": 13,
+    "fallback: _histogramdd_from_bin_tensors": 12
+   }
+  },
+  "histc": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: histc": 25
+   }
+  },
+  "bucketize": {
+   "counts": {
+    "fallback": 24
+   },
+   "notes": {
+    "fallback: bucketize.Tensor": 24
+   }
+  },
+  "searchsorted": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: searchsorted.Tensor": 25
+   }
+  },
+  "cat": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "unbind": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "unbind_copy": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "vstack": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "dstack": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "unfold": {
+   "counts": {
+    "fallback": 22
+   },
+   "notes": {
+    "fallback: unfold_backward": 22
+   }
+  },
+  "unfold_copy": {
+   "counts": {
+    "fallback": 22
+   },
+   "notes": {
+    "fallback: unfold_backward": 22
+   }
+  },
+  "msort": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: scatter.src_out, sort.values_stable": 2
+   }
+  },
+  "movedim": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "renorm": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: add.Scalar (float32 only), div.Tensor (float32 only), eq.Scalar (comparison dtype), gt.Scalar (comparison dtype), linalg_vector_norm.out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), mul.Tensor (float32 only), reciprocal (float32 only), renorm.out, sub.Tensor (float32 only), sum.di": 2,
+    "fallback: add.Scalar (float32 only), gt.Scalar (comparison dtype), linalg_vector_norm.out, mul.Scalar (float32 only), mul.Tensor (float32 only), reciprocal (float32 only), renorm.out, sgn.out, sub.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 1,
+    "fallback: add.Scalar (float32 only), div.Tensor (float32 only), eq.Tensor (comparison of different dtypes), gt.Scalar (comparison dtype), isnan, linalg_vector_norm.out, logical_or.out, mul.Scalar (float32 only), mul.Tensor (float32 only), reciprocal (float32 only), renorm.out, sgn.out, sub.Tensor (float32 onl": 1
+   }
+  },
+  "repeat": {
+   "counts": {
+    "ok": 24
+   },
+   "notes": {}
+  },
+  "squeeze": {
+   "counts": {
+    "ok": 8
+   },
+   "notes": {}
+  },
+  "squeeze.multiple": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "squeeze_copy": {
+   "counts": {
+    "ok": 8
+   },
+   "notes": {}
+  },
+  "fill": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "resize_": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "resize_as_": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "take_along_dim": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: gather.out, remainder.Tensor_out, scatter_add.out": 4,
+    "fallback: gather.out, scatter_add.out": 1
+   }
+  },
+  "tile": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "trapz": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "trapezoid": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "cumulative_trapezoid": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: cumsum.out, flip": 8,
+    "fallback: cumsum.out": 1
+   }
+  },
+  "unsqueeze": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "unsqueeze_copy": {
+   "counts": {
+    "ok": 9
+   },
+   "notes": {}
+  },
+  "xlogy": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: bitwise_and.Tensor_out": 9
+   }
+  },
+  "zero_": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "logsumexp": {
+   "counts": {
+    "fallback": 15
+   },
+   "notes": {
+    "fallback: amax.out, sum.IntList_out": 15
+   }
+  },
+  "trace": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: arange.start_out, index_fill_.int_Tensor, trace": 5
+   }
+  },
+  "transpose": {
+   "counts": {
+    "ok": 8
+   },
+   "notes": {}
+  },
+  "transpose_copy": {
+   "counts": {
+    "ok": 8
+   },
+   "notes": {}
+  },
+  "T": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "H": {
+   "counts": {
+    "ok": 2
+   },
+   "notes": {}
+  },
+  "mT": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "mH": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "tril": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: tril.out": 8
+   }
+  },
+  "triu": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: triu.out": 8
+   }
+  },
+  "kron": {
+   "counts": {
+    "ok": 1
+   },
+   "notes": {}
+  },
+  "inner": {
+   "counts": {
+    "fallback": 1,
+    "ok": 1
+   },
+   "notes": {
+    "fallback: dot": 1
+   }
+  },
+  "tensordot": {
+   "counts": {
+    "ok": 2,
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: dot": 1
+   }
+  },
+  "to_sparse": {
+   "counts": {
+    "skip": 2
+   },
+   "notes": {
+    "skip: argument must stay on the CPU or is sparse": 2
+   }
+  },
+  "logcumsumexp": {
+   "counts": {
+    "fallback": 6
+   },
+   "notes": {
+    "fallback: _logcumsumexp, flip": 4,
+    "fallback: _logcumsumexp": 2
+   }
+  },
+  "sigmoid": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "digamma": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: digamma.out, polygamma.out": 3
+   }
+  },
+  "erf": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: erf.out": 1
+   }
+  },
+  "erfc": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: erfc.out": 3
+   }
+  },
+  "erfinv": {
+   "counts": {
+    "fallback": 1
+   },
+   "notes": {
+    "fallback: erfinv.out": 1
+   }
+  },
+  "nn.functional.smooth_l1_loss": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: smooth_l1_loss.out, smooth_l1_loss_backward.grad_input": 7,
+    "fallback: sgn.out": 1
+   }
+  },
+  "nn.functional.l1_loss": {
+   "counts": {
+    "fallback": 6
+   },
+   "notes": {
+    "fallback: sgn.out": 6
+   }
+  },
+  "lgamma": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: digamma.out, lgamma.out": 3
+   }
+  },
+  "logdet": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _linalg_slogdet.sign, linalg_lu_solve.out": 9
+   }
+  },
+  "log_softmax": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "log_softmax.with_dtype": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: _log_softmax (float32 softmax), _log_softmax_backward_data (float32 softmax backward), add.Tensor (float32 only), sum (float32 reductions)": 7
+   }
+  },
+  "logit": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: logit, logit_backward.grad_input": 5
+   }
+  },
+  "where": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "nonzero": {
+   "counts": {
+    "fallback": 24
+   },
+   "notes": {
+    "fallback: nonzero": 24
+   }
+  },
+  "nonzero_static": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: nonzero_static": 25
+   }
+  },
+  "jiterator_unary": {
+   "counts": {
+    "skip": 3
+   },
+   "notes": {
+    "skip: cpu raised": 3
+   }
+  },
+  "jiterator_binary": {
+   "counts": {
+    "skip": 9
+   },
+   "notes": {
+    "skip: cpu raised": 9
+   }
+  },
+  "jiterator_4inputs_with_extra_args": {
+   "counts": {
+    "skip": 9
+   },
+   "notes": {
+    "skip: cpu raised": 9
+   }
+  },
+  "jiterator_binary_return_by_ref": {
+   "counts": {
+    "skip": 9
+   },
+   "notes": {
+    "skip: cpu raised": 9
+   }
+  },
+  "jiterator_2inputs_2outputs": {
+   "counts": {
+    "skip": 9
+   },
+   "notes": {
+    "skip: cpu raised": 9
+   }
+  },
+  "norm": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: linalg_vector_norm.out": 14,
+    "fallback: linalg_vector_norm.out, sgn.out": 11
+   }
+  },
+  "norm.nuc": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: _linalg_svd.U": 2
+   }
+  },
+  "norm.fro": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: linalg_vector_norm.out": 3
+   }
+  },
+  "norm.inf": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: div.Tensor (float32 only), isnan, linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 4
+   }
+  },
+  "t": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "t_copy": {
+   "counts": {
+    "ok": 3
+   },
+   "notes": {}
+  },
+  "nn.functional.embedding": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: embedding_dense_backward": 3
+   }
+  },
+  "nn.functional.embedding_bag": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _embedding_bag, _embedding_bag_backward": 16,
+    "fallback: _embedding_bag, _embedding_bag_backward, arange.start_out": 9
+   }
+  },
+  "nn.functional.multi_head_attention_forward": {
+   "counts": {
+    "skip": 1
+   },
+   "notes": {
+    "skip: random (dropout)": 1
+   }
+  },
+  "nn.functional.softplus": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: softplus.out, softplus_backward.grad_input": 3
+   }
+  },
+  "nn.functional.mse_loss": {
+   "counts": {
+    "fallback": 6
+   },
+   "notes": {
+    "fallback: mse_loss.out, mse_loss_backward": 6
+   }
+  },
+  "nn.functional.grid_sample": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: grid_sampler_2d, grid_sampler_2d_backward": 18,
+    "fallback: grid_sampler_3d, grid_sampler_3d_backward": 7
+   }
+  },
+  "grid_sampler_2d": {
+   "counts": {
+    "fallback": 18
+   },
+   "notes": {
+    "fallback: grid_sampler_2d, grid_sampler_2d_backward": 18
+   }
+  },
+  "grid_sampler_3d": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: grid_sampler_3d, grid_sampler_3d_backward": 25
+   }
+  },
+  "argwhere": {
+   "counts": {
+    "fallback": 6
+   },
+   "notes": {
+    "fallback: nonzero": 6
+   }
+  },
+  "all": {
+   "counts": {
+    "fallback": 19,
+    "ok": 1
+   },
+   "notes": {
+    "fallback: all.out": 15,
+    "fallback: all.all_out": 4
+   }
+  },
+  "any": {
+   "counts": {
+    "fallback": 19,
+    "ok": 1
+   },
+   "notes": {
+    "fallback: any.out": 15,
+    "fallback: any.all_out": 4
+   }
+  },
+  "amax": {
+   "counts": {
+    "fallback": 20
+   },
+   "notes": {
+    "fallback: amax.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 20
+   }
+  },
+  "amin": {
+   "counts": {
+    "fallback": 20
+   },
+   "notes": {
+    "fallback: amin.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 20
+   }
+  },
+  "argmax": {
+   "counts": {
+    "ok": 13
+   },
+   "notes": {}
+  },
+  "argmin": {
+   "counts": {
+    "ok": 13
+   },
+   "notes": {}
+  },
+  "count_nonzero": {
+   "counts": {
+    "fallback": 20
+   },
+   "notes": {
+    "fallback: count_nonzero.dim_IntList": 20
+   }
+  },
+  "mean": {
+   "counts": {
+    "ok": 20
+   },
+   "notes": {}
+  },
+  "nanmean": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: div.Tensor (float32 only), isnan, logical_not.out, mul.Tensor (float32 only), nansum, sum.dim_IntList (float32 reductions)": 25
+   }
+  },
+  "std": {
+   "counts": {
+    "fallback": 14
+   },
+   "notes": {
+    "fallback: std.correction": 14
+   }
+  },
+  "std.unbiased": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: std.correction": 2
+   }
+  },
+  "var": {
+   "counts": {
+    "fallback": 14
+   },
+   "notes": {
+    "fallback: var.correction": 14
+   }
+  },
+  "var.unbiased": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: var.correction": 2
+   }
+  },
+  "prod": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: nonzero, prod": 9,
+    "fallback: prod.int_out, sum.dim_IntList (float32 reductions)": 9,
+    "fallback: cumprod.out, flip, prod.int_out, sum.dim_IntList (float32 reductions)": 4,
+    "fallback: prod.int_out": 2,
+    "fallback: prod": 1
+   }
+  },
+  "sum": {
+   "counts": {
+    "ok": 20
+   },
+   "notes": {}
+  },
+  "nansum": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: isnan, logical_not.out, mul.Tensor (float32 only), nansum": 25
+   }
+  },
+  "hash_tensor": {
+   "counts": {
+    "fallback": 20
+   },
+   "notes": {
+    "fallback: hash_tensor.out": 20
+   }
+  },
+  "nn.functional.ctc_loss": {
+   "counts": {
+    "fallback": 12
+   },
+   "notes": {
+    "fallback: _ctc_loss, _ctc_loss_backward": 12
+   }
+  },
+  "nn.functional.cosine_embedding_loss": {
+   "counts": {
+    "ok": 6
+   },
+   "notes": {}
+  },
+  "nn.functional.nll_loss": {
+   "counts": {
+    "ok": 11,
+    "fallback": 14
+   },
+   "notes": {
+    "fallback: nll_loss_backward (nll_loss backward on (N, C)), nll_loss_forward (nll_loss on (N, C) float32)": 7,
+    "fallback: nll_loss2d_backward, nll_loss2d_forward": 7
+   }
+  },
+  "nn.functional.gaussian_nll_loss": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: any.all_out": 25
+   }
+  },
+  "nn.functional.hinge_embedding_loss": {
+   "counts": {
+    "ok": 10
+   },
+   "notes": {}
+  },
+  "nn.functional.huber_loss": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: huber_loss, huber_loss_backward.out": 9
+   }
+  },
+  "nn.functional.pdist": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _pdist_backward, _pdist_forward": 8
+   }
+  },
+  "argsort": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: sort.values_stable": 25
+   }
+  },
+  "repeat_interleave": {
+   "counts": {
+    "ok": 3,
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: index_add.out, index_select (index_select along dim 0), repeat_interleave.Tensor": 1,
+    "fallback: index_add.out, repeat_interleave.Tensor": 1
+   }
+  },
+  "nn.functional.pairwise_distance": {
+   "counts": {
+    "fallback": 7
+   },
+   "notes": {
+    "fallback: norm.out": 6,
+    "fallback: norm.out, sgn.out": 1
+   }
+  },
+  "nn.functional.pixel_shuffle": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "nn.functional.pixel_unshuffle": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "nn.functional.channel_shuffle": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: channel_shuffle": 3
+   }
+  },
+  "nn.functional.kl_div": {
+   "counts": {
+    "ok": 8,
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: bitwise_and.Tensor_out": 8
+   }
+  },
+  "diagflat": {
+   "counts": {
+    "ok": 5
+   },
+   "notes": {}
+  },
+  "scatter_reduce.sum": {
+   "counts": {
+    "fallback": 21
+   },
+   "notes": {
+    "fallback: gather.out, scatter.value_out, scatter_reduce.two_out": 14,
+    "fallback: gather.out, scatter_reduce.two_out": 7
+   }
+  },
+  "scatter_reduce.prod": {
+   "counts": {
+    "fallback": 22
+   },
+   "notes": {
+    "fallback: bitwise_and.Tensor_out, gather.out, scatter.value_out, scatter_add.out, scatter_reduce.two_out": 14,
+    "fallback: bitwise_and.Tensor_out, gather.out, scatter_add.out, scatter_reduce.two_out": 8
+   }
+  },
+  "scatter_reduce.mean": {
+   "counts": {
+    "fallback": 21
+   },
+   "notes": {
+    "fallback: gather.out, scatter.value_out, scatter_add.out, scatter_reduce.two_out": 14,
+    "fallback: gather.out, scatter_add.out, scatter_reduce.two_out": 7
+   }
+  },
+  "scatter_reduce.amin": {
+   "counts": {
+    "fallback": 21
+   },
+   "notes": {
+    "fallback: gather.out, mul.Tensor (float32 only), scatter.value_out, scatter_add.out, scatter_reduce.two_out": 14,
+    "fallback: gather.out, mul.Tensor (float32 only), scatter_add.out, scatter_reduce.two_out": 7
+   }
+  },
+  "scatter_reduce.amax": {
+   "counts": {
+    "fallback": 21
+   },
+   "notes": {
+    "fallback: gather.out, mul.Tensor (float32 only), scatter.value_out, scatter_add.out, scatter_reduce.two_out": 14,
+    "fallback: gather.out, mul.Tensor (float32 only), scatter_add.out, scatter_reduce.two_out": 7
+   }
+  },
+  "_segment_reduce.lengths": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _segment_reduce_backward, segment_reduce": 25
+   }
+  },
+  "_segment_reduce.offsets": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _segment_reduce_backward, segment_reduce": 25
+   }
+  },
+  "fft.fft": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _fft_r2c": 9
+   }
+  },
+  "fft.fft2": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _fft_c2c": 8
+   }
+  },
+  "fft.fftn": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: _fft_c2c": 10
+   }
+  },
+  "fft.hfft": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 7,
+    "fallback: _fft_c2r, _fft_r2c": 2
+   }
+  },
+  "fft.hfft2": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _fft_c2c, _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 5,
+    "fallback: _fft_c2c, _fft_c2r, _fft_r2c": 2,
+    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 1
+   }
+  },
+  "fft.hfftn": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 5,
+    "fallback: _fft_c2c, _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 3,
+    "fallback: _fft_c2c, _fft_c2r, _fft_r2c": 2
+   }
+  },
+  "fft.rfft": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _fft_r2c": 9
+   }
+  },
+  "fft.rfft2": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _fft_r2c": 8
+   }
+  },
+  "fft.rfftn": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: _fft_r2c": 10
+   }
+  },
+  "fft.ifft": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _fft_r2c": 9
+   }
+  },
+  "fft.ifft2": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _fft_c2c": 8
+   }
+  },
+  "fft.ifftn": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: _fft_c2c": 10
+   }
+  },
+  "fft.ihfft": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _fft_r2c": 9
+   }
+  },
+  "fft.ihfft2": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _fft_c2c, _fft_r2c, conj_physical.out": 7,
+    "fallback: _fft_r2c": 1
+   }
+  },
+  "fft.ihfftn": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: _fft_c2c, _fft_r2c, conj_physical.out": 5,
+    "fallback: _fft_r2c": 5
+   }
+  },
+  "fft.irfft": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 7,
+    "fallback: _fft_c2r, _fft_r2c": 2
+   }
+  },
+  "fft.irfft2": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 6,
+    "fallback: _fft_c2r, _fft_r2c": 2
+   }
+  },
+  "fft.irfftn": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: _fft_c2r, _fft_r2c, mul_.Scalar (float32 only)": 8,
+    "fallback: _fft_c2r, _fft_r2c": 2
+   }
+  },
+  "fft.fftshift": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: roll": 5
+   }
+  },
+  "fft.ifftshift": {
+   "counts": {
+    "fallback": 5
+   },
+   "notes": {
+    "fallback: roll": 5
+   }
+  },
+  "linalg.cross": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: linalg_cross.out": 3
+   }
+  },
+  "linalg.det": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _linalg_det.result": 7,
+    "fallback: _linalg_det.result, linalg_lu_solve.out": 2
+   }
+  },
+  "linalg.diagonal": {
+   "counts": {
+    "ok": 15
+   },
+   "notes": {}
+  },
+  "linalg.matrix_sqrth": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _linalg_eigh.eigenvalues, linalg_matrix_sqrth": 8
+   }
+  },
+  "linalg.cholesky": {
+   "counts": {
+    "fallback": 16
+   },
+   "notes": {
+    "fallback: any.all_out, linalg_cholesky_ex.L, linalg_solve_triangular, tril.out": 16
+   }
+  },
+  "linalg.cholesky_ex": {
+   "counts": {
+    "fallback": 16
+   },
+   "notes": {
+    "fallback: linalg_cholesky_ex.L, linalg_solve_triangular, tril.out": 16
+   }
+  },
+  "linalg.vecdot": {
+   "counts": {
+    "fallback": 8,
+    "ok": 17
+   },
+   "notes": {
+    "fallback: vdot": 8
+   }
+  },
+  "linalg.cond": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: _linalg_svd.U": 3
+   }
+  },
+  "linalg.eig": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: linalg_eig": 8
+   }
+  },
+  "linalg.eigvals": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: linalg_eig": 8
+   }
+  },
+  "linalg.eigh": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _linalg_eigh.eigenvalues": 8
+   }
+  },
+  "linalg.eigvalsh": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _linalg_eigh.eigenvalues": 8
+   }
+  },
+  "linalg.householder_product": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: linalg_householder_product, tril.out": 7,
+    "fallback: linalg_householder_product": 2
+   }
+  },
+  "linalg.ldl_factor": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: any.all_out, linalg_ldl_factor_ex.out": 4
+   }
+  },
+  "linalg.ldl_factor_ex": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: linalg_ldl_factor_ex.out": 4
+   }
+  },
+  "linalg.ldl_solve": {
+   "counts": {
+    "fallback": 16
+   },
+   "notes": {
+    "fallback: linalg_ldl_solve.out": 16
+   }
+  },
+  "linalg.lstsq": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), linalg_lstsq.out, maximum (float32), mul.Tensor (float32 only)": 25
+   }
+  },
+  "linalg.lstsq.grad_oriented": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), linalg_lstsq.out, maximum (float32), mul.Tensor (float32 only)": 25
+   }
+  },
+  "linalg.matrix_power": {
+   "counts": {
+    "fallback": 12,
+    "ok": 6
+   },
+   "notes": {
+    "fallback: any.all_out, linalg_inv_ex.inverse": 9,
+    "fallback: eye.m_out": 3
+   }
+  },
+  "linalg.multi_dot": {
+   "counts": {
+    "ok": 7
+   },
+   "notes": {}
+  },
+  "linalg.norm": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: linalg_vector_norm.out, sgn.out": 12,
+    "fallback: linalg_vector_norm.out": 10,
+    "fallback: div.Tensor (float32 only), isnan, linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 3
+   }
+  },
+  "linalg.norm.subgradients_at_zero": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: linalg_vector_norm.out, sgn.out": 12,
+    "fallback: linalg_vector_norm.out": 9,
+    "fallback: div.Tensor (float32 only), isnan, linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 4
+   }
+  },
+  "linalg.matrix_norm": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: amax.out, div.Tensor (float32 only), linalg_vector_norm.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 8,
+    "fallback: amin.out, div.Tensor (float32 only), linalg_vector_norm.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 8,
+    "fallback: linalg_vector_norm.out": 4,
+    "fallback: _linalg_svd.U": 4,
+    "fallback: _linalg_svd.U, amax.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 1
+   }
+  },
+  "linalg.qr": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: linalg_qr.out, linalg_solve_triangular, triu.out": 17,
+    "fallback: linalg_qr.out, linalg_solve_triangular, tril.out": 8
+   }
+  },
+  "linalg.polar": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _linalg_eigh.eigenvalues, linalg_polar.out": 9
+   }
+  },
+  "linalg.slogdet": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: _linalg_slogdet.sign, linalg_lu_solve.out": 9
+   }
+  },
+  "linalg.vander": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: any.all_out, cumprod.out, cumsum.out, flip": 8,
+    "fallback: cumprod.out": 2
+   }
+  },
+  "linalg.vector_norm": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: linalg_vector_norm.out": 12,
+    "fallback: linalg_vector_norm.out, sgn.out": 8,
+    "fallback: div.Tensor (float32 only), isnan, linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 5
+   }
+  },
+  "linalg.lu_factor": {
+   "counts": {
+    "fallback": 20
+   },
+   "notes": {
+    "fallback: any.all_out, linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out, tril.out, triu.out": 20
+   }
+  },
+  "linalg.lu_factor_ex": {
+   "counts": {
+    "fallback": 20
+   },
+   "notes": {
+    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out, tril.out, triu.out": 20
+   }
+  },
+  "linalg.lu": {
+   "counts": {
+    "fallback": 20
+   },
+   "notes": {
+    "fallback: linalg_lu.out, linalg_solve_triangular, tril.out, triu.out": 20
+   }
+  },
+  "linalg.lu_solve": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: linalg_lu_solve.out, linalg_solve_triangular, lu_unpack.out, tril.out, triu.out": 17,
+    "fallback: linalg_lu_solve.out": 8
+   }
+  },
+  "linalg.inv": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: any.all_out, linalg_inv_ex.inverse": 8
+   }
+  },
+  "linalg.inv_ex": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: linalg_inv_ex.inverse": 8
+   }
+  },
+  "linalg.solve": {
+   "counts": {
+    "fallback": 24
+   },
+   "notes": {
+    "fallback: _linalg_solve_ex.result, any.all_out, linalg_lu_solve.out": 24
+   }
+  },
+  "linalg.solve_ex": {
+   "counts": {
+    "fallback": 24
+   },
+   "notes": {
+    "fallback: _linalg_solve_ex.result, linalg_lu_solve.out": 24
+   }
+  },
+  "linalg.solve_triangular": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: linalg_solve_triangular, triu.out": 9,
+    "fallback: linalg_solve_triangular": 8,
+    "fallback: linalg_solve_triangular, tril.out": 8
+   }
+  },
+  "linalg.matrix_rank": {
+   "counts": {
+    "fallback": 10,
+    "ok": 15
+   },
+   "notes": {
+    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only), sum.IntList_out": 10
+   }
+  },
+  "linalg.matrix_rank.hermitian": {
+   "counts": {
+    "fallback": 3,
+    "ok": 5
+   },
+   "notes": {
+    "fallback: _linalg_eigh.eigenvalues, amax.out, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only), sum.IntList_out": 3
+   }
+  },
+  "linalg.pinv": {
+   "counts": {
+    "fallback": 24
+   },
+   "notes": {
+    "fallback: _linalg_svd.U": 15,
+    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only)": 6,
+    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), maximum (float32)": 3
+   }
+  },
+  "linalg.pinv.singular": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _linalg_svd.U, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only)": 13,
+    "fallback: _linalg_svd.U": 12
+   }
+  },
+  "linalg.pinv.hermitian": {
+   "counts": {
+    "fallback": 8
+   },
+   "notes": {
+    "fallback: _linalg_svd.U": 5,
+    "fallback: _linalg_eigh.eigenvalues, amax.out, gt.Tensor (comparison of different dtypes), maximum (float32), mul.Tensor (float32 only)": 3
+   }
+  },
+  "linalg.svd": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _linalg_svd.U": 25
+   }
+  },
+  "linalg.svdvals": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: _linalg_svd.U": 25
+   }
+  },
+  "linalg.tensorinv": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: any.all_out, linalg_inv_ex.inverse": 2
+   }
+  },
+  "linalg.tensorsolve": {
+   "counts": {
+    "fallback": 4
+   },
+   "notes": {
+    "fallback: _linalg_solve_ex.result, any.all_out, linalg_lu_solve.out": 4
+   }
+  },
+  "signal.windows.hamming": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "signal.windows.hann": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "signal.windows.bartlett": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "signal.windows.blackman": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "signal.windows.cosine": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "signal.windows.gaussian": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "signal.windows.kaiser": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "signal.windows.general_cosine": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "signal.windows.general_hamming": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "signal.windows.nuttall": {
+   "counts": {
+    "ok": 12
+   },
+   "notes": {}
+  },
+  "special.i0e": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: sgn.out, special_i0e.out, special_i1e.out": 2
+   }
+  },
+  "special.i1": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: i0.out, special_i1.out": 3
+   }
+  },
+  "special.i1e": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: sgn.out, special_i0e.out, special_i1e.out": 3
+   }
+  },
+  "special.ndtr": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: erf.out": 3
+   }
+  },
+  "special.polygamma.special_polygamma_n_0": {
+   "counts": {
+    "fallback": 10
+   },
+   "notes": {
+    "fallback: polygamma.out": 10
+   }
+  },
+  "special.xlog1py": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: bitwise_and.Tensor_out, special_xlog1py.out": 9
+   }
+  },
+  "special.zeta": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_zeta.out": 9
+   }
+  },
+  "special.entr": {
+   "counts": {
+    "fallback": 2
+   },
+   "notes": {
+    "fallback: special_entr.out": 2
+   }
+  },
+  "special.ndtri": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_ndtri.out": 3
+   }
+  },
+  "special.log_ndtr": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_log_ndtr.out": 3
+   }
+  },
+  "special.erfcx": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_erfcx.out": 3
+   }
+  },
+  "special.airy_ai": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_airy_ai.out": 3
+   }
+  },
+  "special.bessel_j0": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_bessel_j0.out, special_bessel_j1.out": 3
+   }
+  },
+  "special.bessel_j1": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_bessel_j0.out, special_bessel_j1.out": 3
+   }
+  },
+  "special.bessel_y0": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_bessel_y0.out, special_bessel_y1.out": 3
+   }
+  },
+  "special.bessel_y1": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_bessel_y0.out, special_bessel_y1.out": 3
+   }
+  },
+  "special.chebyshev_polynomial_t": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_chebyshev_polynomial_t.out": 9
+   }
+  },
+  "special.chebyshev_polynomial_u": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_chebyshev_polynomial_u.out": 9
+   }
+  },
+  "special.chebyshev_polynomial_v": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_chebyshev_polynomial_v.out": 9
+   }
+  },
+  "special.chebyshev_polynomial_w": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_chebyshev_polynomial_w.out": 9
+   }
+  },
+  "special.hermite_polynomial_h": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_hermite_polynomial_h.out": 9
+   }
+  },
+  "special.hermite_polynomial_he": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_hermite_polynomial_he.out": 9
+   }
+  },
+  "special.laguerre_polynomial_l": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_laguerre_polynomial_l.out": 9
+   }
+  },
+  "special.legendre_polynomial_p": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_legendre_polynomial_p.out": 9
+   }
+  },
+  "special.modified_bessel_i0": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_modified_bessel_i0.out, special_modified_bessel_i1.out": 3
+   }
+  },
+  "special.modified_bessel_i1": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: i0.out, special_modified_bessel_i1.out": 3
+   }
+  },
+  "special.modified_bessel_k0": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_modified_bessel_k0.out, special_modified_bessel_k1.out": 3
+   }
+  },
+  "special.modified_bessel_k1": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_modified_bessel_k0.out, special_modified_bessel_k1.out": 3
+   }
+  },
+  "special.scaled_modified_bessel_k0": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_scaled_modified_bessel_k0.out": 3
+   }
+  },
+  "special.scaled_modified_bessel_k1": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_scaled_modified_bessel_k1.out": 3
+   }
+  },
+  "special.shifted_chebyshev_polynomial_t": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_shifted_chebyshev_polynomial_t.out": 9
+   }
+  },
+  "special.shifted_chebyshev_polynomial_u": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_shifted_chebyshev_polynomial_u.out": 9
+   }
+  },
+  "special.shifted_chebyshev_polynomial_v": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_shifted_chebyshev_polynomial_v.out": 9
+   }
+  },
+  "special.shifted_chebyshev_polynomial_w": {
+   "counts": {
+    "fallback": 9
+   },
+   "notes": {
+    "fallback: special_shifted_chebyshev_polynomial_w.out": 9
+   }
+  },
+  "special.spherical_bessel_j0": {
+   "counts": {
+    "fallback": 3
+   },
+   "notes": {
+    "fallback: special_spherical_bessel_j0.out": 3
+   }
+  },
+  "masked.sum": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "masked.prod": {
+   "counts": {
+    "ok": 4,
+    "fallback": 21
+   },
+   "notes": {
+    "fallback: prod.int_out, sum.dim_IntList (float32 reductions)": 17,
+    "fallback: prod.int_out": 4
+   }
+  },
+  "masked.cumsum": {
+   "counts": {
+    "fallback": 17
+   },
+   "notes": {
+    "fallback: cumsum.out, flip": 10,
+    "fallback: cumsum.out": 7
+   }
+  },
+  "masked.cumprod": {
+   "counts": {
+    "fallback": 17
+   },
+   "notes": {
+    "fallback: any.all_out, cumprod.out, cumsum.out, flip": 10,
+    "fallback: cumprod.out": 7
+   }
+  },
+  "masked.amax": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: amax.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 25
+   }
+  },
+  "masked.amin": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: amin.out, div.Tensor (float32 only), mul.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 25
+   }
+  },
+  "masked.argmax": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "masked.argmin": {
+   "counts": {
+    "ok": 25
+   },
+   "notes": {}
+  },
+  "masked.mean": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: div.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 25
+   }
+  },
+  "masked.median": {
+   "counts": {
+    "fallback": 17
+   },
+   "notes": {
+    "fallback: nanmedian.dim_values, scatter.src_out": 17
+   }
+  },
+  "masked.norm": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: linalg_vector_norm.out": 25
+   }
+  },
+  "masked.var": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: div.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 25
+   }
+  },
+  "masked.std": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: div.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 25
+   }
+  },
+  "masked.softmax": {
+   "counts": {
+    "ok": 24
+   },
+   "notes": {}
+  },
+  "masked.log_softmax": {
+   "counts": {
+    "ok": 24
+   },
+   "notes": {}
+  },
+  "masked.softmin": {
+   "counts": {
+    "ok": 24
+   },
+   "notes": {}
+  },
+  "masked.logaddexp": {
+   "counts": {
+    "fallback": 11
+   },
+   "notes": {
+    "fallback: logaddexp.out": 11
+   }
+  },
+  "masked.logsumexp": {
+   "counts": {
+    "fallback": 25
+   },
+   "notes": {
+    "fallback: amax.out, sum.IntList_out": 25
+   }
+  },
+  "bmm.triton_optimized": {
+   "counts": {
+    "ok": 18
+   },
+   "notes": {}
+  }
+ },
+ "seconds": 33
+}
