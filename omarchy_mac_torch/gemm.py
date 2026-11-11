@@ -4,9 +4,12 @@ One generated kernel per (kind, tile): C[M, N] = sum_k A[m, k] B[k, n], where th
 the loaders (any stride and padding), 256 threads per workgroup, each computing a TM x TN block in registers.
 
   kind 0  forward      m = (n, oy, ox)   k = (ci, ky, kx)   n = co        A = im2col(x)    B = w
-  kind 1  grad input   m = (n, y, x)     k = (co, ky, kx)   n = ci        A = im2col(gy)   B = w   (stride 1 only)
+  kind 1  grad input   m = (n, y, x)     k = (co, ky, kx)   n = ci        A = im2col(gy)   B = w   (any stride)
   kind 2  grad weight  m = co            k = (n, oy, ox)    n = (ci,ky,kx) A = gy          B = im2col(x), split-K
   kind 3  forward with the previous BatchNorm + ReLU applied in the input loader (eval plans)
+
+The strided grad-input loader (skip taps that don't land on the output grid) follows TensorFlow.js's WebGPU
+conv2d backprop-input kernel (conv_backprop_mm_webgpu.ts, Apache-2.0), adapted from NHWC to NCHW.
 """
 
 # (bm, bn, tm, tn): workgroup tile and per-thread register block; threads = (bm/tm) * (bn/tn) = 256 for all.
@@ -15,7 +18,7 @@ TILES = [(64, 64, 4, 4), (256, 16, 4, 4), (16, 256, 4, 4), (128, 32, 4, 4), (32,
 BK = 16
 
 PARAMS = """struct P { n: u32, ci: u32, co: u32, ih: u32, iw: u32, oh: u32, ow: u32, ks: u32,
-           stride: u32, pad: u32, M: u32, N: u32, K: u32, kslice: u32, slices: u32, p2: u32 };"""
+           stride: u32, pad: u32, M: u32, N: u32, K: u32, kslice: u32, slices: u32, hb: u32 };"""
 
 _FWD = """
 fn aval(m: u32, k: u32) -> f32 {
@@ -27,14 +30,25 @@ fn aval(m: u32, k: u32) -> f32 {
   RETURN
 }
 fn bval(k: u32, nn: u32) -> f32 { return b[nn * p.K + k]; }
-fn store(m: u32, nn: u32, v: f32, z: u32) { let ohw = p.oh * p.ow; out[((m / ohw) * p.co + nn) * ohw + m % ohw] = v; }
+fn store(m: u32, nn: u32, v: f32, z: u32) {
+  let ohw = p.oh * p.ow;
+  var r = v;
+  if (p.hb == 1u) { r += bias[nn]; }
+  out[((m / ohw) * p.co + nn) * ohw + m % ohw] = r;
+}
 """
 _GIN = """
 fn aval(m: u32, k: u32) -> f32 {
   let ihw = p.ih * p.iw; let n = m / ihw; let r = m % ihw; let y = r / p.iw; let x = r % p.iw;
   let kk = p.ks * p.ks; let co = k / kk; let kr = k % kk; let ky = kr / p.ks; let kx = kr % p.ks;
-  let yy = i32(y) + i32(p.pad) - i32(ky); let xx = i32(x) + i32(p.pad) - i32(kx);
-  if (yy < 0 || yy >= i32(p.oh) || xx < 0 || xx >= i32(p.ow)) { return 0.0; }
+  var yy = i32(y) + i32(p.pad) - i32(ky); var xx = i32(x) + i32(p.pad) - i32(kx);
+  if (yy < 0 || xx < 0) { return 0.0; }
+  if (p.stride > 1u) {  // only taps on the stride grid came from an output pixel
+    let st = i32(p.stride);
+    if (yy % st != 0 || xx % st != 0) { return 0.0; }
+    yy = yy / st; xx = xx / st;
+  }
+  if (yy >= i32(p.oh) || xx >= i32(p.ow)) { return 0.0; }
   return a[((n * p.co + co) * p.oh + u32(yy)) * p.ow + u32(xx)];
 }
 fn bval(k: u32, nn: u32) -> f32 { let kk = p.ks * p.ks; return b[((k / kk) * p.ci + nn) * kk + k % kk]; }
@@ -94,7 +108,8 @@ def source(kind, bm, bn, tm, tn, a_kfast=False, b_nfast=False):
     nt = (bm // tm) * (bn // tn)
     fwd = kind in (0, 3)
     body = _MM if kind == 4 else (_FWD if fwd else (_GIN if kind == 1 else _GW))
-    if kind == 3:
+    if kind == 3:  # eval plans: no bias (BN folding), the BN parameters are bound at 4..7 instead
+        body = body.replace("  if (p.hb == 1u) { r += bias[nn]; }\n", "")
         body = body.replace("RETURN", "return max((v - bnm[c]) * inverseSqrt(bnv[c] + 1e-5) * bng[c] + bnb[c], 0.0);")
     else:
         body = body.replace("RETURN", "return v;")
@@ -114,7 +129,7 @@ def source(kind, bm, bn, tm, tn, a_kfast=False, b_nfast=False):
             for c, comp in enumerate("xyzw"):
                 epi.append(f"  {{ let m = m0 + lid.y * {tm}u + {i}u; let nn = n0 + lid.x * {tn}u + {4 * j + c}u;\n"
                            f"    if (m < p.M && nn < p.N) {{ store(m, nn, {acc[i][j]}.{comp}, wg.z); }} }}")
-    extra = BN_BINDINGS if kind == 3 else ("@group(0) @binding(4) var<storage, read> bias: array<f32>;" if kind == 4 else "")
+    extra = BN_BINDINGS if kind == 3 else ("@group(0) @binding(4) var<storage, read> bias: array<f32>;" if kind in (0, 4) else "")
     return f"""{MM_PARAMS if kind == 4 else PARAMS}
 @group(0) @binding(0) var<storage, read> a: array<f32>;
 @group(0) @binding(1) var<storage, read> b: array<f32>;
@@ -155,96 +170,4 @@ fn main(@builtin(workgroup_id) wg: vec3<u32>, @builtin(local_invocation_id) lid:
   }}
 {chr(10).join(epi)}
 }}
-"""
-
-
-# ---- pooling kernels (general window / stride / padding; indices in PyTorch's format: flat position in the plane) ----
-_S = "struct S { n: u32, c: u32, ih: u32, iw: u32, oh: u32, ow: u32, k: u32, stride: u32, pad: u32, p0: u32, p1: u32, p2: u32 };"
-MAXPOOL_FWD = _S + """
-@group(0) @binding(0) var<storage, read> x: array<f32>;
-@group(0) @binding(1) var<storage, read_write> out: array<f32>;
-@group(0) @binding(2) var<storage, read_write> idx: array<i32>;
-@group(0) @binding(3) var<uniform> s: S;
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) gid: vec3<u32>, @builtin(num_workgroups) nwg: vec3<u32>) {
-  let i = gid.x + gid.y * nwg.x * 256u;
-  if (i >= s.n * s.c * s.oh * s.ow) { return; }
-  let ox = i % s.ow; let oy = (i / s.ow) % s.oh; let nc = i / (s.ow * s.oh);
-  var best = -3.4e38; var bi = 0u;
-  for (var ky = 0u; ky < s.k; ky++) {
-    let y = i32(oy * s.stride + ky) - i32(s.pad);
-    if (y < 0 || y >= i32(s.ih)) { continue; }
-    for (var kx = 0u; kx < s.k; kx++) {
-      let xx = i32(ox * s.stride + kx) - i32(s.pad);
-      if (xx < 0 || xx >= i32(s.iw)) { continue; }
-      let pos = u32(y) * s.iw + u32(xx);
-      let v = x[nc * s.ih * s.iw + pos];
-      if (v > best) { best = v; bi = pos; }
-    }
-  }
-  out[i] = best; idx[i] = i32(bi);
-}
-"""
-MAXPOOL_BWD = _S + """
-@group(0) @binding(0) var<storage, read> g: array<f32>;
-@group(0) @binding(1) var<storage, read> idx: array<i32>;
-@group(0) @binding(2) var<storage, read_write> gx: array<f32>;
-@group(0) @binding(3) var<uniform> s: S;
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) gid: vec3<u32>, @builtin(num_workgroups) nwg: vec3<u32>) {
-  let i = gid.x + gid.y * nwg.x * 256u;
-  if (i >= s.n * s.c * s.ih * s.iw) { return; }
-  let xx = i32(i % s.iw); let y = i32((i / s.iw) % s.ih); let nc = i / (s.iw * s.ih);
-  let st = i32(s.stride); let k = i32(s.k); let pd = i32(s.pad);
-  let ny = y + pd - k + 1; let nx = xx + pd - k + 1;
-  let ylo = select(0, (ny + st - 1) / st, ny > 0); let yhi = min(i32(s.oh) - 1, (y + pd) / st);
-  let xlo = select(0, (nx + st - 1) / st, nx > 0); let xhi = min(i32(s.ow) - 1, (xx + pd) / st);
-  let me = y * i32(s.iw) + xx;
-  var acc = 0.0;
-  for (var oy = ylo; oy <= yhi; oy++) {
-    for (var ox = xlo; ox <= xhi; ox++) {
-      let o = (nc * s.oh + u32(oy)) * s.ow + u32(ox);
-      if (idx[o] == me) { acc += g[o]; }
-    }
-  }
-  gx[i] = acc;
-}
-"""
-ADAPOOL_FWD = _S + """
-@group(0) @binding(0) var<storage, read> x: array<f32>;
-@group(0) @binding(1) var<storage, read_write> out: array<f32>;
-@group(0) @binding(2) var<uniform> s: S;
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) gid: vec3<u32>, @builtin(num_workgroups) nwg: vec3<u32>) {
-  let i = gid.x + gid.y * nwg.x * 256u;
-  if (i >= s.n * s.c * s.oh * s.ow) { return; }
-  let ox = i % s.ow; let oy = (i / s.ow) % s.oh; let nc = i / (s.ow * s.oh);
-  let y0 = (oy * s.ih) / s.oh; let y1 = ((oy + 1u) * s.ih + s.oh - 1u) / s.oh;
-  let x0 = (ox * s.iw) / s.ow; let x1 = ((ox + 1u) * s.iw + s.ow - 1u) / s.ow;
-  var acc = 0.0;
-  for (var y = y0; y < y1; y++) { for (var xx = x0; xx < x1; xx++) { acc += x[(nc * s.ih + y) * s.iw + xx]; } }
-  out[i] = acc / f32((y1 - y0) * (x1 - x0));
-}
-"""
-ADAPOOL_BWD = _S + """
-@group(0) @binding(0) var<storage, read> g: array<f32>;
-@group(0) @binding(1) var<storage, read_write> gx: array<f32>;
-@group(0) @binding(2) var<uniform> s: S;
-@compute @workgroup_size(256)
-fn main(@builtin(global_invocation_id) gid: vec3<u32>, @builtin(num_workgroups) nwg: vec3<u32>) {
-  let i = gid.x + gid.y * nwg.x * 256u;
-  if (i >= s.n * s.c * s.ih * s.iw) { return; }
-  let xx = i % s.iw; let y = (i / s.iw) % s.ih; let nc = i / (s.iw * s.ih);
-  var acc = 0.0;
-  for (var oy = 0u; oy < s.oh; oy++) {
-    let y0 = (oy * s.ih) / s.oh; let y1 = ((oy + 1u) * s.ih + s.oh - 1u) / s.oh;
-    if (y < y0 || y >= y1) { continue; }
-    for (var ox = 0u; ox < s.ow; ox++) {
-      let x0 = (ox * s.iw) / s.ow; let x1 = ((ox + 1u) * s.iw + s.ow - 1u) / s.ow;
-      if (xx < x0 || xx >= x1) { continue; }
-      acc += g[(nc * s.oh + oy) * s.ow + ox] / f32((y1 - y0) * (x1 - x0));
-    }
-  }
-  gx[i] = acc;
-}
 """

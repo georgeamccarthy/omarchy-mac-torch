@@ -8,3 +8,5 @@ _build/
 __pycache__/
 omarchy_mac_torch/_build_native/
 omarchy_mac_torch/_build/
+csrc/kernels_gen.inc
+omarchy_mac_torch/_build_info.json
