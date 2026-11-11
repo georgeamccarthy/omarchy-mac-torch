@@ -1,0 +1,22 @@
+name: Bug report
+description: Wrong results, a crash, or an op that falls back when it shouldn't
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: A minimal script if you can. `OMARCHY_MAC_TORCH_DEBUG=1` names the op behind a GPU error, and `with omarchy_mac_torch.debug.shadow():` finds the first op whose result differs from the CPU.
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Output of `vulkaninfo --summary | grep -A3 deviceName`, `uname -r`, `python -c "import torch, omarchy_mac_torch as o; print(torch.__version__, o.__version__, o.native.core.adapter_name())"`
+    validations:
+      required: true
+  - type: textarea
+    id: fallbacks
+    attributes:
+      label: Fallbacks
+      description: "`print(omarchy_mac_torch.FALLBACKS)` after running your script"

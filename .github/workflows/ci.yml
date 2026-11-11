@@ -1,0 +1,51 @@
+# Correctness CI on Mesa's software Vulkan driver (lavapipe): wgpu runs the same WGSL kernels on the CPU, slowly but
+# correctly, so the build, every kernel's compilation, the GPU-vs-CPU checks and the conformance sweep run on ordinary
+# GitHub runners. Performance is only measured on real Apple hardware (tools/bench.py).
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  correctness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      OMARCHY_MAC_TORCH_FALLBACK_ADAPTER: "1"   # take lavapipe, which wgpu reports as a fallback adapter
+      OMARCHY_MAC_TORCH_TUNE: "0"               # autotuning timings are meaningless on a software rasterizer
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vulkan software driver
+        run: sudo apt-get update && sudo apt-get install -y mesa-vulkan-drivers vulkan-tools && vulkaninfo --summary
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.13"
+      - name: Install (CPU-only torch keeps the download small)
+        run: |
+          uv venv
+          uv pip install torch --index-url https://download.pytorch.org/whl/cpu
+          uv pip install -e ".[build,dev]"
+      - name: Build the backend and compile every kernel
+        run: uv run --no-sync python tools/build_native.py
+      - name: GPU-vs-CPU checks
+        run: |
+          for s in native_final_check alexnet_ops_check activation_check conv_kinds_check eval_check grad_accum_check storage_check; do
+            echo "== $s"; uv run --no-sync python notes/scripts/$s.py
+          done
+      - name: Conformance sweep (PyTorch OpInfo samples)
+        run: uv run --no-sync python tools/conformance.py --grad --limit 10 --out results/conformance.json
+      - name: Fail on mismatches
+        run: |
+          uv run --no-sync python - <<'PY'
+          import json, sys
+          r = json.load(open("results/conformance.json"))
+          bad = {k: v for k, v in r["ops"].items() if v["counts"].get("mismatch")}
+          print(r["summary"]); print("\n".join(f"{k}: {v['notes']}" for k, v in bad.items()))
+          sys.exit(1 if bad else 0)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: conformance
+          path: results/conformance.json
