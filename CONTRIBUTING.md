@@ -23,6 +23,8 @@ Agent-written PRs are welcome.
    should change from `fallback`/`ok` to `mismatch` in a full run). If a model was the motivation,
    `with omarchy_mac_torch.debug.shadow():` around it should report no mismatches.
 6. If it's on a hot path, `uv run tools/bench.py` before and after.
+7. Before sending it: `uv run --extra dev --extra build tools/check.py` (everything, on your GPU; exits non-zero on
+   any failure, so it also works as a `.git/hooks/pre-push`).
 
 ## Ground rules
 

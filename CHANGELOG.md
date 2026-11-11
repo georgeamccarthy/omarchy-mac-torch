@@ -35,6 +35,6 @@ Added: strided convolution input gradients on the GPU, conv bias in the GEMM epi
 general strided elementwise kernel (any rank, any strides), softmax over any dim, workgroup-tree and split
 reductions (a 16M-element sum: 36 ms -> 0.6 ms), general average pooling, `nll_loss`, GELU, AdamW, cat/stack along
 any dim, `masked_fill`, integer add, `tools/conformance.py`, `tools/acceptance.py`, `tools/bench.py`, shadow mode,
-strict mode, lavapipe CI.
+strict mode, `tools/check.py` (all checks locally, on the GPU).
 
 Removed: the original Python/wgpu-py backend (`OMARCHY_MAC_TORCH_BACKEND=python`).

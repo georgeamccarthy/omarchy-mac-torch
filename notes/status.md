@@ -20,8 +20,8 @@ what works, what doesn't, and what's next. measured on one machine (macbook pro 
 - only tested on an m1 pro. m3/m4 wait on the linux gpu driver.
 
 ## checks
-`tools/conformance.py --grad`, `tools/acceptance.py`, `notes/scripts/*_check.py`, `debug.shadow()`. ci runs them on
-lavapipe.
+`tools/check.py` runs them all locally (build, check scripts, conformance sweep; `--full` adds acceptance and
+benchmarks). also `debug.shadow()` for one model.
 
 ## next
 see `docs/roadmap.md`.

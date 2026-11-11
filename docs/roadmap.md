@@ -32,7 +32,7 @@ have fp16 kernels to borrow). Halves memory traffic, which is most of the elemen
 
 ## 6. Project
 - Prebuilt wheels per torch version (the hatch hook already tags them per platform), a release workflow.
-- A benchmark runner on real hardware for PRs (self-hosted, if a Mac is available).
+- `tools/check.py --full` as a pre-push hook, so every push has run the sweep and benchmarks on real hardware.
 - Reports from M1/M2 Max/Ultra and M2 machines.
 
 See also `docs/driver-roadmap.md` for driver-side work (Honeykrisp, the Asahi kernel driver).
