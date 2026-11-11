@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/alexnet.svg" alt="AlexNet training on the CPU vs the GPU, side by side. The GPU is about 3x faster." width="100%">
+  <img src="docs/alexnet.svg" alt="AlexNet training on the CPU vs the GPU, side by side. The GPU is about 4x faster." width="100%">
 </p>
 
 # omarchy-mac-torch
@@ -24,54 +24,78 @@ The device name is long because it matches the project name. Set `dev` once and 
 
 ## Speed
 
-AlexNet (61M parameters, 224x224), same model, data and optimizer on both. MacBook Pro 16" (M1 Pro) on Omarchy, PyTorch 2.15. The CPU uses the 4 fastest cores, which is where it is quickest on this machine.
+Training, same weights, data and optimizer on both, 5 steps after a warm-up. MacBook Pro 16" (M1 Pro) on Omarchy, PyTorch 2.15, the CPU on its 4 fastest cores. `uv run tools/acceptance.py` produces this table and also checks that the losses match the CPU's.
 
-| AlexNet | CPU | GPU | Speedup |
-|---|---|---|---|
-| **Training**, batch 16 | 441 ms/step (36 img/s) | 148 ms/step (108 img/s) | **3.0x** |
-| **Inference**, batch 16 | 61.7 ms (259 img/s) | 49.2 ms (325 img/s) | 1.25x |
-| **Inference**, batch 64 | 216.8 ms (295 img/s) | 166.8 ms (384 img/s) | 1.3x |
+| Model | CPU ms/step | GPU ms/step | Speedup | Ops that fall back to the CPU |
+|---|---|---|---|---|
+| AlexNet, batch 16, 224x224 | 519 | 128 | **4.1x** | none |
+| ResNet-18, batch 32, 64x64 | 488 | 101 | **4.9x** | none |
+| PlainCNN (conv-BN-ReLU), batch 128 | 87 | 32 | **2.8x** | none |
+| SeparableCNN (depthwise), batch 128 | 62 | 22 | **2.9x** | none |
+| MobileNetV3-Small style, batch 32 | 71 | 29 | **2.5x** | none |
+| ViT (small), batch 32 | 77 | 65 | **1.2x** | none |
+| GPT (small), batch 16 x 64 tokens | 44 | 36-45 | 1.0-1.3x | none |
 
-The animation at the top is the training row, played back at the measured speed. `notes/scripts/record_alexnet.py` records it and `tools/make_animation.py` draws it.
+Convnets are where this backend is strongest. Small transformers now run entirely on the GPU and edge past the CPU; their time goes to many small elementwise kernels, which graph replay (`docs/roadmap.md`) should cut.
 
-Training gains the most because the CPU is slow at backward passes. Inference only gains a little because the CPU is already decent at forward-only AlexNet, and the convolution kernels here reach a few hundred GFLOP/s on a GPU that can do several thousand. There is room to go faster.
+The animations play back real measured step times (`notes/scripts/record_training.py` records them, `tools/make_animation.py` draws them): AlexNet at the top, ResNet-18 and MobileNetV3 here.
+
+<p align="center">
+  <img src="docs/resnet18.svg" alt="ResNet-18 training on the CPU vs the GPU, side by side. The GPU is about 5x faster." width="100%">
+  <img src="docs/mobilenetv3.svg" alt="MobileNetV3 training on the CPU vs the GPU, side by side. The GPU is about 2.6x faster." width="100%">
+</p>
 
 ## What works
 
-- Convolutions: kernels up to 11x11, stride 1 to 4, any padding, forward and backward. A strided conv doesn't need an input gradient on the GPU path, so it works as a first layer like AlexNet's. Depthwise 3x3, 5x5 and 7x7. Fused conv + batchnorm + ReLU + pool stacks.
-- Batchnorm, max pool (any window and stride), average pool, adaptive average pool, ReLU / SiLU / sigmoid / tanh / hardswish, dropout, layer norm, softmax, cross entropy.
-- Linear layers and matmul (including batched), elementwise math, reductions, indexing, and cat / stack along the first dim.
-- SGD (momentum, nesterov) and Adam, fused so the update is one pass over the weights.
-- `torch.save`, `state_dict`, `deepcopy` and the other things you'd expect from a normal device.
-- Anything missing falls back to the CPU and still gives the right answer, just slowly. `omarchy_mac_torch.FALLBACKS` lists what fell back.
+- Convolutions: kernels up to 11x11, stride 1 to 4, any padding, forward and backward (input gradients at any stride, so ResNet-style downsampling stays on the GPU), bias added inside the GEMM. Depthwise 3x3, 5x5 and 7x7.
+- Batchnorm, layer norm, max pool and average pool (any window, stride, padding, `ceil_mode`, `count_include_pad`, `divisor_override`), adaptive average pool, dropout, softmax and log-softmax over any dim, cross entropy (via `nll_loss`, with weights, `ignore_index` and label smoothing).
+- Elementwise math on tensors of any shape and strides (broadcasting, in-place, views of the same storage), ReLU / GELU / SiLU / sigmoid / tanh / hardswish and their gradients, comparisons, `where`, `masked_fill`, reductions (`sum`, `mean`, `argmax`, `argmin` over any dims), matmul / `addmm` / `bmm`, `cat` and `stack` along any dim, row indexing.
+- SGD (momentum, nesterov), Adam and AdamW, fused so each parameter is updated in one pass; other optimizers run through PyTorch's foreach path.
+- Every dtype is stored exactly as PyTorch stores it, so `torch.save` / `torch.load`, `deepcopy`, `state_dict`, `.view(dtype)`, generators and `torch.manual_seed` behave like on any other device, without patching PyTorch.
+- `torch.compile(model, backend="omarchy_mac_torch")` works on any model: it fuses BatchNorm+ReLU (forward and backward), puts bias and ReLU into the conv kernel (and folds eval-mode BatchNorm into the conv's weights), and compiles chains of elementwise ops into single kernels. Today it is about as fast as eager mode; the gain over eager will come with graph replay (`docs/roadmap.md`).
+- Conv-BatchNorm-ReLU-pool stacks inside an `nn.Sequential` are fused automatically into one prebuilt plan (1.2x to 1.9x on the small convnets above). `OMARCHY_MAC_TORCH_AUTO_FUSE=0` turns that off.
+- Anything not implemented falls back to the CPU and still gives the right answer, just slowly. `omarchy_mac_torch.FALLBACKS` lists what fell back and why.
 
-What isn't there: fp16 / bf16 (float32 only), dilated, transposed and grouped convs (other than depthwise), attention, and most of PyTorch's op surface. It covers about 90 ops out of roughly 2000. It does convnets well but it isn't a drop-in replacement yet.
+What isn't there yet: fp16 / bf16 (float32 math; other dtypes are stored and moved but computed on the CPU), dilated, transposed and grouped convs (other than depthwise), strided depthwise convs, a fast attention path, and most of PyTorch's long tail. `tools/conformance.py` runs PyTorch's own test inputs for about 640 ops: all of them give the right answer, about a third entirely on the GPU.
 
-Tested on a MacBook Pro 16" M1 Pro, Omarchy (Arch Linux ARM), Mesa's Honeykrisp. Nothing else. Other M1 and M2 machines on the same driver should work, and a report would be useful. M3 and M4 depend on the Linux GPU driver supporting them, not on this project.
+Tested on a MacBook Pro 16" M1 Pro, Omarchy (Arch Linux ARM), Mesa's Honeykrisp. Other M1 and M2 machines on the same driver should work, and a report would be useful. M3 and M4 depend on the Linux GPU driver supporting them, not on this project.
 
-## Where this goes
+## Checking it, debugging it
 
-I want to add more ops, fp16, faster kernels, and more chips as the driver supports them. The quickest way to get what you need is to clone it, add the op you're missing, and send a PR. That's how most of it got built: run a model, see what falls back, fix that. Agent PRs are welcome too. If your agent hits a missing op and writes it, send it.
+There are no unit tests. Correctness is checked against the CPU:
 
-Finding your way around:
+- `uv run --extra dev --extra build tools/check.py` runs everything below in one go (build, check scripts, conformance sweep; `--full` adds the acceptance table and benchmarks). Run it before pushing.
+- `uv run --extra dev tools/conformance.py --grad` runs the OpInfo sample inputs from PyTorch's own test suite (odd shapes, broadcasting, non-contiguous views, edge-case arguments) on the GPU and the CPU, forwards and gradients, and writes a per-op report.
+- `notes/scripts/*_check.py` compare whole models and specific ops against the CPU.
+- `tools/acceptance.py` trains the models above on both and compares losses; `tools/bench.py --save` records timings per version in `benchmarks/` and shows what got slower since the last one.
 
-- `csrc/native.cpp` is the backend: allocator, command queue, every op, the CPU fallback and the fused stacks.
-- `omarchy_mac_torch/gemm.py` generates the convolution and matmul kernels (WGSL). `native.py` registers the kernels and a few small PyTorch patches.
-- There are no unit tests. The checks are scripts in `notes/scripts/` that compare the GPU against the CPU: `native_final_check.py` (models and ops), `alexnet_ops_check.py` (conv and pool ops) and a few more. Run them before and after a change.
-- `notes/` has what I found about performance and what's missing.
+When something is wrong:
+
+- `with omarchy_mac_torch.debug.shadow():` (or `OMARCHY_MAC_TORCH_SHADOW=1`) runs every op on the GPU and the CPU and reports the first op whose result differs.
+- `OMARCHY_MAC_TORCH_DEBUG=1` checks for GPU errors after every op and names the op that caused one.
+- `OMARCHY_MAC_TORCH_STRICT=1` makes CPU fallbacks an error, to find what isn't on the GPU.
+
+## How it's built
+
+- `csrc/` is the backend, in C++ on wgpu-native: `runtime.cpp` (GPU context, memory pool, command queue), `device.cpp` (PyTorch device registration, CPU fallback), one file per op family, `plans.cpp` for the fused stacks, `omt.h` for what they share.
+- `csrc/kernels/*.wgsl` are the compute shaders, compiled into the library and checked on the GPU at build time. `omarchy_mac_torch/gemm.py` generates the tiled convolution and matmul shaders.
+- Every op is registered through one wrapper: an op checks what it supports before launching anything, and anything else goes to the CPU fallback automatically, so an unsupported case can't crash.
+- The PyTorch side follows PyTorch's reference out-of-tree backend (`torch_openreg`): device guard with events, hooks, a device generator, storage-level serialization. The only change to PyTorch's own behaviour is that SGD/Adam/AdamW default to their fused versions on this device (`OMARCHY_MAC_TORCH_FUSED_OPTIM=0` to turn off).
+
+`CONTRIBUTING.md` walks through adding an op. The quickest way to get what you need is to run your model, look at `FALLBACKS`, add the op you're missing, and send a PR. Agent PRs are welcome too.
 
 ## Install
 
 ```sh
 git clone https://github.com/georgeamccarthy/omarchy-mac-torch
 cd omarchy-mac-torch
-uv sync --extra build               # torch, numpy, ninja, wgpu (for the wgpu-native library and headers)
-uv run tools/build_native.py        # builds the backend, the path must not contain spaces
+uv sync --extra build --extra dev   # torch, numpy, ninja, wgpu (for wgpu-native), expecttest (for the conformance sweep)
+uv run tools/build_native.py        # builds the backend and compiles every kernel; the path must not contain spaces
 uv run python notes/scripts/native_final_check.py
-uv run python notes/scripts/alexnet_benchmark.py gpu    # and `cpu` to compare
+uv run tools/acceptance.py          # the speed table above
 ```
 
-You need Linux on an Apple Silicon Mac with the Honeykrisp Vulkan driver working (`vulkaninfo` should list "Apple M1 Pro" or similar), Python 3.13 and PyTorch 2.15. The backend is built against one PyTorch version, so rebuild when you change it.
+You need Linux on an Apple Silicon Mac with the Honeykrisp Vulkan driver working (`vulkaninfo` should list "Apple M1 Pro" or similar), Python 3.13 and PyTorch 2.15. The backend is built against one PyTorch version and refuses to load against another, so rebuild when you change it.
 
 ## Credit
 
@@ -81,7 +105,8 @@ This builds on a lot of other people's work.
 - [Asahi Linux](https://asahilinux.org/) and [Mesa's Honeykrisp](https://docs.mesa3d.org/drivers/asahi.html) made the GPU usable on Linux at all. None of this works without that driver.
 - [Omarchy](https://omarchy.org/), which I run this on.
 - [wgpu-native](https://github.com/gfx-rs/wgpu-native), which runs the WGSL kernels over Vulkan.
-- [PyTorch](https://pytorch.org/) and its `PrivateUse1` out-of-tree backend support, and [pytorch_dlprim](https://github.com/artyom-beilis/pytorch_dlprim) (an OpenCL backend), which I used as a reference for what a backend needs.
+- [PyTorch](https://pytorch.org/), its `PrivateUse1` out-of-tree backend support and its reference backend `torch_openreg`, which the device integration follows; and [pytorch_dlprim](https://github.com/artyom-beilis/pytorch_dlprim) (an OpenCL backend), which I used as a reference for what a backend needs.
+- [TensorFlow.js's WebGPU backend](https://github.com/tensorflow/tfjs/tree/master/tfjs-backend-webgpu) (Apache-2.0): the workgroup-tree reduction and softmax kernels and the strided conv input-gradient loader are adapted from it.
 
 ## License
 

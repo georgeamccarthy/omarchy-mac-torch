@@ -2,7 +2,7 @@
 import copy, torch, torch.nn.functional as F, omarchy_mac_torch
 from torch import nn
 from omarchy_mac_torch.models import SeparableCNN, PlainCNN, fake_data
-print("native:", omarchy_mac_torch._use_native, "|", omarchy_mac_torch.accelerate(nn.Sequential()))
+print(omarchy_mac_torch.accelerate(nn.Sequential()))
 e = lambda a, b: (a.detach().cpu() - b.detach().cpu()).abs().max().item()
 
 for cls in (SeparableCNN, PlainCNN):

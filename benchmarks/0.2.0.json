@@ -1,0 +1,17 @@
+{
+ "version": "0.2.0",
+ "torch": "2.15.0+cu132",
+ "adapter": "Apple M1 Pro (G13S C0)",
+ "machine": "aarch64",
+ "ms": {
+  "alexnet train b16": 159.917,
+  "alexnet infer b16": 51.389,
+  "plaincnn train": 34.071,
+  "separablecnn train": 23.482,
+  "resnet18 train": 128.117,
+  "vit train": 458.92,
+  "matmul 4096": 226.015,
+  "sum 16M": 0.524,
+  "add 16M": 3.852
+ }
+}

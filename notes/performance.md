@@ -25,3 +25,24 @@ how it got there (training, batch 16): 456 ms on the cpu. first gpu run 3.8 s/st
 
 ## desktop smoothness
 the gpu is shared with the compositor. the queue limiter keeps at most ~8 ms of queued gpu work (3 chunks, chunk size adapts), so a frame never waits long behind a training step. if you see lag, call `omarchy_mac_torch.set_queue_depth(depth, chunk)` with a smaller target.
+
+## gemm template, round 2 (0.2.x)
+measured with `tools/gemm_bench.py` (alexnet's convs at batch 16, plus matmul):
+- shared-memory tiles as `vec4` arrays and unrolled loaders: conv 540 -> ~730 gflops, matmul 600 -> 880. the inner
+  loop had been doing 12 scalar shared loads per 32 fmas; now 3 vec4 loads.
+- strided grad-input split into stride phases (one dense gemm per (py, px), no skipped taps): alexnet's stride-4 first
+  layer 844 -> 50 ms; resnet's stride-2 layers stop paying 4x.
+- alexnet training 160 -> 128 ms/step (4.3x the cpu), resnet-18 131 -> 103 (4.9x).
+
+tried and reverted (both slower because live registers cost more than integer divisions here; kernels start spilling):
+- prefetching the next k-tile into registers (software pipelining): -50%.
+- hoisting each loader slot's row decomposition out of the k loop + a k-side index table instead of divisions: -15-20%.
+
+## torch.compile backend (0.2.x)
+correct (as accurate as eager) on separablecnn, plaincnn, resnet-18, mobilenetv3, vit. speed ~ eager: the fused ops
+remove kernels, but each step pays ~5 ms of python graph execution (vs ~1 ms for a prebuilt plan) and aotautograd
+copies batchnorm's running stats back after every step (~40 tiny dispatches on separablecnn). graph replay with static
+memory is the fix (roadmap #4).
+
+next levers: subgroup operations (share operands across a simd instead of through shared memory) and cooperative
+matrix (`docs/roadmap.md` #3). the template is at ~15% of fp32 peak.
