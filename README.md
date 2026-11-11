@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/alexnet.svg" alt="AlexNet training on the CPU vs the GPU, side by side. The GPU is about 3x faster." width="100%">
+  <img src="docs/alexnet.svg" alt="AlexNet training on the CPU vs the GPU, side by side. The GPU is about 4x faster." width="100%">
 </p>
 
 # omarchy-mac-torch
@@ -38,7 +38,12 @@ Training, same weights, data and optimizer on both, 5 steps after a warm-up. Mac
 
 Convnets are where this backend is strongest. Small transformers now run entirely on the GPU and edge past the CPU; their time goes to many small elementwise kernels, which graph replay (`docs/roadmap.md`) should cut.
 
-The animation at the top is the AlexNet row, played back at the measured speed. `notes/scripts/record_alexnet.py` records it and `tools/make_animation.py` draws it.
+The animations play back real measured step times (`notes/scripts/record_training.py` records them, `tools/make_animation.py` draws them): AlexNet at the top, ResNet-18 and MobileNetV3 here.
+
+<p align="center">
+  <img src="docs/resnet18.svg" alt="ResNet-18 training on the CPU vs the GPU, side by side. The GPU is about 5x faster." width="100%">
+  <img src="docs/mobilenetv3.svg" alt="MobileNetV3 training on the CPU vs the GPU, side by side. The GPU is about 2.6x faster." width="100%">
+</p>
 
 ## What works
 
