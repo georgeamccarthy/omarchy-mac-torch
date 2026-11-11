@@ -90,15 +90,18 @@ fn bval(k: u32, nn: u32) -> f32 {
 fn store(m: u32, nn: u32, v: f32, z: u32) { out[(z * p.M + m) * p.N + nn] = v; }
 """
 MM_PARAMS = """struct P { M: u32, N: u32, K: u32, hb: u32, ao: u32, bo: u32, co: u32, bio: u32,
-           sa0: u32, sa1: u32, sb0: u32, sb1: u32, kslice: u32, slices: u32, p0: u32, p1: u32 };"""
+           sa0: u32, sa1: u32, sb0: u32, sb1: u32, kslice: u32, slices: u32, bsa: u32, bsb: u32 };"""
+# matmul (kind 4). wg.z is the split-K slice when slices > 1, else the batch index (bmm: one dispatch for the whole
+# batch; bsa / bsb are A's and B's batch strides, the output is contiguous)
 _MM = """
-fn aval(m: u32, k: u32) -> f32 { return a[p.ao + m * p.sa0 + k * p.sa1]; }
-fn bval(k: u32, nn: u32) -> f32 { return b[p.bo + k * p.sb0 + nn * p.sb1]; }
+var<private> bz: u32;
+fn aval(m: u32, k: u32) -> f32 { return a[p.ao + bz * p.bsa + m * p.sa0 + k * p.sa1]; }
+fn bval(k: u32, nn: u32) -> f32 { return b[p.bo + bz * p.bsb + k * p.sb0 + nn * p.sb1]; }
 fn store(m: u32, nn: u32, v: f32, z: u32) {
   if (p.slices == 1u) {
     var r = v;
     if (p.hb == 1u) { r += bias[p.bio + nn]; }
-    out[p.co + m * p.N + nn] = r;
+    out[p.co + (z * p.M + m) * p.N + nn] = r;
   } else {
     out[(z * p.M + m) * p.N + nn] = v;
   }
@@ -187,7 +190,8 @@ var<workgroup> Bs: array<vec4<f32>, {BK * bn // 4}>;
 fn main(@builtin(workgroup_id) wg: vec3<u32>, @builtin(local_invocation_id) lid: vec3<u32>) {{
   let t = lid.y * {bn // tn}u + lid.x;
   let m0 = wg.y * BM; let n0 = wg.x * BN;
-  let kbeg = wg.z * p.kslice; let kend = min(p.K, kbeg + p.kslice);
+  let kbeg = {"select(wg.z, 0u, p.slices == 1u) * p.kslice" if kind == 4 else "wg.z * p.kslice"}; let kend = min(p.K, kbeg + p.kslice);
+  {"bz = select(0u, wg.z, p.slices == 1u);" if kind == 4 else ""}
 {decl}
   for (var k0 = kbeg; k0 < kend; k0 += 16u) {{
 {loaders}

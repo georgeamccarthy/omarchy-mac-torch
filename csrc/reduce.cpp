@@ -1,6 +1,8 @@
 // Reductions (sum, mean, argmax/argmin), softmax / log_softmax over any dim, nll_loss.
 #include "omt.h"
 
+#include <ATen/native/Resize.h>
+
 namespace omt {
 
 // view x (contiguous) as (outer, red, inner) around the reduced dims; non-adjacent reduced dims are moved last first
@@ -71,6 +73,9 @@ static Tensor reduce_dims(const Tensor& x, IntArrayRef dims, bool keepdim, bool 
   return out;
 }
 
+Tensor sum_rows(const Tensor& x2d) {  // (R, D) -> (D): column sums, parallel over rows (split reduction)
+  return reduce_dims(x2d, IntArrayRef{0}, false, false, std::nullopt);
+}
 static Tensor sum_default(const Tensor& x, std::optional<at::ScalarType> dt) {
   auto st = x.scalar_type();
   if (st == at::kBool || st == at::kByte || st == at::kLong || st == at::kInt) {  // counts: int64 result
@@ -196,6 +201,45 @@ static Tensor nll_bwd(const Tensor& g_, const Tensor& x, const Tensor& t_, const
   return gx;
 }
 
+
+// ---- all / any (bool results) ----
+static Tensor bool_reduce(const Tensor& x_, at::OptionalIntArrayRef dims, bool keepdim, uint32_t mode) {
+  int kind = x_.scalar_type() == at::kFloat ? 0 : x_.scalar_type() == at::kInt ? 1 : x_.scalar_type() == at::kLong ? 2
+           : (x_.scalar_type() == at::kBool || x_.scalar_type() == at::kByte) ? 3 : -1;
+  NEED(is_dev(x_) && kind >= 0, "all/any dtype");
+  IntArrayRef d = dims.value_or(IntArrayRef{});
+  // split_dims permutes with a float copy; for other dtypes only adjacent dims (or all) are supported
+  Split s;
+  if (d.empty()) { s.x = contig(x_); s.red = x_.numel(); if (keepdim) s.out_shape.assign(x_.dim(), 1); }
+  else s = split_dims(x_, d, keepdim);
+  Tensor out = empty_dev(s.out_shape, at::kBool);
+  int64_t outs = s.outer * s.inner;
+  if (!outs) return out;
+  Buf* ub = uniform({u(s.outer), u(s.red), u(s.inner), u(s.x.storage_offset()), u(kind), mode, 0, 0});
+  uint32_t gx, gy;
+  grid(cdiv(outs, 4), 256, gx, gy);
+  launch("breduce", {bind(s.x), bind(out), bind_buf(ub)}, gx, gy);
+  return out;
+}
+static Tensor all_full(const Tensor& x) { return bool_reduce(x, std::nullopt, false, 0); }
+static Tensor any_full(const Tensor& x) { return bool_reduce(x, std::nullopt, false, 1); }
+static Tensor all_dim(const Tensor& x, int64_t d, bool k) { return bool_reduce(x, IntArrayRef{d}, k, 0); }
+static Tensor any_dim(const Tensor& x, int64_t d, bool k) { return bool_reduce(x, IntArrayRef{d}, k, 1); }
+static Tensor all_dims(const Tensor& x, at::OptionalIntArrayRef d, bool k) { return bool_reduce(x, d, k, 0); }
+static Tensor any_dims(const Tensor& x, at::OptionalIntArrayRef d, bool k) { return bool_reduce(x, d, k, 1); }
+static Tensor& bool_out(const Tensor& r, Tensor& out) {
+  NEED(is_dev(out) && out.scalar_type() == at::kBool, "bool out");
+  at::native::resize_output(out, r.sizes());
+  copy_dev(r, out);
+  return out;
+}
+static Tensor& all_out(const Tensor& x, int64_t d, bool k, Tensor& o) { return bool_out(all_dim(x, d, k), o); }
+static Tensor& any_out(const Tensor& x, int64_t d, bool k, Tensor& o) { return bool_out(any_dim(x, d, k), o); }
+static Tensor& all_dims_out(const Tensor& x, at::OptionalIntArrayRef d, bool k, Tensor& o) { return bool_out(all_dims(x, d, k), o); }
+static Tensor& any_dims_out(const Tensor& x, at::OptionalIntArrayRef d, bool k, Tensor& o) { return bool_out(any_dims(x, d, k), o); }
+static Tensor& all_all_out(const Tensor& x, Tensor& o) { return bool_out(all_full(x), o); }
+static Tensor& any_all_out(const Tensor& x, Tensor& o) { return bool_out(any_full(x), o); }
+
 TORCH_LIBRARY_IMPL(aten, PrivateUse1, m) {
   OMT_IMPL(m, sum, sum_default);
   OMT_IMPL(m, sum_dim_IntList, sum_dim);
@@ -209,6 +253,18 @@ TORCH_LIBRARY_IMPL(aten, PrivateUse1, m) {
   OMT_IMPL(m, _log_softmax_backward_data, log_softmax_bwd_);
   OMT_IMPL(m, nll_loss_forward, nll_fwd);
   OMT_IMPL(m, nll_loss_backward, nll_bwd);
+  OMT_IMPL(m, all, all_full);
+  OMT_IMPL(m, any, any_full);
+  OMT_IMPL(m, all_dim, all_dim);
+  OMT_IMPL(m, any_dim, any_dim);
+  OMT_IMPL(m, all_dims, all_dims);
+  OMT_IMPL(m, any_dims, any_dims);
+  OMT_IMPL(m, all_out, all_out);
+  OMT_IMPL(m, any_out, any_out);
+  OMT_IMPL(m, all_dims_out, all_dims_out);
+  OMT_IMPL(m, any_dims_out, any_dims_out);
+  OMT_IMPL(m, all_all_out, all_all_out);
+  OMT_IMPL(m, any_all_out, any_all_out);
 }
 
 }  // namespace omt

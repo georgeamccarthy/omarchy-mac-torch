@@ -155,6 +155,7 @@ void ew_into(uint32_t op, const Tensor* a, const Tensor* b, const Tensor& out, f
 Tensor ew_new(uint32_t op, const Tensor* a, const Tensor* b, float alpha = 1.f, float sval = 0.f);
 void copy_dev(const Tensor& src, const Tensor& dst);  // device -> device, same dtype, any strides (broadcast src)
 void fill_dev(const Tensor& t, const Scalar& v);
+Tensor sum_rows(const Tensor& x2d);  // reduce.cpp: (R, D) -> (D)
 
 
 // ---- fallback by construction (device.cpp) -----------------------------------------------------------------------

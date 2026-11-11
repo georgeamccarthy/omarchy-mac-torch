@@ -116,10 +116,16 @@ static std::tuple<Tensor, Tensor, Tensor> layer_norm_backward_(const Tensor& gy_
     dx = empty_dev(x.sizes(), at::kFloat);
     launch("ln_bwd_x", {bind(gy), bind(x), bind(g), bind(mean), bind(rstd), bind(dx), bind_buf(ub)}, u(R));
   }
-  if (aff && (mask[1] || mask[2])) {
-    dg = empty_dev(normalized, at::kFloat);
-    db = empty_dev(normalized, at::kFloat);
-    launch("ln_bwd_w", {bind(gy), bind(x), bind(mean), bind(rstd), bind(dg), bind(db), bind_buf(ub)}, u(cdiv(D, 64)));
+  if (aff && (mask[1] || mask[2])) {  // column sums over all rows: elementwise products, then a parallel reduction
+    Tensor g2 = gy.view({R, D});
+    if (mask[1]) {
+      Tensor x2 = x.view({R, D}), m2 = mean.view({R, 1}), r2 = rstd.view({R, 1});
+      Tensor t = ew_new(ew::SUB, &x2, &m2);
+      ew_into(ew::MUL, &t, &r2, t);
+      ew_into(ew::MUL, &t, &g2, t);
+      dg = sum_rows(t).view(normalized);
+    }
+    if (mask[2]) db = sum_rows(g2).view(normalized);
   }
   return {dx, mask[1] ? dg : Tensor(), mask[2] ? db : Tensor()};
 }

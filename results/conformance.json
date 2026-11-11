@@ -1,7 +1,7 @@
 {
  "summary": {
-  "fallback": 421,
-  "ok": 211,
+  "fallback": 410,
+  "ok": 222,
   "skip": 9
  },
  "ops": {
@@ -206,7 +206,7 @@
     "fallback": 24
    },
    "notes": {
-    "fallback: all.all_out, bitwise_and.Tensor_out, bitwise_or.Tensor_out, mul.Tensor (float32 only)": 24
+    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, mul.Tensor (float32 only)": 24
    }
   },
   "broadcast_to": {
@@ -238,8 +238,8 @@
     "fallback": 18
    },
    "notes": {
-    "fallback: _index_put_impl_, arange.start_out, mul_.Tensor (float32 only), nonzero_static": 12,
-    "fallback: _index_put_impl_, arange.start_out, nonzero_static": 6
+    "fallback: _index_put_impl_, mul_.Tensor (float32 only), nonzero_static": 12,
+    "fallback: _index_put_impl_, nonzero_static": 6
    }
   },
   "cartesian_prod": {
@@ -431,8 +431,8 @@
     "fallback": 10
    },
    "notes": {
-    "fallback: any.all_out, bitwise_and.Tensor_out, bitwise_not.out, cumprod.out, cumsum.out, flip, gather.out, logical_and.out, max.dim_max, relu_ (float32 only), sub.Scalar (float32 only)": 4,
-    "fallback: any.all_out, cumprod.out, cumsum.out, flip": 3,
+    "fallback: bitwise_and.Tensor_out, bitwise_not.out, cumprod.out, cumsum.out, flip, gather.out, logical_and.out, max.dim_max, relu_ (float32 only), sub.Scalar (float32 only)": 4,
+    "fallback: cumprod.out, cumsum.out, flip": 3,
     "fallback: cumprod.out": 3
    }
   },
@@ -573,7 +573,7 @@
     "fallback": 9
    },
    "notes": {
-    "fallback: fmax.out, isnan, logical_not.out, logical_or.out": 9
+    "fallback: fmax.out, logical_not.out, logical_or.out": 9
    }
   },
   "fmin": {
@@ -581,7 +581,7 @@
     "fallback": 9
    },
    "notes": {
-    "fallback: fmin.out, isnan, logical_not.out, logical_or.out": 9
+    "fallback: fmin.out, logical_not.out, logical_or.out": 9
    }
   },
   "fmod": {
@@ -615,7 +615,7 @@
    "notes": {
     "fallback: _fft_r2c, reflection_pad1d.out": 6,
     "fallback: _fft_r2c": 2,
-    "fallback: _fft_c2c, _fft_r2c, arange.start_out, index_add.out, reflection_pad1d.out, reflection_pad1d_backward.grad_input": 1
+    "fallback: _fft_c2c, _fft_r2c, index_add.out, reflection_pad1d.out, reflection_pad1d_backward.grad_input": 1
    }
   },
   "floor": {
@@ -835,7 +835,7 @@
     "fallback": 20
    },
    "notes": {
-    "fallback: lu_unpack.out, tril.out, triu.out": 20
+    "fallback: lu_unpack.out": 20
    }
   },
   "lu": {
@@ -843,7 +843,7 @@
     "fallback": 25
    },
    "notes": {
-    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out, tril.out, triu.out": 25
+    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out": 25
    }
   },
   "lu_solve": {
@@ -851,7 +851,7 @@
     "fallback": 25
    },
    "notes": {
-    "fallback: linalg_lu_solve.out, linalg_solve_triangular, lu_unpack.out, tril.out, triu.out": 17,
+    "fallback: linalg_lu_solve.out, linalg_solve_triangular, lu_unpack.out": 17,
     "fallback: linalg_lu_solve.out": 8
    }
   },
@@ -911,7 +911,7 @@
     "fallback": 2
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), isnan, masked_fill_.Tensor (masked_fill with a device value), max": 2
+    "fallback: div.Tensor (float32 only), masked_fill_.Tensor (masked_fill with a device value), max": 2
    }
   },
   "median": {
@@ -920,7 +920,7 @@
    },
    "notes": {
     "fallback: median.dim_values, scatter.src_out": 9,
-    "fallback: div.Tensor (float32 only), isnan, masked_fill_.Tensor (masked_fill with a device value), median": 4
+    "fallback: div.Tensor (float32 only), masked_fill_.Tensor (masked_fill with a device value), median": 4
    }
   },
   "nanmedian": {
@@ -929,7 +929,7 @@
    },
    "notes": {
     "fallback: nanmedian.dim_values, scatter.src_out": 9,
-    "fallback: div.Tensor (float32 only), isnan, masked_fill_.Tensor (masked_fill with a device value), nanmedian": 4
+    "fallback: div.Tensor (float32 only), masked_fill_.Tensor (masked_fill with a device value), nanmedian": 4
    }
   },
   "var_mean": {
@@ -989,7 +989,7 @@
     "fallback": 2
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), isnan, masked_fill_.Tensor (masked_fill with a device value), min": 2
+    "fallback: div.Tensor (float32 only), masked_fill_.Tensor (masked_fill with a device value), min": 2
    }
   },
   "quantile": {
@@ -997,8 +997,8 @@
     "fallback": 25
    },
    "notes": {
-    "fallback: any.out, ceil.out, gather.out, isnan, lerp.Tensor_out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Tensor (float32 only)": 15,
-    "fallback: any.out, ceil.out, gather.out, isnan, lerp.Tensor_out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), scatter.src_out, scatter_add.out, sort.values_stable": 10
+    "fallback: ceil.out, gather.out, lerp.Tensor_out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Tensor (float32 only)": 15,
+    "fallback: ceil.out, gather.out, lerp.Tensor_out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), scatter.src_out, scatter_add.out, sort.values_stable": 10
    }
   },
   "nanquantile": {
@@ -1006,8 +1006,8 @@
     "fallback": 25
    },
    "notes": {
-    "fallback: ceil.out, gather.out, isnan, lerp.Tensor_out, logical_not.out, lt.Scalar (comparison dtype), masked_fill_.Scalar (float32 only), mul.Tensor (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Scalar (float32 only), sub.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 15,
-    "fallback: ceil.out, gather.out, isnan, lerp.Tensor_out, logical_not.out, lt.Scalar (comparison dtype), masked_fill_.Scalar (float32 only), mul.Tensor (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Scalar (float32 only), sum.dim_IntList (float32 reductions)": 10
+    "fallback: ceil.out, gather.out, lerp.Tensor_out, logical_not.out, lt.Scalar (comparison dtype), masked_fill_.Scalar (float32 only), mul.Tensor (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Scalar (float32 only), sub.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 15,
+    "fallback: ceil.out, gather.out, lerp.Tensor_out, logical_not.out, lt.Scalar (comparison dtype), masked_fill_.Scalar (float32 only), mul.Tensor (float32 only), scatter.src_out, scatter_add.out, sort.values_stable, sub.Scalar (float32 only), sum.dim_IntList (float32 reductions)": 10
    }
   },
   "max.binary": {
@@ -1072,9 +1072,8 @@
     "ok": 1
    },
    "notes": {
-    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, mul.Tensor (float32 only)": 12,
-    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, isnan, mul.Tensor (float32 only)": 3,
-    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, isnan": 1
+    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out, mul.Tensor (float32 only)": 15,
+    "fallback: bitwise_and.Tensor_out, bitwise_or.Tensor_out": 1
    }
   },
   "softmax": {
@@ -1164,7 +1163,7 @@
     "fallback": 2
    },
    "notes": {
-    "fallback: arange.start_out, index_add.out": 2
+    "fallback: index_add.out": 2
    }
   },
   "as_strided_copy": {
@@ -1173,7 +1172,7 @@
     "fallback": 2
    },
    "notes": {
-    "fallback: arange.start_out, index_add.out": 2
+    "fallback: index_add.out": 2
    }
   },
   "as_strided_scatter": {
@@ -1748,21 +1747,17 @@
   },
   "torch.ops.aten._safe_softmax.default": {
    "counts": {
-    "fallback": 8
+    "ok": 8
    },
-   "notes": {
-    "fallback: all.out, isneginf.out, where.self_out": 8
-   }
+   "notes": {}
   },
   "nn.functional.scaled_dot_product_attention": {
    "counts": {
-    "fallback": 13,
+    "ok": 13,
     "skip": 12
    },
    "notes": {
-    "skip: random (dropout)": 12,
-    "fallback: all.out, isneginf.out, where.self_out": 7,
-    "fallback: all.out, isneginf.out, tril.out, where.self_out": 6
+    "skip: random (dropout)": 12
    }
   },
   "torch.ops.aten._scaled_dot_product_flash_attention_for_cpu": {
@@ -1955,7 +1950,7 @@
     "fallback": 10
    },
    "notes": {
-    "fallback: arange.start_out, digamma.out, lgamma.out": 10
+    "fallback: digamma.out, lgamma.out": 10
    }
   },
   "mvlgamma.mvlgamma_p_3": {
@@ -1963,7 +1958,7 @@
     "fallback": 10
    },
    "notes": {
-    "fallback: arange.start_out, digamma.out, lgamma.out": 10
+    "fallback: digamma.out, lgamma.out": 10
    }
   },
   "mvlgamma.mvlgamma_p_5": {
@@ -1971,7 +1966,7 @@
     "fallback": 10
    },
    "notes": {
-    "fallback: arange.start_out, digamma.out, lgamma.out": 10
+    "fallback: digamma.out, lgamma.out": 10
    }
   },
   "ne": {
@@ -2023,8 +2018,7 @@
     "fallback": 25
    },
    "notes": {
-    "fallback: ormqr, tril.out": 16,
-    "fallback: ormqr": 9
+    "fallback: ormqr": 25
    }
   },
   "permute": {
@@ -2319,7 +2313,7 @@
     "fallback": 16
    },
    "notes": {
-    "fallback: triangular_solve.X, triu.out": 16
+    "fallback: triangular_solve.X": 16
    }
   },
   "trunc": {
@@ -2411,19 +2405,15 @@
   },
   "isposinf": {
    "counts": {
-    "fallback": 1
+    "ok": 1
    },
-   "notes": {
-    "fallback: isposinf.out": 1
-   }
+   "notes": {}
   },
   "isneginf": {
    "counts": {
-    "fallback": 1
+    "ok": 1
    },
-   "notes": {
-    "fallback: isneginf.out": 1
-   }
+   "notes": {}
   },
   "isreal": {
    "counts": {
@@ -2433,11 +2423,9 @@
   },
   "isnan": {
    "counts": {
-    "fallback": 1
+    "ok": 1
    },
-   "notes": {
-    "fallback: isnan": 1
-   }
+   "notes": {}
   },
   "einsum": {
    "counts": {
@@ -3051,7 +3039,7 @@
    "notes": {
     "fallback: add.Scalar (float32 only), div.Tensor (float32 only), eq.Scalar (comparison dtype), gt.Scalar (comparison dtype), linalg_vector_norm.out, masked_fill_.Scalar (float32 only), mul.Scalar (float32 only), mul.Tensor (float32 only), reciprocal (float32 only), renorm.out, sub.Tensor (float32 only), sum.di": 2,
     "fallback: add.Scalar (float32 only), gt.Scalar (comparison dtype), linalg_vector_norm.out, mul.Scalar (float32 only), mul.Tensor (float32 only), reciprocal (float32 only), renorm.out, sgn.out, sub.Tensor (float32 only), sum.dim_IntList (float32 reductions)": 1,
-    "fallback: add.Scalar (float32 only), div.Tensor (float32 only), eq.Tensor (comparison of different dtypes), gt.Scalar (comparison dtype), isnan, linalg_vector_norm.out, logical_or.out, mul.Scalar (float32 only), mul.Tensor (float32 only), reciprocal (float32 only), renorm.out, sgn.out, sub.Tensor (float32 onl": 1
+    "fallback: add.Scalar (float32 only), div.Tensor (float32 only), eq.Tensor (comparison of different dtypes), gt.Scalar (comparison dtype), linalg_vector_norm.out, logical_or.out, mul.Scalar (float32 only), mul.Tensor (float32 only), reciprocal (float32 only), renorm.out, sgn.out, sub.Tensor (float32 only), sum": 1
    }
   },
   "repeat": {
@@ -3171,7 +3159,7 @@
     "fallback": 5
    },
    "notes": {
-    "fallback: arange.start_out, index_fill_.int_Tensor, trace": 5
+    "fallback: index_fill_.int_Tensor, trace": 5
    }
   },
   "transpose": {
@@ -3212,19 +3200,15 @@
   },
   "tril": {
    "counts": {
-    "fallback": 8
+    "ok": 8
    },
-   "notes": {
-    "fallback: tril.out": 8
-   }
+   "notes": {}
   },
   "triu": {
    "counts": {
-    "fallback": 8
+    "ok": 8
    },
-   "notes": {
-    "fallback: triu.out": 8
-   }
+   "notes": {}
   },
   "kron": {
    "counts": {
@@ -3452,7 +3436,7 @@
     "fallback": 4
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), isnan, linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 4
+    "fallback: div.Tensor (float32 only), linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 4
    }
   },
   "t": {
@@ -3469,19 +3453,16 @@
   },
   "nn.functional.embedding": {
    "counts": {
-    "fallback": 3
+    "ok": 3
    },
-   "notes": {
-    "fallback: embedding_dense_backward": 3
-   }
+   "notes": {}
   },
   "nn.functional.embedding_bag": {
    "counts": {
     "fallback": 25
    },
    "notes": {
-    "fallback: _embedding_bag, _embedding_bag_backward": 16,
-    "fallback: _embedding_bag, _embedding_bag_backward, arange.start_out": 9
+    "fallback: _embedding_bag, _embedding_bag_backward": 25
    }
   },
   "nn.functional.multi_head_attention_forward": {
@@ -3543,23 +3524,15 @@
   },
   "all": {
    "counts": {
-    "fallback": 19,
-    "ok": 1
+    "ok": 20
    },
-   "notes": {
-    "fallback: all.out": 15,
-    "fallback: all.all_out": 4
-   }
+   "notes": {}
   },
   "any": {
    "counts": {
-    "fallback": 19,
-    "ok": 1
+    "ok": 20
    },
-   "notes": {
-    "fallback: any.out": 15,
-    "fallback: any.all_out": 4
-   }
+   "notes": {}
   },
   "amax": {
    "counts": {
@@ -3608,7 +3581,7 @@
     "fallback": 25
    },
    "notes": {
-    "fallback: div.Tensor (float32 only), isnan, logical_not.out, mul.Tensor (float32 only), nansum, sum.dim_IntList (float32 reductions)": 25
+    "fallback: div.Tensor (float32 only), logical_not.out, mul.Tensor (float32 only), nansum, sum.dim_IntList (float32 reductions)": 25
    }
   },
   "std": {
@@ -3666,7 +3639,7 @@
     "fallback": 25
    },
    "notes": {
-    "fallback: isnan, logical_not.out, mul.Tensor (float32 only), nansum": 25
+    "fallback: logical_not.out, mul.Tensor (float32 only), nansum": 25
    }
   },
   "hash_tensor": {
@@ -3703,11 +3676,9 @@
   },
   "nn.functional.gaussian_nll_loss": {
    "counts": {
-    "fallback": 25
+    "ok": 25
    },
-   "notes": {
-    "fallback: any.all_out": 25
-   }
+   "notes": {}
   },
   "nn.functional.hinge_embedding_loss": {
    "counts": {
@@ -4060,7 +4031,7 @@
     "fallback": 16
    },
    "notes": {
-    "fallback: any.all_out, linalg_cholesky_ex.L, linalg_solve_triangular, tril.out": 16
+    "fallback: linalg_cholesky_ex.L, linalg_solve_triangular": 16
    }
   },
   "linalg.cholesky_ex": {
@@ -4068,7 +4039,7 @@
     "fallback": 16
    },
    "notes": {
-    "fallback: linalg_cholesky_ex.L, linalg_solve_triangular, tril.out": 16
+    "fallback: linalg_cholesky_ex.L, linalg_solve_triangular": 16
    }
   },
   "linalg.vecdot": {
@@ -4125,8 +4096,7 @@
     "fallback": 9
    },
    "notes": {
-    "fallback: linalg_householder_product, tril.out": 7,
-    "fallback: linalg_householder_product": 2
+    "fallback: linalg_householder_product": 9
    }
   },
   "linalg.ldl_factor": {
@@ -4134,7 +4104,7 @@
     "fallback": 4
    },
    "notes": {
-    "fallback: any.all_out, linalg_ldl_factor_ex.out": 4
+    "fallback: linalg_ldl_factor_ex.out": 4
    }
   },
   "linalg.ldl_factor_ex": {
@@ -4175,7 +4145,7 @@
     "ok": 6
    },
    "notes": {
-    "fallback: any.all_out, linalg_inv_ex.inverse": 9,
+    "fallback: linalg_inv_ex.inverse": 9,
     "fallback: eye.m_out": 3
    }
   },
@@ -4192,7 +4162,7 @@
    "notes": {
     "fallback: linalg_vector_norm.out, sgn.out": 12,
     "fallback: linalg_vector_norm.out": 10,
-    "fallback: div.Tensor (float32 only), isnan, linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 3
+    "fallback: div.Tensor (float32 only), linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 3
    }
   },
   "linalg.norm.subgradients_at_zero": {
@@ -4202,7 +4172,7 @@
    "notes": {
     "fallback: linalg_vector_norm.out, sgn.out": 12,
     "fallback: linalg_vector_norm.out": 9,
-    "fallback: div.Tensor (float32 only), isnan, linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 4
+    "fallback: div.Tensor (float32 only), linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 4
    }
   },
   "linalg.matrix_norm": {
@@ -4222,8 +4192,7 @@
     "fallback": 25
    },
    "notes": {
-    "fallback: linalg_qr.out, linalg_solve_triangular, triu.out": 17,
-    "fallback: linalg_qr.out, linalg_solve_triangular, tril.out": 8
+    "fallback: linalg_qr.out, linalg_solve_triangular": 25
    }
   },
   "linalg.polar": {
@@ -4247,7 +4216,7 @@
     "fallback": 10
    },
    "notes": {
-    "fallback: any.all_out, cumprod.out, cumsum.out, flip": 8,
+    "fallback: cumprod.out, cumsum.out, flip": 8,
     "fallback: cumprod.out": 2
    }
   },
@@ -4258,7 +4227,7 @@
    "notes": {
     "fallback: linalg_vector_norm.out": 12,
     "fallback: linalg_vector_norm.out, sgn.out": 8,
-    "fallback: div.Tensor (float32 only), isnan, linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 5
+    "fallback: div.Tensor (float32 only), linalg_vector_norm.out, logical_or.out, mul.Tensor (float32 only), sgn.out, sum.dim_IntList (float32 reductions)": 5
    }
   },
   "linalg.lu_factor": {
@@ -4266,7 +4235,7 @@
     "fallback": 20
    },
    "notes": {
-    "fallback: any.all_out, linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out, tril.out, triu.out": 20
+    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out": 20
    }
   },
   "linalg.lu_factor_ex": {
@@ -4274,7 +4243,7 @@
     "fallback": 20
    },
    "notes": {
-    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out, tril.out, triu.out": 20
+    "fallback: linalg_lu_factor_ex.out, linalg_solve_triangular, lu_unpack.out": 20
    }
   },
   "linalg.lu": {
@@ -4282,7 +4251,7 @@
     "fallback": 20
    },
    "notes": {
-    "fallback: linalg_lu.out, linalg_solve_triangular, tril.out, triu.out": 20
+    "fallback: linalg_lu.out, linalg_solve_triangular": 20
    }
   },
   "linalg.lu_solve": {
@@ -4290,7 +4259,7 @@
     "fallback": 25
    },
    "notes": {
-    "fallback: linalg_lu_solve.out, linalg_solve_triangular, lu_unpack.out, tril.out, triu.out": 17,
+    "fallback: linalg_lu_solve.out, linalg_solve_triangular, lu_unpack.out": 17,
     "fallback: linalg_lu_solve.out": 8
    }
   },
@@ -4299,7 +4268,7 @@
     "fallback": 8
    },
    "notes": {
-    "fallback: any.all_out, linalg_inv_ex.inverse": 8
+    "fallback: linalg_inv_ex.inverse": 8
    }
   },
   "linalg.inv_ex": {
@@ -4315,7 +4284,7 @@
     "fallback": 24
    },
    "notes": {
-    "fallback: _linalg_solve_ex.result, any.all_out, linalg_lu_solve.out": 24
+    "fallback: _linalg_solve_ex.result, linalg_lu_solve.out": 24
    }
   },
   "linalg.solve_ex": {
@@ -4331,9 +4300,7 @@
     "fallback": 25
    },
    "notes": {
-    "fallback: linalg_solve_triangular, triu.out": 9,
-    "fallback: linalg_solve_triangular": 8,
-    "fallback: linalg_solve_triangular, tril.out": 8
+    "fallback: linalg_solve_triangular": 25
    }
   },
   "linalg.matrix_rank": {
@@ -4403,7 +4370,7 @@
     "fallback": 2
    },
    "notes": {
-    "fallback: any.all_out, linalg_inv_ex.inverse": 2
+    "fallback: linalg_inv_ex.inverse": 2
    }
   },
   "linalg.tensorsolve": {
@@ -4411,7 +4378,7 @@
     "fallback": 4
    },
    "notes": {
-    "fallback: _linalg_solve_ex.result, any.all_out, linalg_lu_solve.out": 4
+    "fallback: _linalg_solve_ex.result, linalg_lu_solve.out": 4
    }
   },
   "signal.windows.hamming": {
@@ -4784,7 +4751,7 @@
     "fallback": 17
    },
    "notes": {
-    "fallback: any.all_out, cumprod.out, cumsum.out, flip": 10,
+    "fallback: cumprod.out, cumsum.out, flip": 10,
     "fallback: cumprod.out": 7
    }
   },
@@ -4897,5 +4864,5 @@
    "notes": {}
   }
  },
- "seconds": 31
+ "seconds": 30
 }

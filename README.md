@@ -28,15 +28,15 @@ Training, same weights, data and optimizer on both, 5 steps after a warm-up. Mac
 
 | Model | CPU ms/step | GPU ms/step | Speedup | Ops that fall back to the CPU |
 |---|---|---|---|---|
-| AlexNet, batch 16, 224x224 | 548 | 128 | **4.3x** | none |
-| ResNet-18, batch 32, 64x64 | 507 | 103 | **4.9x** | none |
+| AlexNet, batch 16, 224x224 | 519 | 128 | **4.1x** | none |
+| ResNet-18, batch 32, 64x64 | 488 | 101 | **4.9x** | none |
 | PlainCNN (conv-BN-ReLU), batch 128 | 87 | 32 | **2.8x** | none |
 | SeparableCNN (depthwise), batch 128 | 62 | 22 | **2.9x** | none |
-| MobileNetV3-Small style, batch 32 | 81 | 113 | 0.7x | strided depthwise conv |
-| ViT (small), batch 32 | 76 | 440 | 0.17x | parts of attention's masking |
-| GPT (small), batch 16 x 64 tokens | 45 | 241 | 0.19x | attention masking, embedding backward |
+| MobileNetV3-Small style, batch 32 | 64 | 99 | 0.65x | strided depthwise conv |
+| ViT (small), batch 32 | 77 | 65 | **1.2x** | none |
+| GPT (small), batch 16 x 64 tokens | 44 | 36-45 | 1.0-1.3x | none |
 
-Convnets are where this backend is good today. Transformers run and give the right answer, but a few small ops in attention still fall back to the CPU, and every fallback waits for the GPU and copies tensors across, so they come out slower than the CPU. Those ops are the top of the roadmap (`docs/roadmap.md`).
+Convnets are where this backend is strongest. Small transformers now run entirely on the GPU and edge past the CPU; their time goes to many small elementwise kernels, which graph replay (`docs/roadmap.md`) should cut.
 
 The animation at the top is the AlexNet row, played back at the measured speed. `notes/scripts/record_alexnet.py` records it and `tools/make_animation.py` draws it.
 

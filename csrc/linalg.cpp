@@ -20,8 +20,11 @@ static MmKernel mm_kernel(bool a_kfast, bool b_nfast, int tile) {
   return k;
 }
 
-// out (contiguous, word offset co) = a @ b (+ bias[n]); a, b any 2-D strides
-static void mm_into(const Tensor& a, const Tensor& b, const Tensor* bias, const Tensor& out, int64_t co) {
+// out (contiguous, word offset co) = a @ b (+ bias[n]); a, b any 2-D strides. batch > 1: a and b are 3-D (batch
+// strides from dim 0) and the whole batch is one dispatch (no split-K then).
+static void mm_into(const Tensor& a3, const Tensor& b3, const Tensor* bias, const Tensor& out, int64_t co, int64_t batch = 1) {
+  Tensor a = a3.dim() == 3 ? a3.select(0, 0) : a3, b = b3.dim() == 3 ? b3.select(0, 0) : b3;
+  uint32_t bsa = batch > 1 ? u(a3.stride(0)) : 0u, bsb = batch > 1 ? u(b3.stride(0)) : 0u;
   int64_t M = a.size(0), K = a.size(1), N = b.size(1);
   const Tensor& bt = bias ? *bias : a;
   int tile = M <= 32 ? 2 : (N <= 32 ? 1 : (M >= 256 && N >= 256 ? 5 : 0));
@@ -30,11 +33,12 @@ static void mm_into(const Tensor& a, const Tensor& b, const Tensor* bias, const 
   int64_t slices = std::max<int64_t>(1, std::min<int64_t>(192 / tiles, K / 128));
   int64_t kslice = cdiv(cdiv(K, slices), 16) * 16;
   slices = cdiv(K, kslice);
+  if (batch > 1) { slices = 1; kslice = cdiv(K, 16) * 16; }
   uint32_t hb = bias ? 1 : 0, bio = bias ? u(bias->storage_offset()) : 0u;
   if (slices == 1) {
     Buf* pr = uniform({u(M), u(N), u(K), hb, u(a.storage_offset()), u(b.storage_offset()), u(co), bio,
-                       u(a.stride(0)), u(a.stride(1)), u(b.stride(0)), u(b.stride(1)), u(kslice), 1, 0, 0});
-    launch(kn.name.c_str(), {bind(a), bind(b), bind(out), bind_buf(pr), bind(bt)}, u(cdiv(N, kn.bn)), u(cdiv(M, kn.bm)), 1);
+                       u(a.stride(0)), u(a.stride(1)), u(b.stride(0)), u(b.stride(1)), u(kslice), 1, bsa, bsb});
+    launch(kn.name.c_str(), {bind(a), bind(b), bind(out), bind_buf(pr), bind(bt)}, u(cdiv(N, kn.bn)), u(cdiv(M, kn.bm)), u(batch));
     return;
   }
   Tensor part = empty_dev({slices * M * N}, at::kFloat);
@@ -80,7 +84,10 @@ static Tensor bmm_(const Tensor& a, const Tensor& b) {
   Tensor out = empty_dev({B, m, n}, at::kFloat);
   if (out.numel() == 0) return out;
   if (a.size(2) == 0) { fill_dev(out, 0.f); return out; }
-  for (int64_t i = 0; i < B; i++) mm_into(a.select(0, i), b.select(0, i), nullptr, out, i * m * n);
+  for (int64_t i0 = 0; i0 < B; i0 += 65535) {  // the batch is the dispatch's z dimension (at most 65535)
+    int64_t nb = std::min<int64_t>(65535, B - i0);
+    mm_into(a.narrow(0, i0, nb), b.narrow(0, i0, nb), nullptr, out, i0 * m * n, nb);
+  }
   return out;
 }
 

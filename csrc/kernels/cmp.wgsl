@@ -56,8 +56,19 @@ fn main(@builtin(global_invocation_id) gid: vec3<u32>, @builtin(num_workgroups) 
       let c = r % s; r = r / s;
       ia += c * e.sa[q][k]; ib += c * e.sb[q][k];
     }
-    let c = order(ia, ib, e.bs == 1u);
     var t = false;
+    if (e.op >= 6u) {  // unary float classification (kind 0): isnan, isinf, isneginf, isposinf
+      let bits = a[ia] & 0x7fffffffu; let neg = (a[ia] >> 31u) == 1u;
+      switch (e.op) {
+        case 6u: { t = bits > 0x7f800000u; }
+        case 7u: { t = bits == 0x7f800000u; }
+        case 8u: { t = bits == 0x7f800000u && neg; }
+        default: { t = bits == 0x7f800000u && !neg; }
+      }
+      word = word | (select(0u, 1u, t) << (8u * j));
+      continue;
+    }
+    let c = order(ia, ib, e.bs == 1u);
     switch (e.op) {
       case 0u: { t = c == -1; }            // lt
       case 1u: { t = c == -1 || c == 0; }  // le

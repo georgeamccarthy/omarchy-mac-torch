@@ -66,11 +66,29 @@ static Tensor index_select_(const Tensor& x, int64_t dim, const Tensor& idx) {
   return gather0(x, idx);
 }
 
+
+// embedding backward: scatter-add of the gradient rows into a zeroed (num_weights, d) table
+static Tensor embedding_backward_(const Tensor& g_, const Tensor& idx_, int64_t num_weights, int64_t padding_idx, bool scale) {
+  NEED(!scale && f32(g_) && is_dev(idx_) && idx_.scalar_type() == at::kLong, "float32 grads, int64 indices, no scale_grad_by_freq");
+  Tensor g = contig(g_), idx = contig(idx_);
+  int64_t d = g.size(-1), n = idx.numel();
+  NEED(g.numel() == n * d, "gradient shape");
+  Tensor out = empty_dev({num_weights, d}, at::kFloat);
+  fill_dev(out, 0.f);
+  if (!n || !d) return out;
+  Buf* ub = uniform({u(n), u(d), (uint32_t)(int32_t)padding_idx, u(g.storage_offset()), u(idx.storage_offset()), u(num_weights), 0, 0});
+  uint32_t gx, gy;
+  grid(n * d, 256, gx, gy);
+  launch("scatter_add_rows", {bind(g), bind(idx), bind(out), bind_buf(ub)}, gx, gy);
+  return out;
+}
+
 TORCH_LIBRARY_IMPL(aten, PrivateUse1, m) {
   OMT_IMPL(m, cat, cat_);
   OMT_IMPL(m, stack, stack_);
   OMT_IMPL(m, index_Tensor, index_);
   OMT_IMPL(m, index_select, index_select_);
+  OMT_IMPL(m, embedding_dense_backward, embedding_backward_);
 }
 
 }  // namespace omt

@@ -585,6 +585,74 @@ static Tensor _to_copy_(const Tensor& self, std::optional<at::ScalarType> dtype,
   return out;
 }
 
+
+// ------------------------------------------------------------------------------------------------
+// classification (isnan / isinf / ...), out= helpers, where.out, tril / triu, arange
+// ------------------------------------------------------------------------------------------------
+
+static Tensor classify(uint32_t op, const Tensor& a) {
+  NEED(f32(a), "float32 classification");
+  Scalar zero = 0.0;
+  return cmp(op, a, nullptr, &zero);
+}
+static Tensor& into_out(const Tensor& r, Tensor& out) {
+  NEED(is_dev(out) && out.scalar_type() == r.scalar_type(), "out= with a different dtype or device");
+  at::native::resize_output(out, r.sizes());
+  copy_dev(r, out);
+  return out;
+}
+static Tensor isnan_(const Tensor& a) { return classify(6, a); }
+static Tensor isinf_(const Tensor& a) { return classify(7, a); }
+static Tensor isneginf_(const Tensor& a) { return classify(8, a); }
+static Tensor isposinf_(const Tensor& a) { return classify(9, a); }
+static Tensor& isneginf_out(const Tensor& a, Tensor& out) { return into_out(classify(8, a), out); }
+static Tensor& isposinf_out(const Tensor& a, Tensor& out) { return into_out(classify(9, a), out); }
+
+static Tensor& where_out(const Tensor& cond, const Tensor& a, const Tensor& b, Tensor& out) {
+  NEED(f32(out), "float32 where");
+  return into_out(where_(cond, a, b), out);
+}
+
+static Tensor tri_impl(const Tensor& x_, int64_t k, uint32_t mode) {
+  NEED(is_dev(x_) && x_.dim() >= 2 && (x_.element_size() == 4 || x_.element_size() == 1), "tril/triu of a 4- or 1-byte dtype, >= 2-D");
+  Tensor x = contig(x_);
+  Tensor out = empty_dev(x.sizes(), x.scalar_type());
+  int64_t n = x.numel();
+  if (!n) return out;
+  uint32_t es = (uint32_t)x.element_size();
+  NEED(es == 4 || off_bytes(x) % 4 == 0, "aligned byte tensor");
+  Buf* ub = uniform({u(n), u(x.size(-2)), u(x.size(-1)), (uint32_t)(int32_t)k, mode, es, u(es == 4 ? off_bytes(x) / 4 : off_bytes(x)), 0});
+  uint32_t gx, gy;
+  grid(es == 4 ? n : cdiv(n, 4), 256, gx, gy);
+  launch("tri", {bind(x), bind(out), bind_buf(ub)}, gx, gy);
+  return out;
+}
+static Tensor tril_(const Tensor& x, int64_t k) { return tri_impl(x, k, 0); }
+static Tensor triu_(const Tensor& x, int64_t k) { return tri_impl(x, k, 1); }
+static Tensor& tril_out(const Tensor& x, int64_t k, Tensor& out) { return into_out(tri_impl(x, k, 0), out); }
+static Tensor& triu_out(const Tensor& x, int64_t k, Tensor& out) { return into_out(tri_impl(x, k, 1), out); }
+static Tensor& tril_ip(Tensor& x, int64_t k) { Tensor r = tri_impl(x, k, 0); copy_dev(r, x); return x; }
+static Tensor& triu_ip(Tensor& x, int64_t k) { Tensor r = tri_impl(x, k, 1); copy_dev(r, x); return x; }
+
+static Tensor& arange_out(const Scalar& start, const Scalar& end, const Scalar& step, Tensor& out) {
+  NEED(is_dev(out) && (out.scalar_type() == at::kFloat || out.scalar_type() == at::kLong), "float32 / int64 arange");
+  bool wide = out.scalar_type() == at::kLong;
+  NEED(!wide || (!start.isFloatingPoint() && !end.isFloatingPoint() && !step.isFloatingPoint()), "integer arange bounds");
+  double st = start.to<double>(), en = end.to<double>(), sp = step.to<double>();
+  TORCH_CHECK(sp != 0, "arange: step must be nonzero");
+  int64_t n = std::max<int64_t>(0, (int64_t)std::ceil((en - st) / sp));
+  NEED(n < (int64_t(1) << 31), "arange length");
+  at::native::resize_output(out, {n});
+  NEED(out.is_contiguous(), "contiguous out");
+  if (!n) return out;
+  Buf* ub = uniform({u(n), wide ? 1u : 0u, u(out.storage_offset()), 0, fbits((float)st), fbits((float)sp),
+                     (uint32_t)(int32_t)start.to<int64_t>(), (uint32_t)(int32_t)step.to<int64_t>()});
+  uint32_t gx, gy;
+  grid(n, 256, gx, gy);
+  launch("arange", {bind(out), bind_buf(ub)}, gx, gy);
+  return out;
+}
+
 TORCH_LIBRARY_IMPL(aten, PrivateUse1, m) {
   OMT_IMPL(m, add_Tensor, add_t);
   OMT_IMPL(m, add_Scalar, add_s);
@@ -684,6 +752,20 @@ TORCH_LIBRARY_IMPL(aten, PrivateUse1, m) {
   OMT_IMPL(m, clone, clone_);
   OMT_IMPL(m, copy_, copy__);
   OMT_IMPL(m, _to_copy, _to_copy_);
+  OMT_IMPL(m, isnan, isnan_);
+  OMT_IMPL(m, isinf, isinf_);
+  OMT_IMPL(m, isneginf, isneginf_);
+  OMT_IMPL(m, isposinf, isposinf_);
+  OMT_IMPL(m, isneginf_out, isneginf_out);
+  OMT_IMPL(m, isposinf_out, isposinf_out);
+  OMT_IMPL(m, where_self_out, where_out);
+  OMT_IMPL(m, tril, tril_);
+  OMT_IMPL(m, triu, triu_);
+  OMT_IMPL(m, tril_out, tril_out);
+  OMT_IMPL(m, triu_out, triu_out);
+  OMT_IMPL(m, tril_, tril_ip);
+  OMT_IMPL(m, triu_, triu_ip);
+  OMT_IMPL(m, arange_start_out, arange_out);
 }
 
 }  // namespace omt

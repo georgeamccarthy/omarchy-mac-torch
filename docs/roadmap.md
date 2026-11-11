@@ -4,11 +4,10 @@ Ordered by payoff. The conformance sweep (`results/conformance.json`) and accept
 re-rank from them.
 
 ## 1. Transformers on the GPU
-ViT and GPT train correctly but at ~0.2x the CPU because a handful of small ops in attention fall back, each costing a
-GPU sync and two copies: `isneginf`, `all` (dim reductions over bool), `where.self_out`, `tril`/`triu`,
-`embedding_dense_backward` (a scatter-add: float atomics via compare-and-swap on u32, or a sort-based kernel),
-`arange` on the device. After those, a fused attention kernel (softmax(QK^T)V in one pass, flash-attention style;
-ONNX Runtime's WebGPU provider has WGSL to start from).
+Done: attention's masking ops (`isneginf`, `all`/`any`, `where(out=)`, `tril`/`triu`, `arange`), embedding backward
+(scatter-add by compare-and-swap) and batched `bmm` (one dispatch per batch instead of one per matrix) moved ViT from
+0.17x to 1.2x the CPU and GPT from 0.19x to ~1.0-1.3x, with no fallbacks. Next: fewer elementwise dispatches (graph
+replay, #4), and a fused attention kernel (softmax(QK^T)V in one pass, flash-attention style).
 
 ## 2. The fallback long tail
 From the sweep's ranking: `mul`/`div` with mixed dtypes (float x bool/int: cast in the kernel), `gather`/`scatter`,
