@@ -7,6 +7,8 @@ the loaders (any stride and padding), 256 threads per workgroup, each computing 
   kind 1  grad input   m = (n, y, x)     k = (co, ky, kx)   n = ci        A = im2col(gy)   B = w   (any stride)
   kind 2  grad weight  m = co            k = (n, oy, ox)    n = (ci,ky,kx) A = gy          B = im2col(x), split-K
   kind 3  forward with the previous BatchNorm + ReLU applied in the input loader (eval plans)
+  kind 5  grad input of a strided conv, one stride phase (py, px) at a time: input pixels y = py + s*i only receive
+          taps ky = ky0 + s*j, so each phase is a dense GEMM with K = co * ceil((ks - ky0) / s)^2, no wasted taps
 
 The strided grad-input loader (skip taps that don't land on the output grid) follows TensorFlow.js's WebGPU
 conv2d backprop-input kernel (conv_backprop_mm_webgpu.ts, Apache-2.0), adapted from NHWC to NCHW.
@@ -53,6 +55,27 @@ fn aval(m: u32, k: u32) -> f32 {
 }
 fn bval(k: u32, nn: u32) -> f32 { let kk = p.ks * p.ks; return b[((k / kk) * p.ci + nn) * kk + k % kk]; }
 fn store(m: u32, nn: u32, v: f32, z: u32) { let ihw = p.ih * p.iw; out[((m / ihw) * p.ci + nn) * ihw + m % ihw] = v; }
+"""
+_GINP = """
+struct PH { py: u32, px: u32, ky0: u32, kx0: u32, qy: u32, qx: u32, hi: u32, wi: u32, jy: u32, jx: u32, p0: u32, p1: u32 };
+@group(0) @binding(4) var<uniform> ph: PH;
+fn aval(m: u32, k: u32) -> f32 {
+  let hw = ph.hi * ph.wi; let n = m / hw; let r = m % hw; let i = r / ph.wi; let j = r % ph.wi;
+  let jj = ph.jy * ph.jx; let co = k / jj; let kr = k % jj;
+  let oy = i32(i + ph.qy) - i32(kr / ph.jx); let ox = i32(j + ph.qx) - i32(kr % ph.jx);
+  if (oy < 0 || oy >= i32(p.oh) || ox < 0 || ox >= i32(p.ow)) { return 0.0; }
+  return a[((n * p.co + co) * p.oh + u32(oy)) * p.ow + u32(ox)];
+}
+fn bval(k: u32, nn: u32) -> f32 {
+  let jj = ph.jy * ph.jx; let co = k / jj; let kr = k % jj;
+  let ky = ph.ky0 + p.stride * (kr / ph.jx); let kx = ph.kx0 + p.stride * (kr % ph.jx);
+  return b[((co * p.ci + nn) * p.ks + ky) * p.ks + kx];
+}
+fn store(m: u32, nn: u32, v: f32, z: u32) {
+  let hw = ph.hi * ph.wi; let n = m / hw; let r = m % hw;
+  let y = ph.py + p.stride * (r / ph.wi); let x = ph.px + p.stride * (r % ph.wi);
+  out[((n * p.ci + nn) * p.ih + y) * p.iw + x] = v;
+}
 """
 _GW = """
 fn aval(m: u32, k: u32) -> f32 { let ohw = p.oh * p.ow; return a[((k / ohw) * p.co + m) * ohw + k % ohw]; }
@@ -103,26 +126,45 @@ BN_BINDINGS = ("@group(0) @binding(4) var<storage, read> bnm: array<f32>;\n"
                "@group(0) @binding(7) var<storage, read> bnb: array<f32>;\n")
 
 
+
 def source(kind, bm, bn, tm, tn, a_kfast=False, b_nfast=False):
     """WGSL for one kernel. Thread (lid.x, lid.y) owns rows lid.y*tm.. and columns lid.x*tn.. of the workgroup tile."""
     nt = (bm // tm) * (bn // tn)
     fwd = kind in (0, 3)
-    body = _MM if kind == 4 else (_FWD if fwd else (_GIN if kind == 1 else _GW))
+    body = {4: _MM, 5: _GINP, 1: _GIN, 2: _GW}.get(kind, _FWD)
     if kind == 3:  # eval plans: no bias (BN folding), the BN parameters are bound at 4..7 instead
         body = body.replace("  if (p.hb == 1u) { r += bias[nn]; }\n", "")
         body = body.replace("RETURN", "return max((v - bnm[c]) * inverseSqrt(bnv[c] + 1e-5) * bng[c] + bnb[c], 0.0);")
     else:
         body = body.replace("RETURN", "return v;")
-    a_m_fast = (not a_kfast) if kind == 4 else kind != 2   # A: consecutive threads along m (kinds 0, 1) or along k (kind 2)
-    b_n_fast = b_nfast if kind == 4 else kind == 1         # B: along n for grad input, along k otherwise
+    a_m_fast = (not a_kfast) if kind == 4 else kind != 2   # A: consecutive threads along m (kinds 0, 1, 5) or along k (kind 2)
+    b_n_fast = b_nfast if kind == 4 else kind in (1, 5)    # B: along n for grad input, along k otherwise
     a_idx = "let mm = e % BM; let ka = e / BM;" if a_m_fast else "let ka = e % 16u; let mm = e / 16u;"
     b_idx = "let nn = e % BN; let kb = e / BN;" if b_n_fast else "let kb = e % 16u; let nn = e / 16u;"
     acc = [[f"c{i}_{j}" for j in range(tn // 4)] for i in range(tm)]
     decl = "\n".join(f"  var {c} = vec4<f32>();" for row in acc for c in row)
-    inner = "\n".join(f"      let rb{j} = vec4<f32>(Bs[bb + {4 * j}u], Bs[bb + {4 * j + 1}u], Bs[bb + {4 * j + 2}u], Bs[bb + {4 * j + 3}u]);"
-                      for j in range(tn // 4))
-    inner += "\n" + "\n".join(f"      let ra{i} = As[ab + {i}u];" for i in range(tm))
-    inner += "\n" + "\n".join(f"      {acc[i][j]} += ra{i} * rb{j};" for i in range(tm) for j in range(tn // 4))
+    # shared tiles are vec4 arrays: per kk a thread reads tm/4 + tn/4 vec4s for tm * tn multiply-adds
+    inner = "\n".join(f"      let rb{j} = Bs[bb + {j}u];" for j in range(tn // 4))
+    inner += "\n" + "\n".join(f"      let ra{i} = As[ab + {i}u];" for i in range(tm // 4))
+    inner += "\n" + "\n".join(f"      {acc[i][j]} += ra{i // 4}.{'xyzw'[i % 4]} * rb{j};" for i in range(tm) for j in range(tn // 4))
+    # loaders unrolled (trip counts are compile-time constants). Register-prefetching the next K-tile was tried and
+    # halved throughput: the extra registers spill on this GPU.
+    # Loaders unrolled (trip counts are compile-time constants). Two things that made it slower, because live
+    # registers cost more than integer divisions on this GPU and the kernels start spilling: prefetching the next
+    # K-tile into registers (-50%), and hoisting each slot's row decomposition out of the K loop with a K-side index
+    # table (-15 to -20%).
+    loads = []
+    for r in range(BK * bm // nt):
+        loads.append(f"""    {{ let e = t + {r * nt}u; {a_idx}
+      let m = m0 + mm; let k = k0 + ka; var v = 0.0;
+      if (m < p.M && k < kend) {{ v = aval(m, k); }}
+      let ai = ka * BM + mm; As[ai / 4u][ai % 4u] = v; }}""")
+    for r in range(BK * bn // nt):
+        loads.append(f"""    {{ let e = t + {r * nt}u; {b_idx}
+      let nn2 = n0 + nn; let k2 = k0 + kb; var u = 0.0;
+      if (nn2 < p.N && k2 < kend) {{ u = bval(k2, nn2); }}
+      let bi = kb * BN + nn; Bs[bi / 4u][bi % 4u] = u; }}""")
+    loaders = "\n".join(loads)
     epi = []
     for i in range(tm):
         for j in range(tn // 4):
@@ -137,8 +179,8 @@ def source(kind, bm, bn, tm, tn, a_kfast=False, b_nfast=False):
 @group(0) @binding(3) var<uniform> p: P;
 {extra}
 const BM = {bm}u; const BN = {bn}u;
-var<workgroup> As: array<f32, {BK * bm}>;
-var<workgroup> Bs: array<f32, {BK * bn}>;
+var<workgroup> As: array<vec4<f32>, {BK * bm // 4}>;
+var<workgroup> Bs: array<vec4<f32>, {BK * bn // 4}>;
 {body}
 @compute @workgroup_size({bn // tn}, {bm // tm})
 fn main(@builtin(workgroup_id) wg: vec3<u32>, @builtin(local_invocation_id) lid: vec3<u32>) {{
@@ -147,23 +189,10 @@ fn main(@builtin(workgroup_id) wg: vec3<u32>, @builtin(local_invocation_id) lid:
   let kbeg = wg.z * p.kslice; let kend = min(p.K, kbeg + p.kslice);
 {decl}
   for (var k0 = kbeg; k0 < kend; k0 += 16u) {{
-    for (var e = t; e < {BK * bm}u; e += {nt}u) {{
-      {a_idx}
-      let m = m0 + mm; let k = k0 + ka;
-      var v = 0.0;
-      if (m < p.M && k < kend) {{ v = aval(m, k); }}
-      As[ka * BM + mm] = v;
-    }}
-    for (var e = t; e < {BK * bn}u; e += {nt}u) {{
-      {b_idx}
-      let nn2 = n0 + nn; let k2 = k0 + kb;
-      var u = 0.0;
-      if (nn2 < p.N && k2 < kend) {{ u = bval(k2, nn2); }}
-      Bs[kb * BN + nn] = u;
-    }}
+{loaders}
     workgroupBarrier();
     for (var kk = 0u; kk < 16u; kk++) {{
-      let ab = kk * BM + lid.y * {tm}u; let bb = kk * BN + lid.x * {tn}u;
+      let ab = (kk * BM + lid.y * {tm}u) / 4u; let bb = (kk * BN + lid.x * {tn}u) / 4u;
 {inner}
     }}
     workgroupBarrier();

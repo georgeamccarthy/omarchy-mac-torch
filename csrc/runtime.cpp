@@ -88,7 +88,7 @@ void init_ctx() {
   C.instance = wgpuCreateInstance(&idesc);
   WGPURequestAdapterOptions opts = {};
   opts.powerPreference = WGPUPowerPreference_HighPerformance;
-  // CI runs on Mesa's software Vulkan driver (lavapipe), which wgpu reports as a fallback adapter
+  // OMARCHY_MAC_TORCH_FALLBACK_ADAPTER=1: take a software adapter (Mesa lavapipe), e.g. to check correctness without a GPU
   const char* fb = std::getenv("OMARCHY_MAC_TORCH_FALLBACK_ADAPTER");
   opts.forceFallbackAdapter = fb && fb[0] == '1';
   std::atomic<bool> af{false};

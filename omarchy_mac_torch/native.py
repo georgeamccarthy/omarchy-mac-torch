@@ -36,7 +36,7 @@ torch.utils.generate_methods_for_privateuse1_backend(for_tensor=True, for_module
 # ---- GEMM kernels: generated per tile shape on demand ----
 from omarchy_mac_torch import gemm as _gemm  # noqa: E402
 
-_KINDS = ["forward", "grad_input", "grad_weight", "forward_bn"]
+_KINDS = ["forward", "grad_input", "grad_weight", "forward_bn", "mm", "grad_input_phase"]
 
 
 def _cdiv(a, b):
@@ -48,6 +48,8 @@ def _conv_planner(kind, n, ci, co, ih, iw, oh, ow, ks, stride, pad, tile_index=-
         M, N = n * oh * ow, co
     elif kind == 1:
         M, N = n * ih * iw, ci
+    elif kind == 5:  # one stride phase
+        M, N = n * _cdiv(ih, stride) * _cdiv(iw, stride), ci
     else:
         M, N = co, ci * ks * ks
     if tile_index >= 0:
@@ -76,7 +78,7 @@ core.set_debug(os.environ.get("OMARCHY_MAC_TORCH_DEBUG", "0") == "1")
 
 def validate_kernels():
     """Compile every kernel (the static ones and one of each generated GEMM kind); returns the failures."""
-    for kind in range(4):
+    for kind in (0, 1, 2, 3, 5):
         _conv_planner(kind, 2, 8, 8, 8, 8, 8, 8, 3, 1, 1, 0)
     for a in (False, True):
         for b in (False, True):

@@ -53,7 +53,7 @@ ConvPlan conv_plan(int kind, const Geo& g) {
     p = plan_for(3, g, base.tile >= 0 ? base.tile : -1);
   } else {
     p = plan_for(kind, g, -1);
-    if (g_tune && !g_in_tune) p = autotune(kind, g);
+    if (g_tune && !g_in_tune && kind != 5) p = autotune(kind, g);  // phase kernels use the planner's default tile
   }
   g_conv_cache[key] = p;
   return p;
@@ -76,6 +76,23 @@ static void gemm_forward(const Tensor& x, const Tensor& w, const Tensor* bias, c
          u(cdiv(N, p.bn)), u(cdiv(M, p.bm)), 1);
 }
 static void gemm_grad_input(const Tensor& gy, const Tensor& w, const Tensor& out, const Geo& g) {
+  if (g.stride > 1) {  // one dense GEMM per stride phase instead of one GEMM that skips (s^2 - 1) / s^2 of its taps
+    int64_t s = g.stride;
+    ConvPlan p = conv_plan(5, g);
+    for (int64_t py = 0; py < s; py++)
+      for (int64_t px = 0; px < s; px++) {
+        int64_t hi = cdiv(g.ih - py, s), wi = cdiv(g.iw - px, s);
+        if (hi <= 0 || wi <= 0) continue;
+        int64_t ky0 = (py + g.pad) % s, kx0 = (px + g.pad) % s;
+        int64_t jy = ky0 < g.ks ? cdiv(g.ks - ky0, s) : 0, jx = kx0 < g.ks ? cdiv(g.ks - kx0, s) : 0;
+        int64_t M = g.n * hi * wi, N = g.ci, K = g.co * jy * jx;  // K = 0: no tap reaches this phase, writes zeros
+        Buf* pr = pbuf_geo(g, M, N, K, cdiv(K, 16) * 16, 1);
+        Buf* phb = uniform({u(py), u(px), u(ky0), u(kx0), u((py + g.pad - ky0) / s), u((px + g.pad - kx0) / s), u(hi), u(wi),
+                            u(jy), u(jx), 0, 0});
+        launch(p.kernel.c_str(), {bind(gy), bind(w), bind(out), bind_buf(pr), bind_buf(phb)}, u(cdiv(N, p.bn)), u(cdiv(M, p.bm)), 1);
+      }
+    return;
+  }
   int64_t M, N, K;
   mnk(1, g, M, N, K);
   ConvPlan p = conv_plan(1, g);

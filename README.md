@@ -28,9 +28,9 @@ Training, same weights, data and optimizer on both, 5 steps after a warm-up. Mac
 
 | Model | CPU ms/step | GPU ms/step | Speedup | Ops that fall back to the CPU |
 |---|---|---|---|---|
-| AlexNet, batch 16, 224x224 | 499 | 160 | **3.1x** | none |
-| ResNet-18, batch 32, 64x64 | 469 | 131 | **3.6x** | none |
-| PlainCNN (conv-BN-ReLU), batch 128 | 85 | 35 | **2.4x** | none |
+| AlexNet, batch 16, 224x224 | 548 | 128 | **4.3x** | none |
+| ResNet-18, batch 32, 64x64 | 507 | 103 | **4.9x** | none |
+| PlainCNN (conv-BN-ReLU), batch 128 | 87 | 32 | **2.8x** | none |
 | SeparableCNN (depthwise), batch 128 | 62 | 22 | **2.9x** | none |
 | MobileNetV3-Small style, batch 32 | 81 | 113 | 0.7x | strided depthwise conv |
 | ViT (small), batch 32 | 76 | 440 | 0.17x | parts of attention's masking |
@@ -58,7 +58,8 @@ Tested on a MacBook Pro 16" M1 Pro, Omarchy (Arch Linux ARM), Mesa's Honeykrisp.
 
 There are no unit tests. Correctness is checked against the CPU:
 
-- `uv run --extra dev tools/conformance.py --grad` runs the OpInfo sample inputs from PyTorch's own test suite (odd shapes, broadcasting, non-contiguous views, edge-case arguments) on the GPU and the CPU, forwards and gradients, and writes a per-op report. CI runs it on every push (see below).
+- `uv run --extra dev --extra build tools/check.py` runs everything below in one go (build, check scripts, conformance sweep; `--full` adds the acceptance table and benchmarks). Run it before pushing.
+- `uv run --extra dev tools/conformance.py --grad` runs the OpInfo sample inputs from PyTorch's own test suite (odd shapes, broadcasting, non-contiguous views, edge-case arguments) on the GPU and the CPU, forwards and gradients, and writes a per-op report.
 - `notes/scripts/*_check.py` compare whole models and specific ops against the CPU.
 - `tools/acceptance.py` trains the models above on both and compares losses; `tools/bench.py --save` records timings per version in `benchmarks/` and shows what got slower since the last one.
 
@@ -67,8 +68,6 @@ When something is wrong:
 - `with omarchy_mac_torch.debug.shadow():` (or `OMARCHY_MAC_TORCH_SHADOW=1`) runs every op on the GPU and the CPU and reports the first op whose result differs.
 - `OMARCHY_MAC_TORCH_DEBUG=1` checks for GPU errors after every op and names the op that caused one.
 - `OMARCHY_MAC_TORCH_STRICT=1` makes CPU fallbacks an error, to find what isn't on the GPU.
-
-CI builds the backend and runs all of this on GitHub's ordinary Linux machines, using Mesa's software Vulkan driver (lavapipe) instead of a GPU: same kernels, slow, but it catches wrong answers. Speed is only measured on real hardware.
 
 ## How it's built
 
